@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LABORÉ — Science-based Skincare</title>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     @font-face { font-family:'Aeonik TRIAL'; src:url('Asset/Font/Aeonik TRIAL/AeonikTRIAL-Light.otf') format('opentype'); font-weight:300; }
@@ -58,7 +61,9 @@
     .hero-cert:last-child{border-right:none;}
     .hero-cert .material-icons{font-size:16px;}
     .hero-cert img.cert-icon{width:16px;height:16px;}
-    .hero-h1{font-size:48px;font-weight:500;line-height:1.05;color:#1B1918;max-width:520px;margin-bottom:24px;}
+    .hero-h1{font-size:48px;font-weight:500;line-height:1.05;color:#1B1918;margin-bottom:24px;}
+    .h1-mask{display:block;overflow:hidden;}
+    .h1-line{display:block;white-space:nowrap;}
     .btn-dark{display:inline-flex;align-items:center;gap:4px;background:#1B1918;color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;padding:14px;border-radius:8px;border:none;width:fit-content;transition:background .25s ease,transform .25s ease,box-shadow .25s ease;}
     .btn-dark:hover{background:#2d2927;transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,25,24,.2);}
     .hero-card{display:flex;align-items:center;gap:12px;background:rgba(107,105,101,.2);backdrop-filter:blur(12px);padding:8px 12px 8px 8px;border-radius:6px;width:389px;}
@@ -77,13 +82,15 @@
     .about{position:relative;height:800px;overflow:hidden;}
     .about-bg-wrap{position:absolute;inset:0;overflow:hidden;}
     .about-bg{position:absolute;width:100%;height:120%;top:-10%;object-fit:cover;will-change:transform;}
-    .about-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:566px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;z-index:2;}
-    .about-heading{font-size:34px;font-weight:500;line-height:1.15;color:#1B1918;}
-    .grad-text{background:linear-gradient(90deg,#000,#770017,#E8284C,#FF839B,#E8284C,#770017,#000);background-size:400% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:grad-flow 5s ease infinite;}
-    @keyframes grad-flow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+    .about-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:660px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;z-index:2;}
+    .about-heading{font-size:34px;font-weight:500;line-height:1.15;}
+    @keyframes grad-shimmer{0%{background-position:230% 50%;}100%{background-position:-230% 50%;}}
+    .about-mask{display:block;overflow:hidden;}
+    .about-line{display:block;white-space:nowrap;background:linear-gradient(90deg,#1B1918 0%,#1B1918 30%,#6b0015 42%,#E8284C 50%,#FF9AAB 55%,#6b0015 65%,#1B1918 75%,#1B1918 100%);background-size:300% 100%;background-position:150% 50%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
     .about-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.4;width:100%;}
     .link-fwd{display:inline-flex;align-items:center;gap:4px;font-size:14px;font-weight:500;color:#1B1918;cursor:pointer;position:relative;}
     .link-fwd .material-icons{font-size:16px;}
+    .about-center .link-fwd .material-icons{color:#F95272;}
     /* Stat cards */
     .stat-card{position:absolute;z-index:2;width:240px;height:240px;background:rgba(255,255,255,.15);backdrop-filter:blur(12px);border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;gap:4px;color:#1B1918;will-change:transform;}
     .stat-num{font-size:80px;font-weight:500;line-height:1;}
@@ -110,17 +117,15 @@
     .btn-glass{display:inline-flex;align-items:center;gap:4px;background:rgba(245,245,244,.2);backdrop-filter:blur(17px);color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:600;padding:14px;border-radius:8px;border:none;width:fit-content;transition:background .2s ease,transform .2s ease;}
     .btn-glass:hover{background:rgba(245,245,244,.3);transform:translateY(-2px);}
     .concern-tabs{display:flex;gap:24px;}
-    .ctab{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;width:64px;}
-    .ctab-ring{width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid transparent;transition:border-color .3s ease,transform .3s ease;}
+    .ctab{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;}
+    .ctab-ring-wrap{position:relative;width:64px;height:64px;flex-shrink:0;}
+    .ctab-ring{width:64px;height:64px;border-radius:50%;overflow:hidden;transition:transform .3s ease;}
     .ctab-ring img{width:100%;height:100%;object-fit:cover;}
-    .ctab.active .ctab-ring{border-color:#fff;}
-    .ctab:hover .ctab-ring{transform:scale(1.08);}
+    .ctab:hover .ctab-ring{transform:scale(1.06);}
+    .ctab-timer{position:absolute;top:-3px;left:-3px;width:70px;height:70px;transform:rotate(-90deg);pointer-events:none;overflow:visible;}
+    .ctab-timer-bg{fill:none;stroke:rgba(255,255,255,.22);stroke-width:2;}
+    .ctab-timer-arc{fill:none;stroke:#fff;stroke-width:2.2;stroke-dasharray:201;stroke-dashoffset:201;stroke-linecap:round;}
     .ctab-label{font-size:14px;font-weight:500;color:#fff;text-align:center;}
-    /* Concern panel fade */
-    @keyframes c-out{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-8px);}}
-    @keyframes c-in{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
-    .c-exit{animation:c-out .22s ease forwards;pointer-events:none;}
-    .c-enter{animation:c-in .38s cubic-bezier(.25,.46,.45,.94) forwards;}
 
     /* ── PRODUCTS ── */
     .products{background:#fff;padding:48px 0;}
@@ -270,12 +275,6 @@
     .footer-logo-bar{position:relative;z-index:1;width:100%;}
     .footer-logo-bar img{width:100%;height:auto;display:block;}
 
-    /* ── REVEAL ── */
-    .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}
-    .reveal.in{opacity:1;transform:translateY(0);}
-    .reveal.d1{transition-delay:.1s;}
-    .reveal.d2{transition-delay:.22s;}
-    .reveal.d3{transition-delay:.34s;}
     .material-icons{vertical-align:middle;}
   </style>
 </head>
@@ -309,7 +308,7 @@
           <div class="hero-cert"><span class="material-icons">cruelty_free</span>Cruelty-Free</div>
           <div class="hero-cert"><span class="material-icons">verified</span>FDA Approved</div>
         </div>
-        <h1 class="hero-h1">Science-based Skincare for Every Skin Concern</h1>
+        <h1 class="hero-h1"><span class="h1-mask"><span class="h1-line">Science-based Skincare</span></span><span class="h1-mask"><span class="h1-line">for Every Skin Concern</span></span></h1>
         <button class="btn-dark">
           Explore Products
           <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span>
@@ -353,9 +352,9 @@
   </div>
   <div class="about-center">
     <div class="about-heading">
-      <span class="grad-text">Clinically Proven,<br>Dermatologist Trusted</span>
+      <span class="about-mask"><span class="about-line">Clinically Proven,</span></span><span class="about-mask"><span class="about-line">Dermatologist Trusted</span></span>
     </div>
-    <p class="about-desc">Developed by board-certified dermatologists and tested through rigorous clinical protocols on Indonesian skin. Powered by Microbiome Technology™, we restore your skin's natural balance while meeting the highest dermatological standards. This is skincare backed by science, trusted by experts.</p>
+    <p class="about-desc">Developed by board-certified dermatologists and tested through rigorous clinical<br>protocols on Indonesian skin. Powered by Microbiome Technology™,<br>we restore your skin's natural balance while meeting the highest dermatological<br>standards. This is skincare backed by science, trusted by experts.</p>
     <span class="link-fwd">Discover Brand Story <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></span>
   </div>
 </section>
@@ -385,11 +384,11 @@
       </div>
     </div>
     <div class="concern-tabs">
-      <div class="ctab active" data-key="oily"><div class="ctab-ring"><img src="Asset/Shop by Concern/Oily/oily.jpg" alt=""></div><div class="ctab-label">Oily</div></div>
-      <div class="ctab" data-key="normal"><div class="ctab-ring"><img src="Asset/Shop by Concern/Normal/normal.jpg" alt=""></div><div class="ctab-label">Normal</div></div>
-      <div class="ctab" data-key="dry"><div class="ctab-ring"><img src="Asset/Shop by Concern/Very Dry/dry.jpg" alt=""></div><div class="ctab-label">Very Dry</div></div>
-      <div class="ctab" data-key="combo"><div class="ctab-ring"><img src="Asset/Shop by Concern/combination.jpg" alt=""></div><div class="ctab-label">Combination</div></div>
-      <div class="ctab" data-key="sensitive"><div class="ctab-ring"><img src="Asset/Shop by Concern/sensitive.jpg" alt=""></div><div class="ctab-label">Sensitive</div></div>
+      <div class="ctab active" data-key="oily"><div class="ctab-ring-wrap"><svg class="ctab-timer" viewBox="0 0 70 70"><circle class="ctab-timer-bg" cx="35" cy="35" r="32"/><circle class="ctab-timer-arc" cx="35" cy="35" r="32"/></svg><div class="ctab-ring"><img src="Asset/Shop by Concern/Oily/oily.jpg" alt=""></div></div><div class="ctab-label">Oily</div></div>
+      <div class="ctab" data-key="normal"><div class="ctab-ring-wrap"><svg class="ctab-timer" viewBox="0 0 70 70"><circle class="ctab-timer-bg" cx="35" cy="35" r="32"/><circle class="ctab-timer-arc" cx="35" cy="35" r="32"/></svg><div class="ctab-ring"><img src="Asset/Shop by Concern/Normal/normal.jpg" alt=""></div></div><div class="ctab-label">Normal</div></div>
+      <div class="ctab" data-key="dry"><div class="ctab-ring-wrap"><svg class="ctab-timer" viewBox="0 0 70 70"><circle class="ctab-timer-bg" cx="35" cy="35" r="32"/><circle class="ctab-timer-arc" cx="35" cy="35" r="32"/></svg><div class="ctab-ring"><img src="Asset/Shop by Concern/Very Dry/dry.jpg" alt=""></div></div><div class="ctab-label">Very Dry</div></div>
+      <div class="ctab" data-key="combo"><div class="ctab-ring-wrap"><svg class="ctab-timer" viewBox="0 0 70 70"><circle class="ctab-timer-bg" cx="35" cy="35" r="32"/><circle class="ctab-timer-arc" cx="35" cy="35" r="32"/></svg><div class="ctab-ring"><img src="Asset/Shop by Concern/combination.jpg" alt=""></div></div><div class="ctab-label">Combination</div></div>
+      <div class="ctab" data-key="sensitive"><div class="ctab-ring-wrap"><svg class="ctab-timer" viewBox="0 0 70 70"><circle class="ctab-timer-bg" cx="35" cy="35" r="32"/><circle class="ctab-timer-arc" cx="35" cy="35" r="32"/></svg><div class="ctab-ring"><img src="Asset/Shop by Concern/sensitive.jpg" alt=""></div></div><div class="ctab-label">Sensitive</div></div>
     </div>
   </div>
 </section>
@@ -565,7 +564,7 @@
 
 <!-- ARTICLES -->
 <section class="articles">
-  <h2 class="articles-title reveal">Stay Informed</h2>
+  <h2 class="articles-title">Stay Informed</h2>
   <div class="articles-controls reveal">
     <div class="atabs">
       <div class="atab on">All</div>
@@ -663,15 +662,145 @@
   const lenis = new Lenis({ duration:1.15, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
   (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
 
+  /* ── GSAP SCROLLTRIGGER ── */
+  gsap.registerPlugin(ScrollTrigger);
+  if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
+  lenis.on('scroll', ScrollTrigger.update);
+
   /* ── NAV ── */
   const nav = document.getElementById('nav');
   lenis.on('scroll',({scroll})=>{ nav.classList.toggle('scrolled', scroll>50); });
 
-  /* ── SCROLL REVEAL ── */
-  const io = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
-  },{threshold:.1});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  /* ── HELPERS ── */
+  function animateLines(el, delay) {
+    if (!el) return;
+    if (typeof SplitText === 'undefined') { animateFade(el, el, delay); return; }
+    const split = new SplitText(el, { type: 'lines', linesClass: 'split-line' });
+    split.lines.forEach(line => {
+      const mask = document.createElement('div');
+      mask.style.cssText = 'overflow:hidden;display:block;';
+      line.parentNode.insertBefore(mask, line);
+      mask.appendChild(line);
+    });
+    gsap.from(split.lines, {
+      yPercent: 110, duration: 1.05, ease: 'power3.out', stagger: 0.09, delay: delay || 0,
+      scrollTrigger: { trigger: el, start: 'top 88%' }
+    });
+  }
+
+  function animateFade(els, trigger, delay) {
+    if (typeof els === 'string') els = document.querySelectorAll(els);
+    else if (els instanceof Element) els = [els];
+    if (!els || !els.length) return;
+    gsap.from(els, {
+      opacity: 0, y: 20, duration: 0.85, ease: 'power2.out', delay: delay || 0,
+      scrollTrigger: { trigger: trigger || els[0], start: 'top 88%' }
+    });
+  }
+
+  /* ── HERO ── */
+  // Nav slides down
+  gsap.from('.nav', {
+    y: -64, opacity: 0, duration: 0.7, ease: 'power2.out', delay: 0.05
+  });
+  // Video zooms out (starts scaled up, settles to natural)
+  gsap.from('.hero video', {
+    scale: 1.1, duration: 2.2, ease: 'power2.out'
+  });
+  // Certs: stagger 1 by 1
+  gsap.from('.hero-cert', {
+    opacity: 0, y: 12, duration: 0.45, ease: 'power2.out', stagger: 0.1, delay: 0.2
+  });
+  // Headline: 2 lines slide up inside .h1-mask (overflow:hidden), .h1-line is the child
+  gsap.from('.h1-line', {
+    yPercent: 110, duration: 1.05, ease: 'power3.out', stagger: 0.1, delay: 0.45
+  });
+  // Button: slide up + blur focus
+  gsap.from('.btn-dark', {
+    opacity: 0, y: 28, filter: 'blur(10px)', duration: 0.75, ease: 'power2.out', delay: 0.95
+  });
+  // Hero card: slide up + blur focus
+  gsap.from('.hero-card', {
+    opacity: 0, y: 36, filter: 'blur(10px)', duration: 0.85, ease: 'power2.out', delay: 0.8
+  });
+
+  /* ── ABOUT ── */
+  // Title: 2 lines slide up
+  gsap.from('.about-line', {
+    yPercent: 110, duration: 1.05, ease: 'power3.out', stagger: 0.1,
+    scrollTrigger: { trigger: '.about-center', start: 'top 82%' }
+  });
+  // Gradient shimmer: fires once on enter, sweeps left-to-right, ends dark
+  ScrollTrigger.create({
+    trigger: '.about-center', start: 'top 82%', once: true,
+    onEnter: () => gsap.to('.about-heading .about-line', {
+      backgroundPosition: '-50% 50%', duration: 2.8, ease: 'power1.inOut', delay: 0.15,
+      onComplete: () => gsap.set('.about-heading .about-line', { webkitTextFillColor: '#1B1918' })
+    })
+  });
+  // Paragraph: split line by line
+  if (typeof SplitText !== 'undefined') {
+    const descSplit = new SplitText('.about-desc', { type:'lines', linesClass:'desc-line' });
+    descSplit.lines.forEach(l => {
+      const m = document.createElement('span');
+      m.style.cssText = 'display:block;overflow:hidden;';
+      l.parentNode.insertBefore(m, l); m.appendChild(l);
+    });
+    gsap.from(descSplit.lines, {
+      y:16, opacity:0, duration:0.7, ease:'power2.out', stagger:0.055,
+      scrollTrigger:{ trigger:'.about-center', start:'top 80%' }, delay:0.18
+    });
+  } else {
+    animateFade(document.querySelector('.about-desc'), document.querySelector('.about-center'), 0.15);
+  }
+  // Button: slide up + blur-to-focus
+  gsap.from('.about-center .link-fwd', {
+    opacity:0, y:22, filter:'blur(8px)', duration:0.75, ease:'power2.out',
+    scrollTrigger:{ trigger:'.about-center', start:'top 78%' }, delay:0.35
+  });
+  // Stat cards: blur-to-focus, reveal order 100% → 900 → 0 → 1+
+  const cardRevealOrder = ['sc1','sc0','sc3','sc2'].map(id => document.getElementById(id));
+  gsap.from(cardRevealOrder, {
+    opacity:0, filter:'blur(18px)', scale:0.94, duration:1, ease:'power2.out', stagger:0.16,
+    scrollTrigger:{ trigger:'#aboutSec', start:'top 65%' }
+  });
+
+  /* ── PRODUCTS ── */
+  document.querySelectorAll('.sec-title').forEach(el => animateLines(el));
+  animateFade(document.querySelectorAll('.sec-header .link-sm'), document.querySelector('.sec-header'), 0.18);
+  ScrollTrigger.batch('.pcard', {
+    onEnter: batch => gsap.from(batch, { opacity:0, y:32, duration:0.75, ease:'power2.out', stagger:0.11, overwrite:true }),
+    start: 'top 88%', once: true
+  });
+
+  /* ── LAB ── */
+  gsap.from('.lab-panel', {
+    opacity:0, y:24, duration:0.85, ease:'power2.out', stagger:0.15,
+    scrollTrigger: { trigger:'.lab-grid', start:'top 80%' }
+  });
+  document.querySelectorAll('.lab-title').forEach(el => animateLines(el));
+
+  /* ── TRUST ── */
+  animateFade(document.querySelector('.trust-chip'),  document.querySelector('.trust-grid'), 0);
+  animateLines(document.querySelector('.trust-quote'));
+  animateFade(document.querySelector('.trust-name'),  document.querySelector('.trust-grid'), 0.1);
+  animateFade(document.querySelector('.trust-role'),  document.querySelector('.trust-grid'), 0.16);
+  animateFade(document.querySelector('.trust-btns'),  document.querySelector('.trust-grid'), 0.22);
+  gsap.from('#trustRight', { opacity:0, scale:1.04, duration:1.1, ease:'power2.out',
+    scrollTrigger: { trigger:'.trust-grid', start:'top 78%' }
+  });
+
+  /* ── ARTICLES ── */
+  animateLines(document.querySelector('.articles-title'));
+  animateFade(document.querySelector('.articles-controls'), document.querySelector('.articles-controls'), 0.1);
+  ScrollTrigger.batch('.acard', {
+    onEnter: batch => gsap.from(batch, { opacity:0, y:28, duration:0.75, ease:'power2.out', stagger:0.1, overwrite:true }),
+    start: 'top 88%', once: true
+  });
+
+  /* ── FOOTER ── */
+  animateFade(document.querySelector('.footer-menu'),       document.querySelector('.footer-top'), 0);
+  animateFade(document.querySelector('.footer-about-text'), document.querySelector('.footer-nl-card'), 0.1);
 
   /* ── PARALLAX HELPER ── */
   function parallax(el, imgEl, factor){
@@ -681,11 +810,40 @@
     imgEl.style.transform = `translateY(${(progress-.5)*r.height*factor}px)`;
   }
 
-  /* ── ABOUT STAT CARDS: individual parallax (always visible) ── */
+  /* ── ABOUT STAT CARDS: scroll + mouse parallax ── */
   const aboutSec  = document.getElementById('aboutSec');
   const aboutBg   = document.getElementById('aboutBg');
   const statCards = Array.from({length:4},(_,i)=>document.getElementById('sc'+i));
-  const factors   = [.55,-.45,.4,-.5];
+  const factors   = [.32,-.88,.82,-.3];
+  const mouseStr  = [8,-24,24,-9];
+  let mx = 0, my = 0;
+  const lerpMx = [0,0,0,0], lerpMy = [0,0,0,0];
+
+  function updateStatCards() {
+    const r2  = aboutSec.getBoundingClientRect();
+    const prog = (window.innerHeight - r2.top) / (r2.height + window.innerHeight);
+    statCards.forEach((c,i) => {
+      const sy = (prog - .5) * 80 * factors[i];
+      c.style.transform = `translateY(${sy + lerpMy[i]}px) translateX(${lerpMx[i]}px)`;
+    });
+  }
+
+  document.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth  - .5);
+    my = (e.clientY / window.innerHeight - .5);
+  });
+
+  gsap.ticker.add(() => {
+    let dirty = false;
+    statCards.forEach((_,i) => {
+      const tx = mx * mouseStr[i];
+      const ty = my * mouseStr[i];
+      lerpMx[i] += (tx - lerpMx[i]) * 0.08;
+      lerpMy[i] += (ty - lerpMy[i]) * 0.08;
+      dirty = true;
+    });
+    if (dirty) updateStatCards();
+  });
 
   /* ── CONCERN PARALLAX ── */
   const concernSec = document.getElementById('concernSec');
@@ -701,12 +859,7 @@
 
   lenis.on('scroll',()=>{
     parallax(aboutSec, aboutBg, .18);
-    /* stat card individual parallax */
-    const r2 = aboutSec.getBoundingClientRect();
-    const prog = (window.innerHeight - r2.top) / (r2.height + window.innerHeight);
-    statCards.forEach((c,i)=>{
-      c.style.transform = `translateY(${(prog-.5)*80*factors[i]}px)`;
-    });
+    updateStatCards();
     parallax(concernSec, concernBg, .15);
     const tr = trustRight.getBoundingClientRect();
     const tp = (window.innerHeight - tr.top)/(tr.height + window.innerHeight);
@@ -726,30 +879,78 @@
   const concernPanel=document.getElementById('concernPanel');
   const concernCta=document.querySelector('.btn-glass');
 
-  function cFadeOut(){ [concernPanel,concernCta].forEach(el=>{ el.classList.remove('c-enter'); void el.offsetWidth; el.classList.add('c-exit'); }); }
-  function cFadeIn(){  [concernPanel,concernCta].forEach(el=>{ el.classList.remove('c-exit'); void el.offsetWidth; el.classList.add('c-enter'); }); }
+  const tabKeys = ['oily','normal','dry','combo','sensitive'];
+  const ARC_LEN = 201;
+  const TIMER_DUR = 5;
+  let timerTween = null;
 
-  document.querySelectorAll('.ctab').forEach(tab=>{
-    tab.addEventListener('click',()=>{
-      if(tab.classList.contains('active')) return;
-      const d=db[tab.dataset.key];
-      document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));
+  function startTimer(activeTab) {
+    if (timerTween) timerTween.kill();
+    document.querySelectorAll('.ctab-timer-arc').forEach(a => gsap.set(a, {strokeDashoffset: ARC_LEN}));
+    const arc = activeTab.querySelector('.ctab-timer-arc');
+    timerTween = gsap.to(arc, {
+      strokeDashoffset: 0, duration: TIMER_DUR, ease: 'none',
+      onComplete: () => {
+        const idx = tabKeys.indexOf(activeTab.dataset.key);
+        document.querySelector(`.ctab[data-key="${tabKeys[(idx+1)%tabKeys.length]}"]`).click();
+      }
+    });
+  }
+
+  function cFadeOut(cb) {
+    gsap.to([concernPanel, concernCta], {
+      y: -10, opacity: 0, filter: 'blur(6px)', duration: 0.22, ease: 'power2.in', onComplete: cb
+    });
+  }
+  function cFadeIn() {
+    gsap.fromTo([concernPanel, concernCta],
+      {y: 28, opacity: 0, filter: 'blur(12px)'},
+      {y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.55, ease: 'power2.out'}
+    );
+  }
+
+  document.querySelectorAll('.ctab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (tab.classList.contains('active')) return;
+      const d = db[tab.dataset.key];
+      document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
-      /* BG crossfade */
       concernBg.classList.add('fading');
-      setTimeout(()=>{ concernBg.src=d.bg; concernBg.classList.remove('fading'); },280);
+      setTimeout(() => { concernBg.src = d.bg; concernBg.classList.remove('fading'); }, 280);
 
-      /* Panel + CTA fade-out → update → fade-in */
-      cFadeOut();
-      setTimeout(()=>{
-        cBig.textContent=d.big;
-        cSub.textContent=d.sub;
-        cBody.textContent=d.body;
-        cThumbs.innerHTML=d.imgs.map(s=>`<div class="concern-thumb"><img src="${s}" alt=""></div>`).join('')+`<div class="concern-plus">${d.plus}</div>`;
+      cFadeOut(() => {
+        cBig.textContent = d.big;
+        cSub.textContent = d.sub;
+        cBody.textContent = d.body;
+        cThumbs.innerHTML = d.imgs.map(s => `<div class="concern-thumb"><img src="${s}" alt=""></div>`).join('') + `<div class="concern-plus">${d.plus}</div>`;
         cFadeIn();
-      },240);
+      });
+
+      startTimer(tab);
     });
+  });
+
+  /* Entrance: hide initially, reveal on scroll */
+  gsap.set([concernPanel, concernCta], {opacity: 0});
+  gsap.set('.ctab', {opacity: 0});
+
+  ScrollTrigger.create({
+    trigger: '#concernSec',
+    start: 'top 72%',
+    once: true,
+    onEnter: () => {
+      gsap.fromTo([concernPanel, concernCta],
+        {y: 40, opacity: 0, filter: 'blur(14px)'},
+        {y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.85, ease: 'power2.out'}
+      );
+      gsap.fromTo('.ctab',
+        {y: 24, opacity: 0, filter: 'blur(8px)'},
+        {y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out', stagger: 0.1, delay: 0.2,
+          onComplete: () => startTimer(document.querySelector('.ctab.active'))
+        }
+      );
+    }
   });
 
   /* ── SKIN ANALYZER VIDEO ── */
