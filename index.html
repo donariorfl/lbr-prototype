@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LABORÉ — Science-based Skincare</title>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    @font-face { font-family:'Aeonik TRIAL'; src:url('Asset/Font/Aeonik TRIAL/AeonikTRIAL-Light.otf') format('opentype'); font-weight:300; }
+    @font-face { font-family:'Aeonik TRIAL'; src:url('Asset/Font/Aeonik TRIAL/AeonikTRIAL-Regular.otf') format('opentype'); font-weight:400; }
+    @font-face { font-family:'Aeonik TRIAL'; src:url('Asset/Font/Aeonik TRIAL/AeonikTRIAL-Medium.otf') format('opentype'); font-weight:500; }
+    @font-face { font-family:'Aeonik TRIAL'; src:url('Asset/Font/Aeonik TRIAL/AeonikTRIAL-SemiBold.otf') format('opentype'); font-weight:600; }
+    @font-face { font-family:'Aeonik TRIAL'; src:url('Asset/Font/Aeonik TRIAL/AeonikTRIAL-Bold.otf') format('opentype'); font-weight:700; }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:auto;}
+    body{font-family:'Aeonik TRIAL',sans-serif;color:#1B1918;background:#fff;overflow-x:hidden;}
+    img{display:block;}
+    a,button{cursor:pointer;}
+
+    /* ── NAV ── */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:24px;padding:12px 24px;transition:background .45s ease,box-shadow .45s ease;}
+    .nav.scrolled{background:rgba(255,255,255,.9);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(0,0,0,.07);}
+    .nav-logo{flex:1;}.nav-logo img{height:30px;width:auto;}
+    .nav-links{display:flex;gap:20px;align-items:center;}
+    .nav-link{display:flex;align-items:center;gap:2px;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;position:relative;}
+    .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#1B1918;transition:width .3s ease;}
+    .nav-link:hover::after{width:100%;}
+    .nav-link .material-icons{font-size:16px;transition:transform .3s ease;}
+    .nav-link:hover .material-icons{transform:rotate(180deg);}
+    .nav-right{flex:1;display:flex;align-items:center;justify-content:flex-end;gap:20px;}
+    .nav-icon{cursor:pointer;width:16px;height:16px;display:flex;align-items:center;}
+    .nav-lang{display:flex;align-items:center;gap:2px;font-size:16px;font-weight:500;cursor:pointer;}
+    .nav-lang .material-icons{font-size:16px;}
+
+    /* ── ANIMATED BUTTON ARROW ── */
+    .btn-arr{display:inline-flex;align-items:center;overflow:hidden;width:18px;height:18px;position:relative;flex-shrink:0;}
+    .btn-arr .material-icons{font-size:16px;position:absolute;transition:transform .3s cubic-bezier(.25,.46,.45,.94);}
+    .arr-a{transform:translateX(0);}
+    .arr-b{transform:translateX(-110%);}
+    [class*="btn-"]:hover .arr-a{transform:translateX(110%);}
+    [class*="btn-"]:hover .arr-b{transform:translateX(0);}
+    .link-fwd:hover .arr-a{transform:translateX(110%);}
+    .link-fwd:hover .arr-b{transform:translateX(0);}
+    .link-sm:hover .arr-a{transform:translateX(110%);}
+    .link-sm:hover .arr-b{transform:translateX(0);}
+
+    /* ── HERO ── */
+    .hero{position:relative;height:100vh;min-height:680px;overflow:hidden;}
+    .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(245,245,244,.65) 0%,rgba(245,245,244,.1) 50%,transparent 100%);}
+    .hero-content{position:relative;z-index:2;display:flex;height:100%;padding:0 24px;}
+    .hero-left{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding-top:100px;padding-bottom:24px;}
+    .hero-right{flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding-bottom:24px;}
+    .hero-certs{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:24px;}
+    .hero-cert{display:flex;align-items:center;gap:4px;font-size:16px;font-weight:500;color:#1B1918;padding-right:6px;border-right:1px solid rgba(27,25,24,.35);}
+    .hero-cert:last-child{border-right:none;}
+    .hero-cert .material-icons{font-size:16px;}
+    .hero-cert img.cert-icon{width:16px;height:16px;}
+    .hero-h1{font-size:48px;font-weight:500;line-height:1.05;color:#1B1918;max-width:520px;margin-bottom:24px;}
+    .btn-dark{display:inline-flex;align-items:center;gap:4px;background:#1B1918;color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;padding:14px;border-radius:8px;border:none;width:fit-content;transition:background .25s ease,transform .25s ease,box-shadow .25s ease;}
+    .btn-dark:hover{background:#2d2927;transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,25,24,.2);}
+    .hero-card{display:flex;align-items:center;gap:12px;background:rgba(107,105,101,.2);backdrop-filter:blur(12px);padding:8px 12px 8px 8px;border-radius:6px;width:389px;}
+    .hero-card-img{width:128px;height:128px;border-radius:4px;background:#F5F5F4;overflow:hidden;flex-shrink:0;}
+    .hero-card-img img{width:100%;height:100%;object-fit:cover;}
+    .hero-card-body{flex:1;display:flex;flex-direction:column;gap:8px;padding:12px 0;}
+    .hero-card-tag{font-size:12px;font-weight:700;color:#F95272;letter-spacing:.06em;}
+    .hero-card-title{font-size:18px;font-weight:600;color:#1B1918;line-height:1.2;}
+    /* Scroll Down */
+    .scroll-hint{display:flex;align-items:center;gap:4px;font-size:16px;font-weight:500;color:#1B1918;}
+    .scroll-arrow-clip{display:inline-flex;overflow:hidden;height:20px;width:18px;position:relative;flex-shrink:0;}
+    .scroll-arrow-icon{position:absolute;color:#F95272;font-size:18px!important;line-height:20px;animation:arrow-roll 1.2s ease-in-out infinite;}
+    @keyframes arrow-roll{0%{top:-100%;opacity:0;}8%{opacity:1;}30%{top:0;opacity:1;}70%{top:0;opacity:1;}92%{opacity:1;}100%{top:100%;opacity:0;}}
+
+    /* ── ABOUT ── */
+    .about{position:relative;height:800px;overflow:hidden;}
+    .about-bg-wrap{position:absolute;inset:0;overflow:hidden;}
+    .about-bg{position:absolute;width:100%;height:120%;top:-10%;object-fit:cover;will-change:transform;}
+    .about-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:566px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;z-index:2;}
+    .about-heading{font-size:34px;font-weight:500;line-height:1.15;color:#1B1918;}
+    .grad-text{background:linear-gradient(90deg,#000,#770017,#E8284C,#FF839B,#E8284C,#770017,#000);background-size:400% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:grad-flow 5s ease infinite;}
+    @keyframes grad-flow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+    .about-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.4;width:100%;}
+    .link-fwd{display:inline-flex;align-items:center;gap:4px;font-size:14px;font-weight:500;color:#1B1918;cursor:pointer;position:relative;}
+    .link-fwd .material-icons{font-size:16px;}
+    /* Stat cards */
+    .stat-card{position:absolute;z-index:2;width:240px;height:240px;background:rgba(255,255,255,.15);backdrop-filter:blur(12px);border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;gap:4px;color:#1B1918;will-change:transform;}
+    .stat-num{font-size:80px;font-weight:500;line-height:1;}
+    .stat-label{font-size:14px;font-weight:600;line-height:1.4;}
+
+    /* ── CONCERN ── */
+    .concern{position:relative;height:800px;overflow:hidden;}
+    .concern-bg-wrap{position:absolute;inset:0;overflow:hidden;}
+    .concern-bg{position:absolute;width:100%;height:120%;top:-10%;object-fit:cover;will-change:transform;transition:opacity .55s ease;}
+    .concern-bg.fading{opacity:0;}
+    .concern-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.5) 0%,rgba(0,0,0,.15) 55%,transparent 100%);}
+    .concern-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;gap:24px;padding:24px;}
+    .concern-top{flex:1;display:flex;align-items:flex-start;padding-top:48px;}
+    .concern-panel{width:523px;background:rgba(245,245,244,.2);backdrop-filter:blur(17px);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:24px;}
+    .concern-eyebrow{font-size:14px;font-weight:400;color:rgba(255,255,255,.5);}
+    .concern-big{font-size:40px;font-weight:500;color:#fff;line-height:1.2;}
+    .concern-sub{font-size:14px;font-weight:500;color:#fff;line-height:1.2;}
+    .concern-stat{display:flex;flex-direction:column;gap:4px;}
+    .concern-body{font-size:24px;font-weight:400;color:#fff;line-height:1.2;}
+    .concern-thumbs{display:flex;align-items:flex-end;gap:12px;}
+    .concern-thumb{width:128px;height:128px;background:#fff;border-radius:4px;overflow:hidden;flex-shrink:0;}
+    .concern-thumb img{width:100%;height:100%;object-fit:cover;}
+    .concern-plus{font-size:24px;font-weight:500;color:#fff;}
+    .btn-glass{display:inline-flex;align-items:center;gap:4px;background:rgba(245,245,244,.2);backdrop-filter:blur(17px);color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:600;padding:14px;border-radius:8px;border:none;width:fit-content;transition:background .2s ease,transform .2s ease;}
+    .btn-glass:hover{background:rgba(245,245,244,.3);transform:translateY(-2px);}
+    .concern-tabs{display:flex;gap:24px;}
+    .ctab{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;width:64px;}
+    .ctab-ring{width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid transparent;transition:border-color .3s ease,transform .3s ease;}
+    .ctab-ring img{width:100%;height:100%;object-fit:cover;}
+    .ctab.active .ctab-ring{border-color:#fff;}
+    .ctab:hover .ctab-ring{transform:scale(1.08);}
+    .ctab-label{font-size:14px;font-weight:500;color:#fff;text-align:center;}
+    /* Concern panel fade */
+    @keyframes c-out{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-8px);}}
+    @keyframes c-in{0%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
+    .c-exit{animation:c-out .22s ease forwards;pointer-events:none;}
+    .c-enter{animation:c-in .38s cubic-bezier(.25,.46,.45,.94) forwards;}
+
+    /* ── PRODUCTS ── */
+    .products{background:#fff;padding:48px 0;}
+    .products .sec-header{padding:0 24px;}
+    .sec-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;}
+    .sec-title{font-size:34px;font-weight:500;line-height:1;}
+    .link-sm{display:inline-flex;align-items:center;gap:2px;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;position:relative;border:none;background:none;font-family:'Aeonik TRIAL',sans-serif;}
+    .link-sm .material-icons{font-size:16px;color:#F95272;}
+    .link-sm .btn-arr .material-icons{color:#F95272;}
+    /* Product carousel */
+    .prod-carousel{position:relative;}
+    .prod-track-wrap{overflow:hidden;padding:0 24px;}
+    .prod-track{display:flex;gap:12px;transition:transform .55s cubic-bezier(.25,.46,.45,.94);}
+    .pcard{flex-shrink:0;width:calc((100vw - 72px) / 3);display:flex;flex-direction:column;cursor:pointer;}
+    .prod-nav{position:absolute;top:250px;z-index:10;}
+    .prod-nav-left{left:6px;}
+    .prod-nav-right{right:6px;}
+    .pcard-img{width:100%;height:500px;border-radius:8px;background:#F5F5F4;overflow:hidden;position:relative;}
+    .pcard-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s ease,transform .55s cubic-bezier(.25,.46,.45,.94);}
+    .pcard-img-hover{opacity:0;}
+    .pcard:hover .pcard-img-main{opacity:0;}
+    .pcard:hover .pcard-img-hover{opacity:1;}
+    .pcard:hover .pcard-img img{transform:scale(1.04);}
+    /* Hover overlay */
+    .pcard-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:12px;opacity:0;transition:opacity .35s ease;z-index:3;}
+    .pcard:hover .pcard-overlay{opacity:1;}
+    .pcard-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:100px;padding:5px 10px 5px 6px;font-size:12px;font-weight:500;color:#1B1918;align-self:flex-start;}
+    .pcard-badge .material-icons{font-size:14px;color:#1B1918;}
+    .pcard-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .pcard-detail,.pcard-buy{display:flex;align-items:center;justify-content:center;gap:4px;font-family:'Aeonik TRIAL',sans-serif;font-size:14px;font-weight:500;padding:12px 10px;border-radius:8px;border:none;cursor:pointer;transition:transform .2s ease;}
+    .pcard-detail{background:rgba(46,37,24,.22);backdrop-filter:blur(17px);color:#fff;}
+    .pcard-buy{background:#fff;color:#1B1918;}
+    .pcard-detail:hover,.pcard-buy:hover{transform:scale(1.02);}
+    .pcard-detail .material-icons,.pcard-buy .material-icons{font-size:14px;}
+    .pcard-body{padding:14px 12px 0;}
+    .pcard-name{font-size:18px;font-weight:600;color:#1B1918;line-height:1;margin-bottom:4px;}
+    .pcard-desc{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
+
+    /* ── LAB ── */
+    .lab{background:#fff;padding:0 24px 48px;}
+    .lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:680px;}
+    .lab-panel{border-radius:8px;overflow:hidden;position:relative;cursor:pointer;}
+    .lab-panel video,.lab-panel-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+    .lab-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 55%);pointer-events:none;}
+    .lab-footer{position:absolute;bottom:0;left:0;right:0;padding:12px;z-index:2;}
+    .lab-card{background:rgba(170,170,161,.2);backdrop-filter:blur(17px);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px;}
+    .lab-eyebrow{font-size:13px;font-weight:500;color:rgba(255,255,255,.5);}
+    .lab-title{font-size:30px;font-weight:400;color:#fff;line-height:1.15;}
+    .lab-link{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:#fff;border:none;background:none;font-family:'Aeonik TRIAL',sans-serif;padding:0;cursor:pointer;}
+    /* Before/After */
+    .ba{position:relative;width:100%;height:100%;user-select:none;}
+    .ba-after,.ba-before{position:absolute;inset:0;}
+    .ba-after img,.ba-before img{width:100%;height:100%;object-fit:cover;}
+    .ba-before{clip-path:inset(0 50% 0 0);transition:clip-path 0s;}
+    .ba-line{position:absolute;top:0;bottom:0;left:50%;width:2px;background:rgba(255,255,255,.85);transform:translateX(-50%);z-index:1;cursor:ew-resize;}
+    .ba-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;background:#fff;border:1px solid #D5D3D2;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:ew-resize;gap:0;}
+    .ba-btn .material-icons{font-size:14px;color:#1B1918;}
+
+    /* ── UGC ── */
+    .ugc{background:#fff;padding:48px 24px;position:relative;}
+    .ugc-track-wrap{overflow:hidden;position:relative;}
+    .ugc-track{display:flex;gap:12px;transition:transform .55s cubic-bezier(.25,.46,.45,.94);}
+    .ugc-card{flex-shrink:0;width:calc((100vw - 72px) / 3);height:752px;border-radius:8px;overflow:hidden;position:relative;}
+    .ugc-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+    .ugc-footer{position:absolute;bottom:0;left:0;right:0;padding:12px;}
+    .ugc-inner{background:rgba(41,41,34,.38);backdrop-filter:blur(17px);border-radius:8px;padding:14px;display:flex;gap:12px;align-items:center;}
+    .ugc-thumb{width:64px;height:64px;border-radius:4px;background:#F5F5F4;overflow:hidden;flex-shrink:0;}
+    .ugc-thumb img{width:100%;height:100%;object-fit:cover;}
+    .ugc-info{flex:1;}
+    .ugc-pname{font-size:16px;font-weight:600;color:#fff;margin-bottom:4px;}
+    .ugc-pdesc{font-size:12px;font-weight:500;color:rgba(255,255,255,.5);line-height:1.4;}
+    .ugc-arr-icon{color:#fff;font-size:32px!important;}
+    /* Arrow nav */
+    .ugc-nav{position:absolute;z-index:10;display:flex;gap:8px;}
+    .ugc-nav-left{left:-17px;}
+    .ugc-nav-right{right:-17px;}
+    .arrow-btn{width:34px;height:34px;border-radius:8px;border:1px solid #D5D3D2;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease,transform .2s ease;}
+    .arrow-btn:hover{background:#F5F5F4;transform:scale(1.05);}
+    .arrow-btn .material-icons{font-size:18px;}
+
+    /* ── TRUST ── */
+    .trust{background:#fff;padding:12px 24px 48px;}
+    .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .trust-left{display:flex;flex-direction:column;justify-content:space-between;padding:24px 0;}
+    .trust-highlight{display:flex;flex-direction:column;gap:24px;}
+    .trust-chip{display:flex;align-items:center;gap:4px;font-size:16px;font-weight:500;color:#75716F;}
+    .trust-chip .material-icons{font-size:20px;color:#75716F;}
+    .trust-chip img.trust-check-icon{width:20px;height:20px;opacity:.7;}
+    .trust-quote{font-size:34px;font-weight:500;color:#1B1918;line-height:1.2;}
+    .trust-attr{display:flex;flex-direction:column;gap:8px;}
+    .trust-name{font-size:16px;font-weight:600;color:#1B1918;}
+    .trust-role{font-size:14px;font-weight:500;color:#75716F;}
+    .trust-btns{display:flex;gap:8px;}
+    .trust-btn{width:34px;height:34px;background:#1B1918;border-radius:8px;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s ease;}
+    .trust-btn:hover{transform:scale(1.06);}
+    .trust-btn .material-icons{font-size:18px;color:#fff;}
+    .trust-right{position:relative;overflow:hidden;border-radius:8px;}
+    .trust-right img{width:100%;aspect-ratio:1/1;object-fit:cover;will-change:transform;}
+
+    /* ── ARTICLES ── */
+    .articles{background:#fff;padding:48px 24px 100px;}
+    .articles-title{font-size:34px;font-weight:500;line-height:1.2;margin-bottom:24px;}
+    .articles-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+    .atabs{display:flex;gap:8px;flex-wrap:wrap;}
+    .atab{padding:8px 14px;border-radius:1000px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;cursor:pointer;border:1px solid transparent;transition:all .2s ease;}
+    .atab.on{background:#1B1918;color:#fff;border-color:#1B1918;}
+    .atab:not(.on){border-color:#75716F;color:#1B1918;}
+    .atab:not(.on):hover{border-color:#1B1918;}
+    .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+    .acard{display:flex;flex-direction:column;cursor:pointer;border-radius:8px;}
+    .acard-img{height:254px;border-radius:8px;overflow:hidden;}
+    .acard-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+    .acard:hover .acard-img img{transform:scale(1.04);}
+    .acard-body{padding:14px 12px;display:flex;flex-direction:column;gap:14px;}
+    .acard-cat{font-size:14px;font-weight:500;color:#75716F;}
+    .acard-title{font-size:18px;font-weight:600;color:#1B1918;line-height:1.1;}
+    .acard-read{display:inline-flex;align-items:center;gap:2px;font-size:14px;font-weight:700;color:#1B1918;}
+    .acard-read .material-icons{color:#F95272;}
+    .acard:hover .arr-a{transform:translateX(110%);}
+    .acard:hover .arr-b{transform:translateX(0);}
+
+    /* ── FOOTER ── */
+    .footer{position:relative;min-height:848px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;overflow:hidden;}
+    .footer-bg-wrap{position:absolute;inset:0;overflow:hidden;}
+    .footer-bg{position:absolute;width:100%;height:120%;top:-10%;object-fit:cover;will-change:transform;}
+    .footer-top{position:relative;z-index:1;display:flex;gap:12px;}
+    .footer-menu{flex:1;background:#fff;border-radius:8px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;min-height:278px;}
+    .footer-cols{display:flex;gap:40px;}
+    .footer-col{display:flex;flex-direction:column;gap:10px;}
+    .footer-cat{font-size:13px;font-weight:500;color:#75716F;}
+    .footer-link{font-size:13px;font-weight:500;color:#1B1918;cursor:pointer;transition:color .2s ease;}
+    .footer-link:hover{color:#75716F;}
+    .footer-bottom-row{display:flex;align-items:center;gap:12px;}
+    .footer-socials{display:flex;gap:12px;}
+    .footer-social{width:24px;height:24px;cursor:pointer;transition:transform .2s ease;}
+    .footer-social:hover{transform:scale(1.15);}
+    .footer-copy{font-size:11px;font-weight:500;color:#1B1918;margin-left:auto;}
+    .footer-nl-card{width:420px;flex-shrink:0;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-radius:8px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:278px;}
+    .footer-about-text{font-size:13px;font-weight:500;color:#1B1918;line-height:1.55;opacity:.8;}
+    .footer-nl{display:flex;flex-direction:column;gap:8px;}
+    .footer-nl-label{font-size:12px;font-weight:500;color:#75716F;}
+    .footer-nl-row{display:flex;align-items:center;gap:8px;border-bottom:1px solid #75716F;padding:12px 0;}
+    .footer-nl-row input{flex:1;border:none;outline:none;font-family:'Aeonik TRIAL',sans-serif;font-size:15px;color:#75716F;background:transparent;}
+    .footer-nl-row input::placeholder{color:rgba(117,113,111,.5);}
+    .footer-nl-submit{font-size:15px;font-weight:600;color:#1B1918;cursor:pointer;white-space:nowrap;}
+    .footer-nl-note{font-size:11px;font-weight:500;color:#75716F;line-height:1.4;}
+    .footer-logo-bar{position:relative;z-index:1;width:100%;}
+    .footer-logo-bar img{width:100%;height:auto;display:block;}
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}
+    .reveal.in{opacity:1;transform:translateY(0);}
+    .reveal.d1{transition-delay:.1s;}
+    .reveal.d2{transition-delay:.22s;}
+    .reveal.d3{transition-delay:.34s;}
+    .material-icons{vertical-align:middle;}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo"><img src="Asset/Nav/Logo.svg" alt="LABORÉ"></div>
+  <div class="nav-links">
+    <span class="nav-link">Products <span class="material-icons">expand_more</span></span>
+    <span class="nav-link">Labore Lab <span class="material-icons">expand_more</span></span>
+    <span class="nav-link">Brand Story</span>
+    <span class="nav-link">Skin 101 <span class="material-icons">expand_more</span></span>
+  </div>
+  <div class="nav-right">
+    <img class="nav-icon" src="Asset/Custom Icon/search.svg" alt="Search">
+    <div class="nav-lang"><span class="material-icons">language</span> ID - ENG</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <video autoplay muted loop playsinline><source src="Asset/Hero/hero-vid.mp4" type="video/mp4"></video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div>
+        <div class="hero-certs">
+          <div class="hero-cert"><span class="material-icons">biotech</span>Dermatologist Tested</div>
+          <div class="hero-cert"><img class="cert-icon" src="Asset/Custom Icon/hypoallergenic.svg" alt="">Hypoallergenic</div>
+          <div class="hero-cert"><span class="material-icons">cruelty_free</span>Cruelty-Free</div>
+          <div class="hero-cert"><span class="material-icons">verified</span>FDA Approved</div>
+        </div>
+        <h1 class="hero-h1">Science-based Skincare for Every Skin Concern</h1>
+        <button class="btn-dark">
+          Explore Products
+          <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span>
+        </button>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-img"><img src="Asset/Hero/featured-card-img.png" alt=""></div>
+        <div class="hero-card-body">
+          <div class="hero-card-tag">NEW</div>
+          <div class="hero-card-title">BiomeRepair™ Barrier Serum Now available for all skin types.</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="scroll-hint">
+        Scroll Down
+        <div class="scroll-arrow-clip"><span class="material-icons scroll-arrow-icon">arrow_downward</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="aboutSec">
+  <div class="about-bg-wrap"><img class="about-bg" id="aboutBg" src="Asset/About/about-bg.png" alt=""></div>
+  <div class="stat-card" id="sc0" style="left:10.4%;top:26.6%;">
+    <div class="stat-num">900</div>
+    <div class="stat-label">Indonesian women clinically tested</div>
+  </div>
+  <div class="stat-card" id="sc1" style="right:20%;top:8%;">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Dermatologist-developed formulas</div>
+  </div>
+  <div class="stat-card" id="sc2" style="left:23.7%;top:65.4%;">
+    <div class="stat-num">1+</div>
+    <div class="stat-label">Safe for ages 1 and above</div>
+  </div>
+  <div class="stat-card" id="sc3" style="right:6%;top:51.9%;">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Side effects reported</div>
+  </div>
+  <div class="about-center">
+    <div class="about-heading">
+      <span class="grad-text">Clinically Proven,<br>Dermatologist Trusted</span>
+    </div>
+    <p class="about-desc">Developed by board-certified dermatologists and tested through rigorous clinical protocols on Indonesian skin. Powered by Microbiome Technology™, we restore your skin's natural balance while meeting the highest dermatological standards. This is skincare backed by science, trusted by experts.</p>
+    <span class="link-fwd">Discover Brand Story <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></span>
+  </div>
+</section>
+
+<!-- SHOP BY CONCERN -->
+<section class="concern" id="concernSec">
+  <div class="concern-bg-wrap"><img class="concern-bg" id="cBg" src="Asset/Shop by Concern/Oily/oily.jpg" alt=""></div>
+  <div class="concern-overlay"></div>
+  <div class="concern-content">
+    <div class="concern-top">
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="concern-panel" id="concernPanel">
+          <div class="concern-eyebrow">Discover by concern</div>
+          <div class="concern-stat">
+            <div class="concern-big" id="cBig">80% of participants</div>
+            <div class="concern-sub" id="cSub">reported significant decrease in oiliness within just 2 weeks</div>
+          </div>
+          <div class="concern-body" id="cBody">Many people with oily skin actually suffer from dehydration. Our method focuses on restoring balance and providing support, rather than imposing harsh treatments.</div>
+          <div class="concern-thumbs" id="cThumbs">
+            <div class="concern-thumb"><img src="Asset/Shop by Concern/Oily/product-1.png" alt=""></div>
+            <div class="concern-thumb"><img src="Asset/Shop by Concern/Oily/product-2.png" alt=""></div>
+            <div class="concern-thumb"><img src="Asset/Shop by Concern/Oily/product-3.png" alt=""></div>
+            <div class="concern-plus">+2</div>
+          </div>
+        </div>
+        <button class="btn-glass">Find Solutions <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></button>
+      </div>
+    </div>
+    <div class="concern-tabs">
+      <div class="ctab active" data-key="oily"><div class="ctab-ring"><img src="Asset/Shop by Concern/Oily/oily.jpg" alt=""></div><div class="ctab-label">Oily</div></div>
+      <div class="ctab" data-key="normal"><div class="ctab-ring"><img src="Asset/Shop by Concern/Normal/normal.jpg" alt=""></div><div class="ctab-label">Normal</div></div>
+      <div class="ctab" data-key="dry"><div class="ctab-ring"><img src="Asset/Shop by Concern/Very Dry/dry.jpg" alt=""></div><div class="ctab-label">Very Dry</div></div>
+      <div class="ctab" data-key="combo"><div class="ctab-ring"><img src="Asset/Shop by Concern/combination.jpg" alt=""></div><div class="ctab-label">Combination</div></div>
+      <div class="ctab" data-key="sensitive"><div class="ctab-ring"><img src="Asset/Shop by Concern/sensitive.jpg" alt=""></div><div class="ctab-label">Sensitive</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <div class="sec-header reveal">
+    <h2 class="sec-title">Made for Your Skin</h2>
+    <button class="link-sm">Shop All Products <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></button>
+  </div>
+  <div class="prod-carousel">
+    <div class="prod-nav prod-nav-left"><div class="arrow-btn" id="prodPrev"><span class="material-icons">chevron_left</span></div></div>
+    <div class="prod-track-wrap">
+    <div class="prod-track" id="prodTrack">
+    <div class="pcard reveal">
+      <div class="pcard-img">
+        <img class="pcard-img-main" src="Asset/Product/intensive-acne-serum/intensive-acne-serum.jpg" alt="Intensive Acne Serum">
+        <img class="pcard-img-hover" src="Asset/Product/intensive-acne-serum/intensive-acne-serum-hover.png" alt="">
+        <div class="pcard-overlay">
+          <div class="pcard-badge"><span class="material-icons">verified</span>Dermatologist approved</div>
+          <div class="pcard-actions">
+            <button class="pcard-detail">View Detail <span class="material-icons">arrow_forward</span></button>
+            <button class="pcard-buy">Buy Now <span class="material-icons">north_east</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard-body"><div class="pcard-name">Intensive Acne Serum</div><div class="pcard-desc">Acne serum with mineral UV and pollution defense.</div></div>
+    </div>
+    <div class="pcard reveal d1">
+      <div class="pcard-img">
+        <img class="pcard-img-main" src="Asset/Product/skin-nutrition-gel/skin-nutrition-gel.jpg" alt="Skin Nutrition Gel">
+        <img class="pcard-img-hover" src="Asset/Product/skin-nutrition-gel/skin-nutrition-gel-hover.jpg" alt="">
+        <div class="pcard-overlay">
+          <div class="pcard-badge"><span class="material-icons">verified</span>Dermatologist approved</div>
+          <div class="pcard-actions">
+            <button class="pcard-detail">View Detail <span class="material-icons">arrow_forward</span></button>
+            <button class="pcard-buy">Buy Now <span class="material-icons">north_east</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard-body"><div class="pcard-name">Skin Nutrition Gel</div><div class="pcard-desc">Ultra-light moisturizer with cooling sensation.</div></div>
+    </div>
+    <div class="pcard reveal d2">
+      <div class="pcard-img">
+        <img class="pcard-img-main" src="Asset/Product/mild-cleanser/mild-cleanser.jpg" alt="Mild Cleanser">
+        <img class="pcard-img-hover" src="Asset/Product/mild-cleanser/mild-cleanser-hover.png" alt="">
+        <div class="pcard-overlay">
+          <div class="pcard-badge"><span class="material-icons">verified</span>Dermatologist approved</div>
+          <div class="pcard-actions">
+            <button class="pcard-detail">View Detail <span class="material-icons">arrow_forward</span></button>
+            <button class="pcard-buy">Buy Now <span class="material-icons">north_east</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard-body"><div class="pcard-name">Mild Cleanser</div><div class="pcard-desc">Non-foam cleanser with pH 5.5.</div></div>
+    </div>
+    <div class="pcard reveal d3">
+      <div class="pcard-img">
+        <img class="pcard-img-main" src="Asset/Product/physical-sunscreen/physical-sunscreen.jpg" alt="Physical Sunscreen">
+        <img class="pcard-img-hover" src="Asset/Product/physical-sunscreen/physical-sunscreen-hover.jpg" alt="">
+        <div class="pcard-overlay">
+          <div class="pcard-badge"><span class="material-icons">verified</span>Dermatologist approved</div>
+          <div class="pcard-actions">
+            <button class="pcard-detail">View Detail <span class="material-icons">arrow_forward</span></button>
+            <button class="pcard-buy">Buy Now <span class="material-icons">north_east</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="pcard-body"><div class="pcard-name">Physical Sunscreen</div><div class="pcard-desc">100% mineral UV filters with anti-bluelight and anti-pollution.</div></div>
+    </div>
+    </div>
+    </div>
+    <div class="prod-nav prod-nav-right"><div class="arrow-btn" id="prodNext"><span class="material-icons">chevron_right</span></div></div>
+  </div>
+</section>
+
+<!-- LAB -->
+<section class="lab">
+  <div class="lab-grid">
+    <div class="lab-panel reveal" id="skinPanel">
+      <video id="skinVideo" muted loop playsinline preload="metadata">
+        <source src="Asset/Skin Analyzer/skin-analyzer-loop.mp4" type="video/mp4">
+      </video>
+      <div class="lab-scrim"></div>
+      <div class="lab-footer">
+        <div class="lab-card">
+          <div class="lab-eyebrow">Skin Analyzer</div>
+          <div class="lab-title">Know Your Skin in 60 Seconds</div>
+          <button class="lab-link">Analyze My Skin <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></button>
+        </div>
+      </div>
+    </div>
+    <div class="lab-panel reveal d1">
+      <div class="ba" id="ba">
+        <div class="ba-after"><img src="Asset/Routine Finder/after.jpg" alt="After"></div>
+        <div class="ba-before" id="baBefore"><img src="Asset/Routine Finder/before.jpg" alt="Before"></div>
+        <div class="ba-line" id="baLine">
+          <div class="ba-btn" id="baBtn">
+            <span class="material-icons">chevron_left</span>
+            <span class="material-icons">chevron_right</span>
+          </div>
+        </div>
+      </div>
+      <div class="lab-scrim" style="pointer-events:none;"></div>
+      <div class="lab-footer" style="pointer-events:none;">
+        <div class="lab-card">
+          <div class="lab-eyebrow">Skincare Routine Finder</div>
+          <div class="lab-title">Find Your Perfect Routine</div>
+          <button class="lab-link" style="pointer-events:all;">Build My Routine <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UGC -->
+<section class="ugc">
+  <div class="sec-header reveal" style="margin-bottom:24px;">
+    <h2 class="sec-title">What They're Saying</h2>
+  </div>
+  <div style="position:relative;">
+    <div class="ugc-track-wrap">
+      <div class="ugc-track" id="ugcTrack">
+        <div class="ugc-card">
+          <img src="Asset/Testimonial/magnific_natural-candid-shot-of-an_74amXqGJAL.png" alt="">
+          <div class="ugc-footer"><div class="ugc-inner"><div class="ugc-thumb"><img src="Asset/Product/skin-nutrition-gel/skin-nutrition-gel.jpg" alt=""></div><div class="ugc-info"><div class="ugc-pname">Skin Nutrition Gel</div><div class="ugc-pdesc">Ultra-light moisturizer with cooling sensation.</div></div><span class="material-icons ugc-arr-icon">chevron_right</span></div></div>
+        </div>
+        <div class="ugc-card">
+          <img src="Asset/Testimonial/magnific_natural-candid-shot-of-an_dIPJ2YnXSL.png" alt="">
+          <div class="ugc-footer"><div class="ugc-inner"><div class="ugc-thumb"><img src="Asset/Product/skin-nutrition-gel/skin-nutrition-gel.jpg" alt=""></div><div class="ugc-info"><div class="ugc-pname">Skin Nutrition Gel</div><div class="ugc-pdesc">Ultra-light moisturizer with cooling sensation.</div></div><span class="material-icons ugc-arr-icon">chevron_right</span></div></div>
+        </div>
+        <div class="ugc-card">
+          <img src="Asset/Testimonial/magnific_natural-candid-shot-of-an_dIPJNCHXSL.png" alt="">
+          <div class="ugc-footer"><div class="ugc-inner"><div class="ugc-thumb"><img src="Asset/Product/intensive-acne-serum/intensive-acne-serum.jpg" alt=""></div><div class="ugc-info"><div class="ugc-pname">Intensive Acne Serum</div><div class="ugc-pdesc">Acne serum with mineral UV and pollution defense.</div></div><span class="material-icons ugc-arr-icon">chevron_right</span></div></div>
+        </div>
+        <div class="ugc-card">
+          <img src="Asset/Testimonial/magnific_natural-candid-shot-of-an_jSBeGAxLD0.png" alt="">
+          <div class="ugc-footer"><div class="ugc-inner"><div class="ugc-thumb"><img src="Asset/Product/mild-cleanser/mild-cleanser.jpg" alt=""></div><div class="ugc-info"><div class="ugc-pname">Mild Cleanser</div><div class="ugc-pdesc">Non-foam cleanser with pH 5.5.</div></div><span class="material-icons ugc-arr-icon">chevron_right</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ugc-nav ugc-nav-left" style="top:376px;">
+      <div class="arrow-btn" id="ugcPrev"><span class="material-icons">chevron_left</span></div>
+    </div>
+    <div class="ugc-nav ugc-nav-right" style="top:376px;">
+      <div class="arrow-btn" id="ugcNext"><span class="material-icons">chevron_right</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="trust-grid">
+    <div class="trust-left reveal">
+      <div class="trust-highlight">
+        <div class="trust-chip"><span class="material-icons">verified</span>Dermatologist approved</div>
+        <div class="trust-quote">"Sensitive skin requires special skincare formulated specifically for it, using non-irritant ingredients and tested through various specialized trials."</div>
+        <div class="trust-attr">
+          <div class="trust-name">dr. Andina Bulan Sari, SpKk</div>
+          <div class="trust-role">Board Certified Dermatologist</div>
+        </div>
+      </div>
+      <div class="trust-btns">
+        <button class="trust-btn"><span class="material-icons">chevron_left</span></button>
+        <button class="trust-btn"><span class="material-icons">chevron_right</span></button>
+      </div>
+    </div>
+    <div class="trust-right reveal d2" id="trustRight">
+      <img id="trustImg" src="Asset/Dermatologist Approved/dr-andina2.jpg" alt="dr. Andina Bulan Sari">
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section class="articles">
+  <h2 class="articles-title reveal">Stay Informed</h2>
+  <div class="articles-controls reveal">
+    <div class="atabs">
+      <div class="atab on">All</div>
+      <div class="atab">Skincare Tips</div>
+      <div class="atab">Skin Concerns</div>
+      <div class="atab">Expert Advice</div>
+      <div class="atab">Ingredient 101</div>
+      <div class="atab">Lifestyle</div>
+    </div>
+    <button class="link-sm">View All Articles <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></button>
+  </div>
+  <div class="articles-grid">
+    <div class="acard reveal">
+      <div class="acard-img"><img src="Asset/Article/The 5 Skincare Mistakes Most People Make Without Knowing.png" alt=""></div>
+      <div class="acard-body"><div class="acard-cat">Skincare Tips</div><div class="acard-title">The 5 Skincare Mistakes Most People Make Without Knowing</div><span class="acard-read">Read More <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></span></div>
+    </div>
+    <div class="acard reveal d1">
+      <div class="acard-img"><img src="Asset/Article/A Dermatologist's Guide to Building Your First Skincare Routine.png" alt=""></div>
+      <div class="acard-body"><div class="acard-cat">Expert Advice</div><div class="acard-title">A Dermatologist's Guide to Building Your First Skincare Routine</div><span class="acard-read">Read More <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></span></div>
+    </div>
+    <div class="acard reveal d2">
+      <div class="acard-img"><img src="Asset/Article/How Your Diet, Sleep, and Environment Are Affecting Your Skin.png" alt=""></div>
+      <div class="acard-body"><div class="acard-cat">Lifestyle</div><div class="acard-title">How Your Diet, Sleep, and Environment Are Affecting Your Skin</div><span class="acard-read">Read More <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="footerSec">
+  <div class="footer-bg-wrap"><img class="footer-bg" id="footerBg" src="Asset/Footer/footer-bg.jpg" alt=""></div>
+  <div class="footer-top">
+    <div class="footer-menu">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <div class="footer-cat">Products</div>
+          <div class="footer-link">Cleanser</div>
+          <div class="footer-link">Toner</div>
+          <div class="footer-link">Moisturizer</div>
+          <div class="footer-link">Sunscreen</div>
+          <div class="footer-link">Serum</div>
+          <div class="footer-link">Face Mist</div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-cat">Labore Lab</div>
+          <div class="footer-link">Skin Analyzer</div>
+          <div class="footer-link">Skincare Routine Finder</div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-cat">Skin 101</div>
+          <div class="footer-link">Skin Concerns</div>
+          <div class="footer-link">Ingredient 101</div>
+          <div class="footer-link">Guide</div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-cat">Information</div>
+          <div class="footer-link">Brand Story</div>
+          <div class="footer-link">Contact Us</div>
+          <div class="footer-link">Terms of Service</div>
+          <div class="footer-link">Privacy Policy</div>
+        </div>
+      </div>
+      <div class="footer-bottom-row">
+        <div class="footer-socials">
+          <img class="footer-social" src="Asset/Footer/ig.svg" alt="Instagram">
+          <img class="footer-social" src="Asset/Footer/fb.svg" alt="Facebook">
+          <img class="footer-social" src="Asset/Footer/x.svg" alt="X">
+          <img class="footer-social" src="Asset/Footer/yt.svg" alt="YouTube">
+        </div>
+        <div class="footer-copy">COPYRIGHT © 2026 – All Right Reserved. LABORÉ Indonesia.</div>
+      </div>
+    </div>
+    <div class="footer-nl-card">
+      <div class="footer-about-text">LABORÉ has developed into a skin specialist providing a wide range skin health care, personalized therapy service which supported by the best formula product that have been tested by Clinical Research & Innovation team, proven to be effective and save to use.</div>
+      <div class="footer-nl">
+        <div class="footer-nl-label">Sign up to our newsletter</div>
+        <div class="footer-nl-row">
+          <input type="email" placeholder="Enter your email">
+          <div class="footer-nl-submit">Submit</div>
+        </div>
+        <div class="footer-nl-note">By signing up, you agree to receive marketing emails from LABORÉ. You can unsubscribe anytime.</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-logo-bar">
+    <img src="Asset/Footer/Logo-White.svg" alt="LABORÉ">
+  </div>
+</footer>
+
+<script>
+  /* ── SCROLL TO TOP ON LOAD ── */
+  if('scrollRestoration' in history){ history.scrollRestoration='manual'; }
+  window.scrollTo(0,0);
+
+  /* ── LENIS ── */
+  const lenis = new Lenis({ duration:1.15, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
+  (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
+
+  /* ── NAV ── */
+  const nav = document.getElementById('nav');
+  lenis.on('scroll',({scroll})=>{ nav.classList.toggle('scrolled', scroll>50); });
+
+  /* ── SCROLL REVEAL ── */
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  },{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* ── PARALLAX HELPER ── */
+  function parallax(el, imgEl, factor){
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const progress = (vh - r.top) / (r.height + vh);
+    imgEl.style.transform = `translateY(${(progress-.5)*r.height*factor}px)`;
+  }
+
+  /* ── ABOUT STAT CARDS: individual parallax (always visible) ── */
+  const aboutSec  = document.getElementById('aboutSec');
+  const aboutBg   = document.getElementById('aboutBg');
+  const statCards = Array.from({length:4},(_,i)=>document.getElementById('sc'+i));
+  const factors   = [.55,-.45,.4,-.5];
+
+  /* ── CONCERN PARALLAX ── */
+  const concernSec = document.getElementById('concernSec');
+  const concernBg  = document.getElementById('cBg');
+
+  /* ── TRUST IMG PARALLAX ── */
+  const trustRight = document.getElementById('trustRight');
+  const trustImg   = document.getElementById('trustImg');
+
+  /* ── FOOTER PARALLAX ── */
+  const footerSec = document.getElementById('footerSec');
+  const footerBg  = document.getElementById('footerBg');
+
+  lenis.on('scroll',()=>{
+    parallax(aboutSec, aboutBg, .18);
+    /* stat card individual parallax */
+    const r2 = aboutSec.getBoundingClientRect();
+    const prog = (window.innerHeight - r2.top) / (r2.height + window.innerHeight);
+    statCards.forEach((c,i)=>{
+      c.style.transform = `translateY(${(prog-.5)*80*factors[i]}px)`;
+    });
+    parallax(concernSec, concernBg, .15);
+    const tr = trustRight.getBoundingClientRect();
+    const tp = (window.innerHeight - tr.top)/(tr.height + window.innerHeight);
+    trustImg.style.transform = `translateY(${(tp-.5)*40}px) scale(1.06)`;
+    parallax(footerSec, footerBg, .2);
+  });
+
+  /* ── CONCERN TABS with transition animation ── */
+  const db = {
+    oily:     {bg:'Asset/Shop by Concern/Oily/oily.jpg',big:'80% of participants',sub:'reported significant decrease in oiliness within just 2 weeks',body:'Many people with oily skin actually suffer from dehydration. Our method focuses on restoring balance and providing support, rather than imposing harsh treatments.',imgs:['Asset/Shop by Concern/Oily/product-1.png','Asset/Shop by Concern/Oily/product-2.png','Asset/Shop by Concern/Oily/product-3.png'],plus:'+2'},
+    normal:   {bg:'Asset/Shop by Concern/Normal/normal.jpg',big:'90% of participants',sub:'reported healthier, more balanced skin in 4 weeks',body:"Normal skin still needs the right care. Without proper support, it becomes reactive and unpredictable. Our formulas maintain your skin's natural balance without disrupting what's already working.",imgs:['Asset/Shop by Concern/Normal/product-1.png','Asset/Shop by Concern/Normal/product-2.png'],plus:'+3'},
+    dry:      {bg:'Asset/Shop by Concern/Very Dry/dry.jpg',big:'85% of participants',sub:'saw significant improvement in skin hydration in 2 weeks',body:"Very dry skin isn't just about moisture. It's about a damaged barrier that can no longer retain what it needs. Our microbiome approach rebuilds that barrier from within, so your skin holds hydration on its own.",imgs:['Asset/Shop by Concern/Very Dry/product-1.png','Asset/Shop by Concern/Very Dry/product-2.png','Asset/Shop by Concern/Very Dry/product-3.png'],plus:'+1'},
+    combo:    {bg:'Asset/Shop by Concern/combination.jpg',big:'78% of participants',sub:'reported visible improvement in skin balance',body:'Combination skin requires targeted care — controlling oiliness in the T-zone while hydrating drier areas simultaneously.',imgs:['Asset/Shop by Concern/Oily/product-1.png','Asset/Shop by Concern/Normal/product-1.png'],plus:'+4'},
+    sensitive:{bg:'Asset/Shop by Concern/sensitive.jpg',big:'95% of participants',sub:'reported zero irritation after regular use',body:'Hypoallergenic and dermatologist-tested formulas gentle enough for the most reactive and sensitive skin types.',imgs:['Asset/Shop by Concern/Normal/product-2.png','Asset/Shop by Concern/Very Dry/product-1.png'],plus:'+3'},
+  };
+  const cBig=document.getElementById('cBig'),cSub=document.getElementById('cSub'),cBody=document.getElementById('cBody'),cThumbs=document.getElementById('cThumbs');
+  const concernPanel=document.getElementById('concernPanel');
+  const concernCta=document.querySelector('.btn-glass');
+
+  function cFadeOut(){ [concernPanel,concernCta].forEach(el=>{ el.classList.remove('c-enter'); void el.offsetWidth; el.classList.add('c-exit'); }); }
+  function cFadeIn(){  [concernPanel,concernCta].forEach(el=>{ el.classList.remove('c-exit'); void el.offsetWidth; el.classList.add('c-enter'); }); }
+
+  document.querySelectorAll('.ctab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      if(tab.classList.contains('active')) return;
+      const d=db[tab.dataset.key];
+      document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+
+      /* BG crossfade */
+      concernBg.classList.add('fading');
+      setTimeout(()=>{ concernBg.src=d.bg; concernBg.classList.remove('fading'); },280);
+
+      /* Panel + CTA fade-out → update → fade-in */
+      cFadeOut();
+      setTimeout(()=>{
+        cBig.textContent=d.big;
+        cSub.textContent=d.sub;
+        cBody.textContent=d.body;
+        cThumbs.innerHTML=d.imgs.map(s=>`<div class="concern-thumb"><img src="${s}" alt=""></div>`).join('')+`<div class="concern-plus">${d.plus}</div>`;
+        cFadeIn();
+      },240);
+    });
+  });
+
+  /* ── SKIN ANALYZER VIDEO ── */
+  const skinVideo=document.getElementById('skinVideo');
+  const skinPanel=document.getElementById('skinPanel');
+  skinVideo.addEventListener('loadeddata',()=>{ skinVideo.currentTime=0; skinVideo.pause(); });
+  skinPanel.addEventListener('mouseenter',()=>skinVideo.play());
+  skinPanel.addEventListener('mouseleave',()=>{ skinVideo.pause(); });
+
+  /* ── BEFORE/AFTER SLIDER ── */
+  const ba=document.getElementById('ba');
+  const baBefore=document.getElementById('baBefore');
+  const baLine=document.getElementById('baLine');
+  let dragging=false;
+  function setBA(x){
+    const r=ba.getBoundingClientRect();
+    const pct=Math.max(.04,Math.min(.96,(x-r.left)/r.width));
+    baBefore.style.clipPath=`inset(0 ${(1-pct)*100}% 0 0)`;
+    baLine.style.left=(pct*100)+'%';
+  }
+  document.getElementById('baBtn').addEventListener('mousedown',()=>dragging=true);
+  baLine.addEventListener('mousedown',()=>dragging=true);
+  document.getElementById('baBtn').addEventListener('touchstart',()=>dragging=true,{passive:true});
+  window.addEventListener('mouseup',()=>dragging=false);
+  window.addEventListener('touchend',()=>dragging=false);
+  window.addEventListener('mousemove',e=>{ if(dragging) setBA(e.clientX); });
+  window.addEventListener('touchmove',e=>{ if(dragging) setBA(e.touches[0].clientX); },{passive:true});
+
+  /* ── UGC CAROUSEL (looping, 3 visible) ── */
+  const ugcTrack=document.getElementById('ugcTrack');
+  const ugcCards=ugcTrack.querySelectorAll('.ugc-card');
+  let ugcIdx=0;
+  const ugcMax=Math.max(0,ugcCards.length-3);
+  function slideUGC(){
+    const cw=ugcCards[0].getBoundingClientRect().width+12;
+    ugcTrack.style.transform=`translateX(-${ugcIdx*cw}px)`;
+  }
+  document.getElementById('ugcNext').addEventListener('click',()=>{ ugcIdx=ugcIdx>=ugcMax?0:ugcIdx+1; slideUGC(); });
+  document.getElementById('ugcPrev').addEventListener('click',()=>{ ugcIdx=ugcIdx<=0?ugcMax:ugcIdx-1; slideUGC(); });
+
+  /* ── PRODUCT CAROUSEL ── */
+  const prodTrack=document.getElementById('prodTrack');
+  const prodCards=prodTrack?prodTrack.querySelectorAll('.pcard'):[];
+  let prodIdx=0;
+  const prodMax=Math.max(0,prodCards.length-3);
+  function slideProd(){
+    if(!prodCards.length) return;
+    const cw=prodCards[0].getBoundingClientRect().width+12;
+    prodTrack.style.transform=`translateX(-${prodIdx*cw}px)`;
+  }
+  document.getElementById('prodNext').addEventListener('click',()=>{ prodIdx=prodIdx>=prodMax?0:prodIdx+1; slideProd(); });
+  document.getElementById('prodPrev').addEventListener('click',()=>{ prodIdx=prodIdx<=0?prodMax:prodIdx-1; slideProd(); });
+
+  /* ── ARTICLE TABS ── */
+  document.querySelectorAll('.atab').forEach(t=>{
+    t.addEventListener('click',()=>{ document.querySelectorAll('.atab').forEach(x=>x.classList.remove('on')); t.classList.add('on'); });
+  });
+</script>
+</body>
+</html>
