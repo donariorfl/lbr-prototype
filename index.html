@@ -733,6 +733,10 @@
         gsap.to(track,
           { clipPath: 'inset(0 0% 0 100%)', duration: 0.7, ease: 'power2.inOut',
             onComplete: () => {
+              // Start hero video + animations as dissolve begins
+              const heroVid = document.querySelector('.hero video');
+              if (heroVid) heroVid.play().catch(() => {});
+              if (window.__playHeroAnimations) window.__playHeroAnimations();
               gsap.to(loader, {
                 opacity: 0, filter: 'blur(24px)', scale: 1.04, duration: 1.4, ease: 'power2.inOut',
                 onComplete: () => { loader.remove(); document.body.style.overflow = ''; }
@@ -810,30 +814,22 @@
   }
 
   /* ── HERO ── */
-  // Nav slides down
-  gsap.from('.nav', {
-    y: -64, opacity: 0, duration: 0.7, ease: 'power2.out', delay: 0.05
-  });
-  // Video zooms out (starts scaled up, settles to natural)
-  gsap.from('.hero video', {
-    scale: 1.1, duration: 2.2, ease: 'power2.out'
-  });
-  // Certs: stagger 1 by 1
-  gsap.from('.hero-cert', {
-    opacity: 0, y: 12, duration: 0.45, ease: 'power2.out', stagger: 0.1, delay: 0.2
-  });
-  // Headline: 2 lines slide up inside .h1-mask (overflow:hidden), .h1-line is the child
-  gsap.from('.h1-line', {
-    yPercent: 110, duration: 1.05, ease: 'power3.out', stagger: 0.1, delay: 0.45
-  });
-  // Button: slide up + blur focus
-  gsap.from('.btn-dark', {
-    opacity: 0, y: 28, filter: 'blur(10px)', duration: 0.75, ease: 'power2.out', delay: 0.95
-  });
-  // Hero card: slide up + blur focus
-  gsap.from('.hero-card', {
-    opacity: 0, y: 36, filter: 'blur(10px)', duration: 0.85, ease: 'power2.out', delay: 0.8
-  });
+  // Hide hero elements immediately so nothing flashes before loader exits
+  gsap.set('.nav', { y: -64, opacity: 0 });
+  gsap.set('.hero-cert', { opacity: 0, y: 12 });
+  gsap.set('.h1-line', { yPercent: 110 });
+  gsap.set('.btn-dark', { opacity: 0, y: 28, filter: 'blur(10px)', transition: 'none' });
+  gsap.set('.hero-card', { opacity: 0, y: 36, filter: 'blur(10px)' });
+  gsap.set('.hero video', { scale: 1.1 });
+
+  window.__playHeroAnimations = function() {
+    gsap.to('.nav',       { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.05 });
+    gsap.to('.hero video',{ scale: 1, duration: 2.2, ease: 'power2.out' });
+    gsap.to('.hero-cert', { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.1, delay: 0.2 });
+    gsap.to('.h1-line',   { yPercent: 0, duration: 1.05, ease: 'power3.out', stagger: 0.1, delay: 0.45 });
+    gsap.to('.btn-dark',  { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.75, ease: 'power2.out', delay: 0.95, onComplete: () => gsap.set('.btn-dark', { clearProps: 'transform,filter' }) });
+    gsap.to('.hero-card', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.85, ease: 'power2.out', delay: 0.8 });
+  };
 
   /* ── ABOUT ── */
   // Title: 2 lines slide up
