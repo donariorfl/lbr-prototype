@@ -297,9 +297,22 @@
     .footer-logo-bar img{width:100%;height:auto;display:block;}
 
     .material-icons{vertical-align:middle;}
+    /* ── LOADER ── */
+    #siteLoader{position:fixed;inset:0;background:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:all;}
+    .loader-inner{display:flex;align-items:center;gap:24px;width:100%;}
+    .loader-label,.loader-pct{font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;color:#1B1918;white-space:nowrap;flex-shrink:0;}
+    .loader-track{flex:1;height:1px;background:transparent;position:relative;}
+    .loader-bar{position:absolute;left:0;top:0;height:100%;width:0%;background:linear-gradient(to right,#F95272,#f9a0b0);}
   </style>
 </head>
 <body>
+<div id="siteLoader">
+  <div class="loader-inner">
+    <span class="loader-label">Loading</span>
+    <div class="loader-track"><div class="loader-bar" id="loaderBar"></div></div>
+    <span class="loader-pct" id="loaderPct">0%</span>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -691,6 +704,69 @@
   /* ── SCROLL TO TOP ON LOAD ── */
   if('scrollRestoration' in history){ history.scrollRestoration='manual'; }
   window.scrollTo(0,0);
+
+  /* ── LOADER ── */
+  (function(){
+    const loader = document.getElementById('siteLoader');
+    const bar    = document.getElementById('loaderBar');
+    const track  = bar.parentElement;
+    const pctEl  = document.getElementById('loaderPct');
+    let finished = false;
+    let startTime = Date.now();
+    const MIN_DISPLAY = 600; // ms minimum visible time
+
+    function setProgress(p) {
+      p = Math.min(1, Math.max(0, p));
+      bar.style.width = (p * 100) + '%';
+      pctEl.textContent = Math.round(p * 100) + '%';
+    }
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      setProgress(1);
+      const elapsed = Date.now() - startTime;
+      const delay = Math.max(0, MIN_DISPLAY - elapsed);
+      setTimeout(() => {
+        // Close line (bar + track) from left to right
+        gsap.set(track, { clipPath: 'inset(0 0% 0 0%)' });
+        gsap.to(track,
+          { clipPath: 'inset(0 0% 0 100%)', duration: 0.7, ease: 'power2.inOut',
+            onComplete: () => {
+              gsap.to(loader, {
+                opacity: 0, filter: 'blur(24px)', scale: 1.04, duration: 1.4, ease: 'power2.inOut',
+                onComplete: () => { loader.remove(); document.body.style.overflow = ''; }
+              });
+            }
+          }
+        );
+      }, delay);
+    }
+
+    document.body.style.overflow = 'hidden';
+
+    const imgs = Array.from(document.querySelectorAll('img'));
+    const total = imgs.length;
+    if (total === 0) { finish(); return; }
+
+    let loaded = 0;
+    function onOne() {
+      loaded++;
+      setProgress(loaded / total);
+      if (loaded >= total) finish();
+    }
+
+    imgs.forEach(img => {
+      if (img.complete && img.naturalWidth > 0) { onOne(); }
+      else {
+        img.addEventListener('load',  onOne, { once: true });
+        img.addEventListener('error', onOne, { once: true });
+      }
+    });
+
+    // Fallback: force finish after 8s
+    setTimeout(finish, 8000);
+  })();
 
   /* ── LENIS ── */
   const lenis = new Lenis({ duration:1.15, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
