@@ -708,6 +708,22 @@
   /* ── LOADER ── */
   (function(){
     const loader = document.getElementById('siteLoader');
+
+    // Navigated from another page — skip loader, fade body in
+    if (sessionStorage.getItem('skipLoader')) {
+      sessionStorage.removeItem('skipLoader');
+      loader.remove();
+      document.body.style.overflow = '';
+      document.body.style.opacity = '0';
+      requestAnimationFrame(() => {
+        const heroVid = document.querySelector('.hero video');
+        if (heroVid) heroVid.play().catch(() => {});
+        gsap.to(document.body, { opacity: 1, duration: 0.55, ease: 'power2.out' });
+        if (window.__playHeroAnimations) window.__playHeroAnimations();
+      });
+      return;
+    }
+
     const bar    = document.getElementById('loaderBar');
     const track  = bar.parentElement;
     const pctEl  = document.getElementById('loaderPct');
@@ -749,8 +765,24 @@
 
     document.body.style.overflow = 'hidden';
 
-    const imgs = Array.from(document.querySelectorAll('img'));
-    const total = imgs.length;
+    // Product Asset images used in product-detail.html — preload so nav feels instant
+    const pdAssets = [
+      'Product Asset/Hero/heroimg-1.png','Product Asset/Hero/heroimg-2.png',
+      'Product Asset/About Product/about-product.png',
+      'Product Asset/About Product/Icons/alcohol-free.svg','Product Asset/About Product/Icons/cruelty-free.svg',
+      'Product Asset/About Product/Icons/vegan.svg','Product Asset/About Product/Icons/non-comedogenic.svg',
+      'Product Asset/About Product/Icons/daytime-usage.svg',
+      'Product Asset/Benefits/clinically-proven.png','Product Asset/Benefits/anti-inflammatory.png','Product Asset/Benefits/recover-skin-elasticity.png',
+      'Product Asset/How to Apply/step-1.png','Product Asset/How to Apply/step-2.png','Product Asset/How to Apply/step-3.png',
+      'Product Asset/Key Ingredients/bifida-ferment-lysate.png','Product Asset/Key Ingredients/revive-complex.png','Product Asset/Key Ingredients/saccharide-isometate.png',
+      'Product Asset/Dermatologist approved/dr-andina.png',
+      'Product Asset/Dermatologist approved/slider/slider-after.png','Product Asset/Dermatologist approved/slider/slider-before.png'
+    ];
+    const preloadImgs = pdAssets.map(src => { const i = new Image(); i.src = src; return i; });
+
+    const domImgs  = Array.from(document.querySelectorAll('img'));
+    const allImgs  = [...domImgs, ...preloadImgs];
+    const total    = allImgs.length;
     if (total === 0) { finish(); return; }
 
     let loaded = 0;
@@ -760,7 +792,7 @@
       if (loaded >= total) finish();
     }
 
-    imgs.forEach(img => {
+    allImgs.forEach(img => {
       if (img.complete && img.naturalWidth > 0) { onOne(); }
       else {
         img.addEventListener('load',  onOne, { once: true });
@@ -1311,6 +1343,17 @@
   /* ── ARTICLE TABS ── */
   document.querySelectorAll('.atab').forEach(t=>{
     t.addEventListener('click',()=>{ document.querySelectorAll('.atab').forEach(x=>x.classList.remove('on')); t.classList.add('on'); });
+  });
+
+  /* ── VIEW DETAIL: fade out → navigate (skip loader on destination) ── */
+  document.querySelectorAll('.pcard-detail').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sessionStorage.setItem('skipLoader', '1');
+      gsap.to(document.body, {
+        opacity: 0, duration: 0.45, ease: 'power2.inOut',
+        onComplete: () => { window.location.href = 'product-detail.html'; }
+      });
+    });
   });
 </script>
 </body>

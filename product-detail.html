@@ -310,7 +310,7 @@
 
 <!-- NAV -->
 <nav class="nav scrolled" id="nav">
-  <div class="nav-logo"><img src="Home Asset/Nav/Logo.svg" alt="LABORÉ"></div>
+  <div class="nav-logo" id="navLogo" style="cursor:pointer;"><img src="Home Asset/Nav/Logo.svg" alt="LABORÉ"></div>
   <div class="nav-links">
     <span class="nav-link">Products <span class="material-icons">expand_more</span></span>
     <span class="nav-link">Labore Lab <span class="material-icons">expand_more</span></span>
@@ -776,6 +776,21 @@
   /* ── LOADER ── */
   (function() {
     const loader  = document.getElementById('siteLoader');
+
+    // Navigated from another page — skip loader, fade body in instead
+    if (sessionStorage.getItem('skipLoader')) {
+      sessionStorage.removeItem('skipLoader');
+      loader.remove();
+      document.body.style.overflow = '';
+      document.body.style.opacity = '0';
+      requestAnimationFrame(() => {
+        // Fire animations SIMULTANEOUSLY with body fade — hero delays ensure natural stagger
+        gsap.to(document.body, { opacity: 1, duration: 0.55, ease: 'power2.out' });
+        if (window.__playPageAnimations) window.__playPageAnimations();
+      });
+      return;
+    }
+
     const bar     = document.getElementById('loaderBar');
     const track   = bar.parentElement;
     const pctEl   = document.getElementById('loaderPct');
@@ -1328,6 +1343,21 @@
   /* ── FOOTER ── */
   animateFade(document.querySelector('.footer-menu'), document.querySelector('.footer-top'), 0);
   animateFade(document.querySelector('.footer-about-text'), document.querySelector('.footer-nl-card'), 0.1);
+
+  /* ── FADE NAV helper ── */
+  function fadeNav(url) {
+    sessionStorage.setItem('skipLoader', '1');
+    gsap.to(document.body, { opacity: 0, duration: 0.45, ease: 'power2.inOut',
+      onComplete: () => { window.location.href = url; } });
+  }
+
+  /* ── VIEW DETAIL: fade out → navigate ── */
+  document.querySelectorAll('.pcard-detail').forEach(btn => {
+    btn.addEventListener('click', () => fadeNav('product-detail.html'));
+  });
+
+  /* ── LOGO: fade out → homepage ── */
+  document.getElementById('navLogo').addEventListener('click', () => fadeNav('index.html'));
 </script>
 </body>
 </html>
