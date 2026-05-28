@@ -63,20 +63,23 @@
     .link-fwd{display:inline-flex;align-items:center;gap:2px;font-size:14px;font-weight:700;color:#1B1918;cursor:pointer;}
     .link-sm{display:inline-flex;align-items:center;gap:2px;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;border:none;background:none;font-family:'Aeonik TRIAL',sans-serif;}
     .link-sm .material-icons{font-size:16px;color:#F95272;}
+    .link-sm:hover .arr-a{transform:translateX(110%);}
+    .link-sm:hover .arr-b{transform:translateX(0);}
 
     /* ── HERO ── */
     .pd-hero{display:flex;height:100vh;min-height:660px;overflow:hidden;}
     /* Left col: product image + breadcrumb */
-    .pd-hero-left-col{flex:1;position:relative;display:flex;flex-direction:column;min-width:0;}
-    .pd-hero-left-col img.pd-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform;}
+    .pd-hero-left-col{flex:1;position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+    /* images: taller than container so parallax has room, no white gap */
+    .pd-hero-left-col img.pd-hero-bg{position:absolute;width:100%;height:115%;top:-7.5%;object-fit:cover;will-change:transform;}
     /* Breadcrumb lives inside left col, top — pad clears fixed nav (~54px) */
     .pd-breadcrumb{position:relative;z-index:5;display:flex;align-items:center;gap:4px;padding:66px 24px 12px;}
     .pd-breadcrumb span{font-size:14px;font-weight:400;color:#4B4846;line-height:1.5;}
     .pd-breadcrumb .material-icons{font-size:14px;color:#4B4846;}
     .pd-breadcrumb .bc-current{color:#1B1918;}
     /* Right col: lifestyle image + centered glass card */
-    .pd-hero-right-col{flex:1;position:relative;display:flex;align-items:center;justify-content:center;min-width:0;}
-    .pd-hero-right-col img.pd-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform;}
+    .pd-hero-right-col{flex:1;position:relative;display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;}
+    .pd-hero-right-col img.pd-hero-bg{position:absolute;width:100%;height:115%;top:-7.5%;object-fit:cover;will-change:transform;}
     .pd-hero-right-col::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.05);pointer-events:none;}
     /* Glass card centered in right col */
     .pd-hero-card{position:relative;z-index:5;width:574px;display:flex;flex-direction:column;gap:8px;}
@@ -99,49 +102,61 @@
     .pd-hero-buy:hover{background:rgba(0,0,0,.2);}
 
     /* ── RUNNING TEXT ── */
-    .pd-running{background:#fff;overflow:hidden;padding:12px 24px;border-top:1px solid #F5F5F4;border-bottom:1px solid #F5F5F4;}
-    .pd-running-inner{display:flex;align-items:center;justify-content:space-between;gap:0;}
-    .pd-running-item{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+    .pd-running{background:#fff;overflow:hidden;padding:12px 0;border-top:1px solid #F5F5F4;border-bottom:1px solid #F5F5F4;}
+    .pd-running-track{display:flex;align-items:center;width:max-content;will-change:transform;}
+    .pd-running-item{display:flex;align-items:center;gap:10px;flex-shrink:0;padding:0 28px;}
     .pd-running-item img{width:20px;height:20px;}
     .pd-running-item span{font-size:20px;font-weight:500;color:#1B1918;white-space:nowrap;}
 
     /* ── ABOUT PRODUCT ── */
-    .pd-about{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:24px;background:#fff;align-items:stretch;min-height:640px;}
-    .pd-about-body{display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:0;}
+    .pd-about{display:flex;gap:12px;padding:24px;background:#fff;align-items:stretch;min-height:640px;}
+    .pd-about-body{flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:0;}
     .pd-about-top{display:flex;flex-direction:column;gap:16px;}
     .pd-about-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.15;}
     .pd-about-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.4;}
-    .pd-about-link{display:inline-flex;align-items:center;gap:2px;font-size:14px;font-weight:700;color:#1B1918;cursor:pointer;}
-    .pd-about-link .material-icons{font-size:16px;}
+    .pd-about-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#1B1918;cursor:pointer;align-self:flex-start;width:fit-content;}
+    .pd-about-link .btn-arr .material-icons{color:#F95272;}
+    .pd-about-link:hover .arr-a{transform:translateX(110%);}
+    .pd-about-link:hover .arr-b{transform:translateX(0);}
     /* Icon labels at bottom */
     .pd-about-icons{display:flex;flex-wrap:wrap;gap:24px 60px;}
     .pd-about-icon-item{display:flex;align-items:center;gap:12px;width:180px;}
     .pd-about-icon-item img{width:40px;height:40px;flex-shrink:0;}
     .pd-about-icon-item span{font-size:16px;font-weight:400;color:#75716F;line-height:1.4;}
-    /* Right image */
-    .pd-about-img{border-radius:8px;overflow:hidden;position:relative;}
-    .pd-about-img img{width:100%;height:100%;object-fit:cover;}
+    /* Right image — taller for parallax, no white gap */
+    .pd-about-img{flex:1;border-radius:8px;overflow:hidden;position:relative;}
+    .pd-about-img img{position:absolute;width:100%;height:125%;top:-12.5%;left:0;object-fit:cover;will-change:transform;}
 
     /* ── BENEFIT ── */
     .pd-benefit{position:relative;height:780px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;gap:40px;}
-    .pd-benefit-bg{position:absolute;inset:0;}
-    .pd-benefit-bg img{width:100%;height:100%;object-fit:cover;}
-    .pd-benefit-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 60%,transparent 100%);}
-    /* Feature tabs top */
+    /* Two bg images for wipe transition */
+    .pd-benefit-bg{position:absolute;inset:0;overflow:hidden;}
+    .pd-benefit-bg-img{position:absolute;width:100%;height:125%;top:-12.5%;object-fit:cover;will-change:transform;}
+    #bBgFront{z-index:1;clip-path:inset(100% 0 0 0);}
+    /* Tabs */
     .pd-benefit-tabs{position:relative;z-index:2;display:flex;gap:12px;flex:1;align-items:flex-start;padding-top:24px;}
     .pd-btab{display:flex;flex-direction:column;gap:8px;flex:1;cursor:pointer;}
     .pd-btab-bar{height:4px;background:rgba(255,255,255,.2);border-radius:50px;position:relative;overflow:hidden;}
-    .pd-btab-bar-fill{position:absolute;left:0;top:0;height:100%;background:#fff;border-radius:6px;width:0%;transition:width .4s ease;}
-    .pd-btab.active .pd-btab-bar-fill{width:25%;}
-    .pd-btab-label{font-size:14px;font-weight:700;color:rgba(255,255,255,.5);line-height:1.2;}
+    .pd-btab-bar-fill{position:absolute;left:0;top:0;height:100%;width:0%;background:#fff;border-radius:6px;}
+    .pd-btab-label{font-size:14px;font-weight:500;color:rgba(255,255,255,.5);line-height:1.2;}
     .pd-btab.active .pd-btab-label{color:#fff;}
-    /* Glass stat panel */
+    /* Glass panel */
     .pd-benefit-panel{position:relative;z-index:2;background:rgba(245,245,244,.2);backdrop-filter:blur(17px);border-radius:8px;padding:16px 20px 20px;width:512px;display:flex;flex-direction:column;gap:24px;}
     .pd-benefit-stat{display:flex;flex-direction:column;gap:8px;}
-    .pd-benefit-num{font-size:100px;font-weight:500;color:#fff;line-height:1;}
-    .pd-benefit-desc-big{font-size:24px;font-weight:400;color:#fff;line-height:1.25;}
-    .pd-benefit-desc-small{font-size:16px;font-weight:600;color:rgba(255,255,255,.7);line-height:1.2;}
+    .pd-benefit-num{font-size:80px;font-weight:400;color:#fff;line-height:1;}
+    .pd-benefit-desc-big{font-size:20px;font-weight:400;color:#fff;line-height:1.25;}
+    .pd-benefit-desc-small{font-size:16px;font-weight:500;color:rgba(255,255,255,.75);line-height:1.2;opacity:.8;}
     .pd-benefit-divider{height:1px;background:rgba(255,255,255,.2);}
+    /* Icons panel (benefit 02) — no glass, plain content, sits below tabs */
+    .pd-benefit-panel--plain{background:transparent!important;backdrop-filter:none!important;padding:0!important;width:560px!important;}
+    /* Section variant: content flows from top */
+    .pd-benefit--top .pd-benefit-tabs{flex:0 0 auto;}
+    .pd-benefit--top{justify-content:flex-start;gap:28px;}
+    .pd-benefit-02-desc{font-size:18px;font-weight:400;color:#fff;line-height:1.45;margin-bottom:28px;}
+    .pd-benefit-icons{display:grid;grid-template-columns:1fr 1fr;gap:20px 40px;}
+    .pd-benefit-icon-item{display:flex;align-items:center;gap:14px;}
+    .pd-benefit-icon-item img{width:44px;height:44px;object-fit:contain;flex-shrink:0;}
+    .pd-benefit-icon-label{font-size:16px;font-weight:400;color:#fff;line-height:1.3;}
 
     /* ── HOW TO APPLY ── */
     .pd-hta{display:grid;grid-template-columns:690px 1fr;gap:12px;background:#fff;padding:12px 24px;overflow:hidden;}
@@ -149,53 +164,59 @@
     .pd-hta-header{display:flex;flex-direction:column;gap:8px;padding-bottom:24px;}
     .pd-hta-eyebrow{font-size:14px;font-weight:500;color:rgba(75,72,70,.5);line-height:1.2;}
     .pd-hta-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.15;}
-    /* Steps accordion */
+    /* Steps */
     .pd-steps{display:flex;flex-direction:column;}
-    .pd-step{cursor:pointer;}
-    .pd-step-head{display:flex;flex-direction:column;gap:8px;padding:16px 12px;}
-    .pd-step.active .pd-step-head{background:rgba(255,227,230,.5);border-radius:8px;}
-    .pd-step-num{font-size:14px;font-weight:400;color:#75716F;line-height:1.2;}
+    .pd-step{cursor:pointer;border-radius:8px;transition:background .35s ease;}
+    .pd-step.active{background:rgba(255,227,230,.5);}
+    .pd-step-head{display:flex;flex-direction:column;gap:8px;padding:16px 12px 0;}
+    .pd-step-num{font-size:14px;font-weight:400;color:#75716F;line-height:1.2;transition:color .3s ease;}
     .pd-step.active .pd-step-num{color:#F95272;}
     .pd-step-name{font-size:24px;font-weight:500;color:#1B1918;line-height:1;}
     .pd-step-body{overflow:hidden;display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease;}
     .pd-step.active .pd-step-body{grid-template-rows:1fr;}
-    .pd-step-inner{overflow:hidden;padding:10px 12px 0;}
-    .pd-step-desc{font-size:16px;font-weight:400;color:#4B4846;line-height:1;}
-    .pd-step-divider{height:1px;background:#D5D3D2;margin:0;}
-    /* Right images */
-    .pd-hta-right{display:flex;gap:12px;align-items:stretch;}
-    .pd-hta-img{flex:1;border-radius:8px;overflow:hidden;height:685px;}
-    .pd-hta-img img{width:100%;height:100%;object-fit:cover;}
+    .pd-step-inner{overflow:hidden;padding:8px 0 0;}/* no side pad — aligns with head text at 12px */
+    .pd-step-desc{font-size:16px;font-weight:400;color:#4B4846;line-height:1.4;padding:0 12px 16px;}
+    .pd-step-divider{height:1px;background:#D5D3D2;margin:0;transition:opacity .3s ease;}
+    .pd-step.active + .pd-step-divider{opacity:0;pointer-events:none;}
+    .pd-step-divider:has(+ .pd-step.active){opacity:0;pointer-events:none;}
+    /* Right images — sliding track */
+    .pd-hta-right{overflow:hidden;position:relative;flex:1;}
+    .pd-hta-track{display:flex;gap:12px;height:685px;will-change:transform;}
+    .pd-hta-img{flex:0 0 calc(50% - 6px);border-radius:8px;overflow:hidden;flex-shrink:0;}
+    .pd-hta-img img{width:100%;height:100%;object-fit:cover;transition:filter .55s ease;}
 
     /* ── KEY INGREDIENTS ── */
-    .pd-ingredients{background:#fff;padding:24px;display:flex;flex-direction:column;gap:24px;}
-    .pd-ing-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1;}
+    .pd-ingredients{background:#fff;padding:48px 24px;display:flex;flex-direction:column;gap:24px;}
+    .pd-ing-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.2;}
     .pd-ing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-    .pd-icard{height:448px;border-radius:8px;overflow:hidden;position:relative;background:#E7E8EA;}
-    .pd-icard-img{position:absolute;inset:0;}
-    .pd-icard-img img{width:100%;height:100%;object-fit:cover;}
-    .pd-icard-panel{position:absolute;bottom:12px;left:12px;right:12px;background:rgba(41,41,34,.38);backdrop-filter:blur(17px);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:16px;}
+    .pd-icard{height:448px;border-radius:8px;overflow:hidden;position:relative;background:#E7E8EA;cursor:pointer;}
+    .pd-icard-img{position:absolute;inset:0;overflow:hidden;}
+    .pd-icard-img img{position:absolute;width:100%;height:130%;top:-15%;object-fit:cover;will-change:transform;}
+    .pd-icard-panel{position:absolute;bottom:12px;left:12px;right:12px;background:rgba(41,41,34,.38);backdrop-filter:blur(17px);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:0;}
     .pd-icard-head{display:flex;align-items:center;justify-content:space-between;}
     .pd-icard-name{font-size:24px;font-weight:400;color:#fff;white-space:nowrap;}
-    .pd-icard-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center;}
-    .pd-icard-icon .material-icons{font-size:20px;color:#fff;}
-    .pd-icard-desc{font-size:14px;font-weight:400;color:#fff;line-height:1.2;display:none;}
-    .pd-icard.active .pd-icard-desc{display:block;}
-    .pd-icard.active .pd-icard-icon .material-icons{content:'remove';}
+    .pd-icard-icon{position:relative;width:24px;height:24px;flex-shrink:0;}
+    .pd-icard-icon .material-icons{position:absolute;inset:0;font-size:20px;color:#fff;display:flex;align-items:center;justify-content:center;transition:opacity .35s ease,transform .35s ease;}
+    .icard-ico-add{opacity:1;transform:rotate(0deg);}
+    .icard-ico-rem{opacity:0;transform:rotate(-90deg);}
+    .pd-icard.active .icard-ico-add{opacity:0;transform:rotate(90deg);}
+    .pd-icard.active .icard-ico-rem{opacity:1;transform:rotate(0deg);}
+    .pd-icard-body{overflow:hidden;height:0;}
+    .pd-icard-desc{padding-top:14px;font-size:14px;font-weight:400;color:#fff;line-height:1.4;}
 
     /* ── DERMATOLOGIST ── */
     .pd-derm{background:#fff;padding:0 24px;display:flex;flex-direction:column;}
-    .pd-derm-grid{display:flex;gap:12px;align-items:flex-end;}
+    .pd-derm-grid{display:flex;gap:12px;align-items:stretch;}
     /* Doctor photo */
-    .pd-derm-photo{width:690px;height:690px;flex-shrink:0;border-radius:8px;overflow:hidden;}
-    .pd-derm-photo img{width:100%;height:100%;object-fit:cover;object-position:top;}
+    .pd-derm-photo{width:690px;height:690px;flex-shrink:0;border-radius:8px;overflow:hidden;position:relative;}
+    .pd-derm-photo img{position:absolute;width:100%;height:120%;top:-10%;object-fit:cover;object-position:top;will-change:transform;}
     /* Text + slider right */
-    .pd-derm-right{display:flex;flex-direction:column;gap:12px;justify-content:flex-end;flex:1;}
+    .pd-derm-right{display:flex;flex-direction:column;gap:12px;justify-content:space-between;flex:1;}
     .pd-derm-text{display:flex;flex-direction:column;gap:24px;}
     .pd-derm-chip{display:flex;align-items:center;gap:4px;}
     .pd-derm-chip .material-icons{font-size:20px;color:#75716F;}
     .pd-derm-chip-label{font-size:16px;font-weight:500;color:#75716F;}
-    .pd-derm-quote{font-size:28px;font-weight:500;color:#1B1918;line-height:1.2;}
+    .pd-derm-quote{font-size:28px;font-weight:600;color:#1B1918;line-height:1.3;}
     .pd-derm-quote em{font-style:normal;font-weight:400;}
     .pd-derm-attr{display:flex;flex-direction:column;gap:8px;}
     .pd-derm-name{font-size:16px;font-weight:600;color:#1B1918;}
@@ -211,18 +232,41 @@
     .pd-ba-labels{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;padding:0 16px;z-index:4;pointer-events:none;}
     .pd-ba-label{background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;}
 
-    /* ── REGIMEN ── */
-    .pd-regimen{background:#fff;padding:48px 24px;display:flex;flex-direction:column;gap:24px;overflow:hidden;}
-    .pd-regimen-header{display:flex;align-items:flex-end;justify-content:space-between;}
-    .pd-regimen-title{font-size:34px;font-weight:500;color:#1B1918;}
-    .pd-reg-cards{display:flex;gap:12px;}
-    .pd-rcard{flex:0 0 calc((100% - 36px) / 4);display:flex;flex-direction:column;cursor:pointer;}
-    .pd-rcard-img{height:500px;border-radius:8px;overflow:hidden;position:relative;background:#F5F5F4;}
-    .pd-rcard-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
-    .pd-rcard:hover .pd-rcard-img img{transform:scale(1.04);}
-    .pd-rcard-body{padding:14px 12px 0;display:flex;flex-direction:column;gap:4px;}
-    .pd-rcard-name{font-size:18px;font-weight:600;color:#1B1918;line-height:1;}
-    .pd-rcard-desc{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
+    /* ── REGIMEN (product carousel reuse) ── */
+    .pd-regimen{background:#fff;padding:48px 0;}
+    .pd-reg-header{display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px;margin-bottom:24px;}
+    .pd-reg-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.15;}
+    .prod-carousel{position:relative;}
+    .prod-track-wrap{overflow:hidden;padding:0 24px;}
+    .prod-track{display:flex;gap:12px;}
+    .pcard{flex-shrink:0;width:calc((100vw - 72px) / 3);display:flex;flex-direction:column;cursor:pointer;}
+    .prod-nav{position:absolute;top:250px;z-index:10;}
+    .prod-nav-left{left:6px;}
+    .prod-nav-right{right:6px;}
+    .pcard-img{width:100%;height:500px;border-radius:8px;background:#F5F5F4;overflow:hidden;position:relative;}
+    .pcard-px{position:absolute;inset:0;will-change:transform;}
+    .pcard-img img{position:absolute;width:120%;height:100%;left:-10%;top:0;object-fit:cover;transition:opacity .45s ease,transform .55s cubic-bezier(.25,.46,.45,.94);}
+    .pcard-img-hover{opacity:0;}
+    .pcard:hover .pcard-img-main{opacity:0;}
+    .pcard:hover .pcard-img-hover{opacity:1;}
+    .pcard:hover .pcard-img img{transform:scale(1.04);}
+    .pcard-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:12px;z-index:3;}
+    .pcard-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:100px;padding:5px 10px 5px 6px;font-size:12px;font-weight:500;color:#1B1918;align-self:flex-start;opacity:0;transition:opacity .35s ease;}
+    .pcard-badge .material-icons{font-size:14px;color:#1B1918;}
+    .pcard-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;transform:translateY(250%);transition:transform .38s cubic-bezier(.25,.46,.45,.94);}
+    .pcard:hover .pcard-badge{opacity:1;}
+    .pcard:hover .pcard-actions{transform:translateY(0);}
+    .pcard-detail,.pcard-buy{display:flex;align-items:center;justify-content:center;gap:4px;font-family:'Aeonik TRIAL',sans-serif;font-size:14px;font-weight:500;padding:12px 10px;border-radius:8px;border:none;cursor:pointer;transition:transform .2s ease;}
+    .pcard-detail{background:rgba(46,37,24,.22);backdrop-filter:blur(17px);-webkit-backdrop-filter:blur(17px);color:#fff;}
+    .pcard-buy{background:#fff;color:#1B1918;}
+    .pcard-detail:hover,.pcard-buy:hover{transform:scale(1.02);}
+    .pcard-detail .material-icons,.pcard-buy .material-icons{font-size:14px;}
+    .pcard-body{padding:14px 12px 0;}
+    .pcard-name{font-size:18px;font-weight:600;color:#1B1918;line-height:1;margin-bottom:4px;}
+    .pcard-desc{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
+    .arrow-btn{width:34px;height:34px;border-radius:8px;border:1px solid #D5D3D2;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease,transform .2s ease;}
+    .arrow-btn:hover{background:#F5F5F4;transform:scale(1.05);}
+    .arrow-btn .material-icons{font-size:18px;}
 
     /* ── FOOTER ── */
     .footer{position:relative;min-height:848px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;overflow:hidden;}
@@ -265,10 +309,10 @@
 </div>
 
 <!-- NAV -->
-<nav class="nav" id="nav">
+<nav class="nav scrolled" id="nav">
   <div class="nav-logo"><img src="Home Asset/Nav/Logo.svg" alt="LABORÉ"></div>
   <div class="nav-links">
-    <span class="nav-link active">Products <span class="material-icons">expand_more</span></span>
+    <span class="nav-link">Products <span class="material-icons">expand_more</span></span>
     <span class="nav-link">Labore Lab <span class="material-icons">expand_more</span></span>
     <span class="nav-link">Brand Story</span>
     <span class="nav-link">Skin 101 <span class="material-icons">expand_more</span></span>
@@ -327,31 +371,59 @@
 
 <!-- RUNNING TEXT -->
 <div class="pd-running" id="pdRunning">
-  <div class="pd-running-inner">
-    <div class="pd-running-item">
-      <img src="Product Asset/Running Text/clinically-tested.svg" alt="">
-      <span>Clinically Tested</span>
-    </div>
+  <div class="pd-running-track" aria-hidden="true">
+    <!-- set A -->
     <div class="pd-running-item">
       <img src="Product Asset/Running Text/ideal-for-sensitive-skin.svg" alt="">
       <span>Ideal for Sensitive Skin</span>
     </div>
+
     <div class="pd-running-item">
       <img src="Product Asset/Running Text/suitable-for-indonesian-skin.svg" alt="">
       <span>Suitable for Indonesian Skin</span>
     </div>
+
     <div class="pd-running-item">
       <img src="Product Asset/Running Text/dermatologist-tested.svg" alt="">
       <span>Dermatologist Tested</span>
     </div>
+
     <div class="pd-running-item">
       <img src="Product Asset/Running Text/cruelty-free.svg" alt="">
       <span>Cruelty-Free</span>
     </div>
+
     <div class="pd-running-item">
       <img src="Product Asset/Running Text/clinically-tested.svg" alt="">
       <span>Clinically Tested</span>
     </div>
+
+    <!-- set B (duplicate for seamless loop) -->
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/ideal-for-sensitive-skin.svg" alt="">
+      <span>Ideal for Sensitive Skin</span>
+    </div>
+
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/suitable-for-indonesian-skin.svg" alt="">
+      <span>Suitable for Indonesian Skin</span>
+    </div>
+
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/dermatologist-tested.svg" alt="">
+      <span>Dermatologist Tested</span>
+    </div>
+
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/cruelty-free.svg" alt="">
+      <span>Cruelty-Free</span>
+    </div>
+
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/clinically-tested.svg" alt="">
+      <span>Clinically Tested</span>
+    </div>
+
   </div>
 </div>
 
@@ -361,10 +433,13 @@
   <div class="pd-about-body">
     <div class="pd-about-top" id="aboutTop">
       <h2 class="pd-about-title">Repair Your Skin Barrier,<br>Restore Skin Comfort</h2>
-      <p class="pd-about-desc">A weakened barrier can make skin feel dry, sensitive, or easily irritated. Labore Biome Repair helps support the skin's natural microbiome and strengthen the skin barrier, leaving sensitive skin feeling calmer, healthier, and more resilient.</p>
+      <p class="pd-about-desc">A weakened barrier can make skin feel dry, sensitive, or easily irritated. Labore Biome<br>Repair helps support the skin's natural microbiome and strengthen the skin barrier,<br>leaving sensitive skin feeling calmer, healthier, and more resilient.</p>
       <div class="pd-about-link" id="aboutLink">
         <span>About Skin Barrier</span>
-        <span class="material-icons" style="font-size:16px;">arrow_forward</span>
+        <div class="btn-arr">
+          <span class="material-icons arr-a">arrow_forward</span>
+          <span class="material-icons arr-b">arrow_forward</span>
+        </div>
       </div>
     </div>
     <!-- Icon labels: from Product Asset/About Product/Icons/ -->
@@ -399,42 +474,26 @@
 
 <!-- BENEFIT -->
 <section class="pd-benefit" id="pdBenefit">
-  <div class="pd-benefit-bg">
-    <img src="Product Asset/Benefits/clinically-proven.png" alt="" id="benefitBg">
+  <div class="pd-benefit-bg" id="bBgWrap">
+    <img class="pd-benefit-bg-img" id="bBgBack" src="Product Asset/Benefits/clinically-proven.png" alt="">
+    <img class="pd-benefit-bg-img" id="bBgFront" src="Product Asset/Benefits/clinically-proven.png" alt="">
   </div>
-  <!-- Feature tabs top -->
   <div class="pd-benefit-tabs" id="benefitTabs">
-    <div class="pd-btab active" data-idx="0">
-      <div class="pd-btab-bar"><div class="pd-btab-bar-fill"></div></div>
+    <div class="pd-btab active" data-bidx="0">
+      <div class="pd-btab-bar"><div class="pd-btab-bar-fill" id="bFill0"></div></div>
       <div class="pd-btab-label">Clinically Proven</div>
     </div>
-    <div class="pd-btab" data-idx="1">
-      <div class="pd-btab-bar"><div class="pd-btab-bar-fill"></div></div>
+    <div class="pd-btab" data-bidx="1">
+      <div class="pd-btab-bar"><div class="pd-btab-bar-fill" id="bFill1"></div></div>
       <div class="pd-btab-label">Anti-Inflammatory</div>
     </div>
-    <div class="pd-btab" data-idx="2">
-      <div class="pd-btab-bar"><div class="pd-btab-bar-fill"></div></div>
+    <div class="pd-btab" data-bidx="2">
+      <div class="pd-btab-bar"><div class="pd-btab-bar-fill" id="bFill2"></div></div>
       <div class="pd-btab-label">Recover Skin Elasticity</div>
     </div>
   </div>
-  <!-- Glass stat panel -->
-  <div class="pd-benefit-panel" id="benefitPanel">
-    <div class="pd-benefit-stat">
-      <div class="pd-benefit-num">95%</div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div class="pd-benefit-desc-big">Instantly reduce signs of sensitive skin <br>in 15 minutes</div>
-        <div class="pd-benefit-desc-small">Based on Clinical study on 20 volunteers with sensitive skin</div>
-      </div>
-    </div>
-    <div class="pd-benefit-divider"></div>
-    <div class="pd-benefit-stat">
-      <div class="pd-benefit-num">95%</div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div class="pd-benefit-desc-big">Experience a lightweight texture that absorbs quickly into the skin.</div>
-        <div class="pd-benefit-desc-small">Based on Clinical study on 20 volunteers with sensitive skin, for 1 day</div>
-      </div>
-    </div>
-  </div>
+  <!-- Panel content injected by JS -->
+  <div class="pd-benefit-panel" id="benefitPanel"></div>
 </section>
 
 <!-- HOW TO APPLY -->
@@ -450,10 +509,10 @@
         <div class="pd-step-head">
           <div class="pd-step-num">Step 01</div>
           <div class="pd-step-name">Cleanse Your Skin</div>
-          <div class="pd-step-body">
-            <div class="pd-step-inner">
-              <div class="pd-step-desc">Start with a gentle cleanser on damp skin. Pat dry with a soft towel — never rub.</div>
-            </div>
+        </div>
+        <div class="pd-step-body">
+          <div class="pd-step-inner">
+            <div class="pd-step-desc">Start with a gentle cleanser on damp skin. Pat dry with a soft towel — never rub.</div>
           </div>
         </div>
       </div>
@@ -462,10 +521,10 @@
         <div class="pd-step-head">
           <div class="pd-step-num">Step 02</div>
           <div class="pd-step-name">Apply the Cream</div>
-          <div class="pd-step-body">
-            <div class="pd-step-inner">
-              <div class="pd-step-desc">Take a pea-sized amount and warm it between your fingertips. Gently press onto face and neck.</div>
-            </div>
+        </div>
+        <div class="pd-step-body">
+          <div class="pd-step-inner">
+            <div class="pd-step-desc">Take a pea-sized amount and warm it between your fingertips. Gently press onto face and neck.</div>
           </div>
         </div>
       </div>
@@ -474,19 +533,23 @@
         <div class="pd-step-head">
           <div class="pd-step-num">Step 03</div>
           <div class="pd-step-name">Let It Absorb</div>
-          <div class="pd-step-body">
-            <div class="pd-step-inner">
-              <div class="pd-step-desc">Allow the cream to fully absorb before applying sunscreen. Use morning and evening for best results.</div>
-            </div>
+        </div>
+        <div class="pd-step-body">
+          <div class="pd-step-inner">
+            <div class="pd-step-desc">Allow the cream to fully absorb before applying sunscreen. Use morning and evening for best results.</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Right: two tall images -->
-  <div class="pd-hta-right">
-    <div class="pd-hta-img"><img src="Product Asset/How to Apply/step-1.png" alt="Step 1" id="htaImg1"></div>
-    <div class="pd-hta-img"><img src="Product Asset/How to Apply/step-2.png" alt="Step 2" id="htaImg2"></div>
+  <!-- Right: sliding image track (4 items for seamless loop) -->
+  <div class="pd-hta-right" id="htaRight">
+    <div class="pd-hta-track" id="htaTrack">
+      <div class="pd-hta-img"><img src="Product Asset/How to Apply/step-1.png" alt="Step 1"></div>
+      <div class="pd-hta-img"><img src="Product Asset/How to Apply/step-2.png" alt="Step 2"></div>
+      <div class="pd-hta-img"><img src="Product Asset/How to Apply/step-3.png" alt="Step 3"></div>
+      <div class="pd-hta-img"><img src="Product Asset/How to Apply/step-1.png" alt="Step 1"></div>
+    </div>
   </div>
 </section>
 
@@ -494,14 +557,16 @@
 <section class="pd-ingredients" id="pdIngredients">
   <h2 class="pd-ing-title" id="ingTitle">Key Ingredients</h2>
   <div class="pd-ing-cards" id="ingCards">
-    <div class="pd-icard active" data-idx="0">
+    <div class="pd-icard" data-idx="0">
       <div class="pd-icard-img"><img src="Product Asset/Key Ingredients/bifida-ferment-lysate.png" alt="Bifida Ferment Lysate"></div>
       <div class="pd-icard-panel">
         <div class="pd-icard-head">
           <div class="pd-icard-name">Bifida Ferment Lysate</div>
-          <div class="pd-icard-icon"><span class="material-icons">remove</span></div>
+          <div class="pd-icard-icon"><span class="material-icons icard-ico-add">add</span><span class="material-icons icard-ico-rem">remove</span></div>
         </div>
-        <div class="pd-icard-desc">Bifida Ferment Lysate is a form of paraprobiotic microbiome which are the inactivated form of prebiotic, when paraprobiotic contact with the skin it will actively work for rebalancing skin microbiome and strengthening skin barrier.</div>
+        <div class="pd-icard-body">
+          <div class="pd-icard-desc">Bifida Ferment Lysate is a form of paraprobiotic microbiome which are the inactivated form of prebiotic, when paraprobiotic contact with the skin it will actively work for rebalancing skin microbiome and strengthening skin barrier.</div>
+        </div>
       </div>
     </div>
     <div class="pd-icard" data-idx="1">
@@ -509,9 +574,11 @@
       <div class="pd-icard-panel">
         <div class="pd-icard-head">
           <div class="pd-icard-name">Revive Complex</div>
-          <div class="pd-icard-icon"><span class="material-icons">add</span></div>
+          <div class="pd-icard-icon"><span class="material-icons icard-ico-add">add</span><span class="material-icons icard-ico-rem">remove</span></div>
         </div>
-        <div class="pd-icard-desc">A proprietary blend of ceramides, fatty acids, and cholesterol that restores the skin's lipid matrix and accelerates recovery from environmental damage.</div>
+        <div class="pd-icard-body">
+          <div class="pd-icard-desc">A proprietary blend of ceramides, fatty acids, and cholesterol that restores the skin's lipid matrix and accelerates recovery from environmental damage.</div>
+        </div>
       </div>
     </div>
     <div class="pd-icard" data-idx="2">
@@ -519,9 +586,11 @@
       <div class="pd-icard-panel">
         <div class="pd-icard-head">
           <div class="pd-icard-name">Saccharide Isometate</div>
-          <div class="pd-icard-icon"><span class="material-icons">add</span></div>
+          <div class="pd-icard-icon"><span class="material-icons icard-ico-add">add</span><span class="material-icons icard-ico-rem">remove</span></div>
         </div>
-        <div class="pd-icard-desc">A carbohydrate complex that binds to the keratin in skin cells forming a moisture reservoir that lasts up to 72 hours of lasting hydration.</div>
+        <div class="pd-icard-body">
+          <div class="pd-icard-desc">A carbohydrate complex that binds to the keratin in skin cells forming a moisture reservoir that lasts up to 72 hours of lasting hydration.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -553,10 +622,6 @@
         <div class="pd-ba-before" id="pdBaBefore"><img src="Product Asset/Dermatologist approved/slider/slider-before.png" alt="Before"></div>
         <div class="pd-ba-line" id="pdBaLine"></div>
         <div class="pd-ba-btn" id="pdBaBtn"><span class="material-icons">unfold_more</span></div>
-        <div class="pd-ba-labels">
-          <span class="pd-ba-label">Before</span>
-          <span class="pd-ba-label">After</span>
-        </div>
       </div>
     </div>
   </div>
@@ -564,27 +629,81 @@
 
 <!-- COMPLETE YOUR REGIMEN -->
 <section class="pd-regimen" id="pdRegimen">
-  <div class="pd-regimen-header">
-    <h2 class="pd-regimen-title" id="regimenTitle">Complete Your Regimen</h2>
+  <div class="pd-reg-header">
+    <h2 class="pd-reg-title" id="regimenTitle">Complete Your Regimen</h2>
     <button class="link-sm">Shop All Products <span class="btn-arr"><span class="material-icons arr-a" style="color:#F95272;">arrow_forward</span><span class="material-icons arr-b" style="color:#F95272;">arrow_forward</span></span></button>
   </div>
-  <div class="pd-reg-cards" id="regCards">
-    <div class="pd-rcard">
-      <div class="pd-rcard-img"><img src="Home Asset/Product/intensive-acne-serum/intensive-acne-serum.jpg" alt="Intensive Acne Serum"></div>
-      <div class="pd-rcard-body"><div class="pd-rcard-name">Intensive Acne Serum</div><div class="pd-rcard-desc">Acne serum with mineral UV and pollution defense.</div></div>
+  <div class="prod-carousel">
+    <div class="prod-nav prod-nav-left"><div class="arrow-btn" id="regPrev"><span class="material-icons">chevron_left</span></div></div>
+    <div class="prod-track-wrap">
+      <div class="prod-track" id="regTrack">
+        <div class="pcard">
+          <div class="pcard-img">
+            <div class="pcard-px">
+              <img class="pcard-img-main" src="Home Asset/Product/intensive-acne-serum/intensive-acne-serum.jpg" alt="Intensive Acne Serum">
+              <img class="pcard-img-hover" src="Home Asset/Product/intensive-acne-serum/intensive-acne-serum-hover.png" alt="">
+            </div>
+            <div class="pcard-overlay">
+              <div class="pcard-badge"><span class="material-icons">verified</span>Dermatologist approved</div>
+              <div class="pcard-actions">
+                <button class="pcard-detail">View Detail <span class="material-icons">arrow_forward</span></button>
+                <button class="pcard-buy">Buy Now <span class="material-icons">north_east</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="pcard-body"><div class="pcard-name">Intensive Acne Serum</div><div class="pcard-desc">Acne serum with mineral UV and pollution defense.</div></div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-img">
+            <div class="pcard-px">
+              <img class="pcard-img-main" src="Home Asset/Product/skin-nutrition-gel/skin-nutrition-gel.jpg" alt="Skin Nutrition Gel">
+              <img class="pcard-img-hover" src="Home Asset/Product/skin-nutrition-gel/skin-nutrition-gel-hover.jpg" alt="">
+            </div>
+            <div class="pcard-overlay">
+              <div class="pcard-badge"><span class="material-icons">verified</span>Dermatologist approved</div>
+              <div class="pcard-actions">
+                <button class="pcard-detail">View Detail <span class="material-icons">arrow_forward</span></button>
+                <button class="pcard-buy">Buy Now <span class="material-icons">north_east</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="pcard-body"><div class="pcard-name">Skin Nutrition Gel</div><div class="pcard-desc">Ultra-light moisturizer with cooling sensation.</div></div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-img">
+            <div class="pcard-px">
+              <img class="pcard-img-main" src="Home Asset/Product/mild-cleanser/mild-cleanser.jpg" alt="Mild Cleanser">
+              <img class="pcard-img-hover" src="Home Asset/Product/mild-cleanser/mild-cleanser-hover.png" alt="">
+            </div>
+            <div class="pcard-overlay">
+              <div class="pcard-badge"><span class="material-icons">verified</span>Dermatologist approved</div>
+              <div class="pcard-actions">
+                <button class="pcard-detail">View Detail <span class="material-icons">arrow_forward</span></button>
+                <button class="pcard-buy">Buy Now <span class="material-icons">north_east</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="pcard-body"><div class="pcard-name">Mild Cleanser</div><div class="pcard-desc">Non-foam cleanser with pH 5.5.</div></div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-img">
+            <div class="pcard-px">
+              <img class="pcard-img-main" src="Home Asset/Product/physical-sunscreen/physical-sunscreen.jpg" alt="Physical Sunscreen">
+              <img class="pcard-img-hover" src="Home Asset/Product/physical-sunscreen/physical-sunscreen-hover.jpg" alt="">
+            </div>
+            <div class="pcard-overlay">
+              <div class="pcard-badge"><span class="material-icons">verified</span>Dermatologist approved</div>
+              <div class="pcard-actions">
+                <button class="pcard-detail">View Detail <span class="material-icons">arrow_forward</span></button>
+                <button class="pcard-buy">Buy Now <span class="material-icons">north_east</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="pcard-body"><div class="pcard-name">Physical Sunscreen</div><div class="pcard-desc">100% mineral UV filters with anti-bluelight and anti-pollution.</div></div>
+        </div>
+      </div>
     </div>
-    <div class="pd-rcard">
-      <div class="pd-rcard-img"><img src="Home Asset/Product/skin-nutrition-gel/skin-nutrition-gel.jpg" alt="Skin Nutrition Gel"></div>
-      <div class="pd-rcard-body"><div class="pd-rcard-name">Skin Nutrition Gel</div><div class="pd-rcard-desc">Ultra-light moisturizer with cooling sensation.</div></div>
-    </div>
-    <div class="pd-rcard">
-      <div class="pd-rcard-img"><img src="Home Asset/Product/mild-cleanser/mild-cleanser.jpg" alt="Mild Cleanser"></div>
-      <div class="pd-rcard-body"><div class="pd-rcard-name">Mild Cleanser</div><div class="pd-rcard-desc">Non-foam cleanser with pH 5.5.</div></div>
-    </div>
-    <div class="pd-rcard">
-      <div class="pd-rcard-img"><img src="Home Asset/Product/physical-sunscreen/physical-sunscreen.jpg" alt="Physical Sunscreen"></div>
-      <div class="pd-rcard-body"><div class="pd-rcard-name">Physical Sunscreen</div><div class="pd-rcard-desc">100% mineral UV filters with anti-bluelight and anti-pollution.</div></div>
-    </div>
+    <div class="prod-nav prod-nav-right"><div class="arrow-btn" id="regNext"><span class="material-icons">chevron_right</span></div></div>
   </div>
 </section>
 
@@ -714,44 +833,77 @@
   if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
   lenis.on('scroll', ScrollTrigger.update);
 
-  /* ── NAV ── */
+  /* ── PARALLAX HELPER ── */
+  function parallax(el, imgEl, factor) {
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const progress = (vh - r.top) / (r.height + vh);
+    imgEl.style.transform = `translateY(${(progress - .5) * r.height * factor}px)`;
+  }
+  const footerSec = document.getElementById('footerSec');
+  const footerBg  = document.getElementById('footerBg');
+  lenis.on('scroll', () => { parallax(footerSec, footerBg, .2); });
+
+  /* ── NAV: always scrolled state on product page ── */
   const nav = document.getElementById('nav');
-  lenis.on('scroll', ({ scroll }) => { nav.classList.toggle('scrolled', scroll > 50); });
 
   /* ── HERO: hidden initial states ── */
+  // KEY: opacity/filter NEVER on parent of backdrop-filter child.
+  // #heroCard = wrapper → y only. .pd-hero-info and .pd-hero-buy = glass elements → opacity+filter directly.
   gsap.set('.nav', { y: -64, opacity: 0 });
-  gsap.set('#heroImgLeftEl',  { scale: 1.08 });
-  gsap.set('#heroImgRightEl', { scale: 1.08 });
+  gsap.set('#heroImgLeftEl',  { scale: 1.12 });
+  gsap.set('#heroImgRightEl', { scale: 1.12 });
   gsap.set('#heroBreadcrumb', { opacity: 0, y: -8 });
-  gsap.set('#heroCard', { opacity: 0, y: 24, filter: 'blur(14px)' });
+  gsap.set('#heroCard',       { y: 40 });                              // y only — no opacity/filter
+  gsap.set('.pd-hero-info',   { opacity: 0, filter: 'blur(18px)' }); // glass panel — opacity directly
+  gsap.set('.pd-hero-buy',    { opacity: 0, filter: 'blur(18px)' }); // buy btn — opacity directly
 
   window.__playPageAnimations = function() {
-    gsap.to('.nav',           { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.05 });
-    gsap.to('#heroImgLeftEl', { scale: 1, duration: 2.2, ease: 'power2.out' });
-    gsap.to('#heroImgRightEl',{ scale: 1, duration: 2.2, ease: 'power2.out', delay: 0.1 });
-    gsap.to('#heroBreadcrumb',{ opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 0.25 });
-    gsap.to('#heroCard',      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'expo.out', delay: 0.5,
-      onComplete: () => gsap.set('#heroCard', { clearProps: 'filter' }) });
+    // Nav slide down
+    gsap.to('.nav', { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.05 });
+    // Images: zoom out, left faster, right slower + slight delay (staggered)
+    gsap.to('#heroImgLeftEl', { scale: 1, duration: 2.4, ease: 'power2.out' });
+    gsap.to('#heroImgRightEl',{ scale: 1, duration: 3.2, ease: 'power2.out', delay: 0.18 });
+    // Breadcrumb fade-in
+    gsap.to('#heroBreadcrumb',{ opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', delay: 0.3 });
+    // Card wrapper: slide up only
+    gsap.to('#heroCard',      { y: 0, duration: 1.0, ease: 'expo.out', delay: 0.5 });
+    // Glass panel: blur-to-focus, opacity on element itself (no parent opacity = glass stays intact)
+    gsap.to('.pd-hero-info',  { opacity: 1, filter: 'blur(0px)', duration: 0.9, ease: 'expo.out', delay: 0.55,
+      onComplete: () => gsap.set('.pd-hero-info', { clearProps: 'filter' }) });
+    // Buy button: same, slight delay after panel
+    gsap.to('.pd-hero-buy',   { opacity: 1, filter: 'blur(0px)', duration: 0.75, ease: 'expo.out', delay: 0.72,
+      onComplete: () => gsap.set('.pd-hero-buy', { clearProps: 'filter' }) });
   };
 
+  /* ── HERO PARALLAX: both images scroll slower than page ── */
+  gsap.to('#heroImgLeftEl', {
+    yPercent: 10, ease: 'none',
+    scrollTrigger: { trigger: '#pdHero', start: 'top top', end: 'bottom top', scrub: 1.2 }
+  });
+  gsap.to('#heroImgRightEl', {
+    yPercent: 8, ease: 'none',
+    scrollTrigger: { trigger: '#pdHero', start: 'top top', end: 'bottom top', scrub: 1.8 }
+  });
+
   /* ── HELPERS ── */
-  function animateFade(el, trigger, delay) {
+  function animateFade(el, trigger, delay, start) {
     if (!el) return;
     gsap.from(el, { opacity: 0, y: 22, duration: 0.85, ease: 'power2.out', delay: delay || 0,
-      scrollTrigger: { trigger: trigger || el, start: 'top 88%' } });
+      scrollTrigger: { trigger: trigger || el, start: start || 'top 88%' } });
   }
-  function animateBlurIn(el, trigger, delay) {
+  function animateBlurIn(el, trigger, delay, start) {
     if (!el) return;
     gsap.fromTo(el,
       { opacity: 0, y: 28, filter: 'blur(14px)' },
       { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.9, ease: 'power2.out', delay: delay || 0,
-        scrollTrigger: { trigger: trigger || el, start: 'top 88%' },
+        scrollTrigger: { trigger: trigger || el, start: start || 'top 88%' },
         onComplete: () => gsap.set(el, { clearProps: 'filter' }) }
     );
   }
-  function animateLines(el, trigger, delay) {
+  function animateLines(el, trigger, delay, start) {
     if (!el) return;
-    if (typeof SplitText === 'undefined') { animateFade(el, trigger, delay); return; }
+    if (typeof SplitText === 'undefined') { animateFade(el, trigger, delay, start); return; }
     const split = new SplitText(el, { type: 'lines', linesClass: 'sl' });
     split.lines.forEach(line => {
       const mask = document.createElement('div');
@@ -759,134 +911,376 @@
       line.parentNode.insertBefore(mask, line); mask.appendChild(line);
     });
     gsap.from(split.lines, { yPercent: 110, duration: 1.05, ease: 'power3.out', stagger: 0.09, delay: delay || 0,
-      scrollTrigger: { trigger: trigger || el, start: 'top 88%' } });
+      scrollTrigger: { trigger: trigger || el, start: start || 'top 88%' } });
   }
 
-  /* ── RUNNING TEXT: parallax on scroll ── */
-  gsap.to('#pdRunning .pd-running-inner', {
-    x: '-8%', ease: 'none',
-    scrollTrigger: { trigger: '#pdRunning', start: 'top bottom', end: 'bottom top', scrub: 1 }
-  });
-  // Reveal
+  /* ── RUNNING TEXT: CSS marquee — scroll-direction aware ── */
   gsap.from('#pdRunning', { opacity: 0, duration: 0.6, ease: 'power2.out',
     scrollTrigger: { trigger: '#pdRunning', start: 'top 90%' } });
 
+  (function() {
+    const track = document.querySelector('.pd-running-track');
+    if (!track) return;
+
+    const IDLE_VEL = -0.5;
+    const FAST_VEL = -2.2;
+
+    let targetVel  = IDLE_VEL;
+    let currentVel = IDLE_VEL;
+    let xPos       = -1;
+    let halfW      = 0;
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      halfW = track.scrollWidth / 2;
+    }));
+    window.addEventListener('resize', () => { halfW = track.scrollWidth / 2; });
+
+    // velocity from Lenis = actual scroll speed, 0 when truly stopped
+    lenis.on('scroll', ({ velocity }) => {
+      const factor = Math.min(Math.abs(velocity) / 3, 1); // 0..1
+      targetVel = IDLE_VEL + (FAST_VEL - IDLE_VEL) * factor;
+    });
+
+    gsap.ticker.add(() => {
+      if (!halfW) return;
+      const lerp = currentVel > targetVel ? 0.1 : 0.05;
+      currentVel += (targetVel - currentVel) * lerp;
+      xPos += currentVel;
+      if (xPos < -halfW) xPos += halfW;
+      gsap.set(track, { x: xPos });
+    });
+  })();
+
   /* ── ABOUT PRODUCT ── */
-  gsap.fromTo('#aboutImgWrap',
-    { opacity: 0, scale: 1.04 },
-    { opacity: 1, scale: 1, duration: 1.1, ease: 'power2.out',
-      scrollTrigger: { trigger: '#pdAbout', start: 'top 80%' } }
-  );
-  gsap.to('#aboutImg', { yPercent: -8, ease: 'none',
-    scrollTrigger: { trigger: '#pdAbout', start: 'top bottom', end: 'bottom top', scrub: 1.5 } });
-  animateLines(document.querySelector('.pd-about-title'), document.getElementById('pdAbout'), 0);
-  animateFade(document.querySelector('.pd-about-desc'), document.getElementById('pdAbout'), 0.15);
-  animateFade(document.getElementById('aboutLink'), document.getElementById('pdAbout'), 0.25);
-  // Icon labels stagger
-  gsap.set('#aboutIcons .pd-about-icon-item', { opacity: 0, y: 16 });
-  ScrollTrigger.create({ trigger: '#aboutIcons', start: 'top 88%', once: true,
+  // Image: positive yPercent = moves DOWN relative to container = net SLOWER than scroll
+  gsap.to('#aboutImg', { yPercent: 10, ease: 'none',
+    scrollTrigger: { trigger: '#pdAbout', start: 'top bottom', end: 'bottom top', scrub: 1.8 } });
+  const aboutSection = document.getElementById('pdAbout');
+  // Title + body: line-by-line, fire when section is 60% into view
+  animateLines(document.querySelector('.pd-about-title'), aboutSection, 0,     'top 65%');
+  animateLines(document.querySelector('.pd-about-desc'),  aboutSection, 0.08,  'top 65%');
+  animateFade(document.getElementById('aboutLink'),       aboutSection, 0.22,  'top 65%');
+  // Icons: staggered blur-to-focus, fire later
+  gsap.set('#aboutIcons .pd-about-icon-item', { opacity: 0, y: 12, filter: 'blur(10px)' });
+  ScrollTrigger.create({ trigger: '#aboutIcons', start: 'top 82%', once: true,
     onEnter: () => gsap.to('#aboutIcons .pd-about-icon-item', {
-      opacity: 1, y: 0, duration: 0.65, ease: 'power2.out', stagger: 0.1 })
+      opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.75, ease: 'power2.out', stagger: 0.1,
+      onComplete: () => gsap.set('#aboutIcons .pd-about-icon-item', { clearProps: 'filter' })
+    })
   });
 
-  /* ── BENEFIT ── */
-  // Feature tab switcher
-  const btabs = document.querySelectorAll('.pd-btab');
-  const benefitBgSrcs = [
-    'Product Asset/Benefits/clinically-proven.png',
-    'Product Asset/Benefits/anti-inflammatory.png',
-    'Product Asset/Benefits/recover-skin-elasticity.png'
-  ];
-  btabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      btabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const idx = parseInt(tab.dataset.idx);
-      gsap.to('#benefitBg', { opacity: 0, duration: 0.3, onComplete: () => {
-        document.getElementById('benefitBg').src = benefitBgSrcs[idx];
-        gsap.to('#benefitBg', { opacity: 1, duration: 0.5 });
-      }});
+  /* ── BENEFIT: timer carousel ── */
+  (function() {
+    const TIMER_DUR = 5;
+    const bBgBack   = document.getElementById('bBgBack');
+    const bBgFront  = document.getElementById('bBgFront');
+    const panel     = document.getElementById('benefitPanel');
+    const btabs     = document.querySelectorAll('.pd-btab');
+    let timerTween  = null;
+    let kbTween     = null;
+    let curIdx      = 0;
+
+    const data = [
+      {
+        bg: 'Product Asset/Benefits/clinically-proven.png',
+        panelBg: 'rgba(245,245,244,.2)',
+        type: 'stats',
+        stats: [
+          { num: '95%', big: 'Instantly reduce signs of sensitive skin in 15 minutes',          small: 'Based on Clinical study on 20 volunteers with sensitive skin' },
+          { num: '95%', big: 'Experience a lightweight texture that absorbs quickly into the skin.', small: 'Based on Clinical study on 20 volunteers with sensitive skin, for 1 day' }
+        ]
+      },
+      {
+        bg: 'Product Asset/Benefits/anti-inflammatory.png',
+        panelBg: 'transparent',
+        type: 'icons',
+        desc: 'Extremely recover & strengthens skin barrier while provides deep moisturizing for healthier skin, even in skin\'s driest areas. Revive Complex Enriched with soothing agent and anti-inflammatory.',
+        icons: [
+          { src: 'Product Asset/Benefits/Icons benefit 02/Cream Texture.svg',                  label: 'Cream Texture' },
+          { src: 'Product Asset/Benefits/Icons benefit 02/Soothe Redness.svg',                  label: 'Soothe Redness' },
+          { src: 'Product Asset/Benefits/Icons benefit 02/Neutralize Sensitive Skin Sign.svg', label: 'Neutralize\nSensitive Skin Sign' },
+          { src: 'Product Asset/Benefits/Icons benefit 02/Fast Absorbing.svg',                  label: 'Fast Absorbing' }
+        ]
+      },
+      {
+        bg: 'Product Asset/Benefits/recover-skin-elasticity.png',
+        panelBg: 'rgba(0,0,0,.1)',
+        type: 'stats',
+        stats: [
+          { num: '+50%',    big: 'Hydration Level',   small: 'Based on Dermatological Assessment on 35 volunteers with sensitive skin, for 15 days' },
+          { num: '-21.49%', big: 'Scaliness Texture', small: 'Based on Clinical study on 20 volunteers with sensitive skin, for 14 days' }
+        ]
+      }
+    ];
+
+    const benefitSec = document.getElementById('pdBenefit');
+
+    function applyPanelBg(d) {
+      panel.style.background = d.panelBg;
+      if (d.type === 'icons') {
+        panel.classList.add('pd-benefit-panel--plain');
+        benefitSec.classList.add('pd-benefit--top');
+      } else {
+        panel.classList.remove('pd-benefit-panel--plain');
+        benefitSec.classList.remove('pd-benefit--top');
+      }
+    }
+
+    function renderPanel(d) {
+      applyPanelBg(d);
+      if (d.type === 'stats') {
+        return `<div class="pd-benefit-stat">
+          <div class="pd-benefit-num">${d.stats[0].num}</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="pd-benefit-desc-big">${d.stats[0].big}</div>
+            <div class="pd-benefit-desc-small">${d.stats[0].small}</div>
+          </div>
+        </div>
+        <div class="pd-benefit-divider"></div>
+        <div class="pd-benefit-stat">
+          <div class="pd-benefit-num">${d.stats[1].num}</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="pd-benefit-desc-big">${d.stats[1].big}</div>
+            <div class="pd-benefit-desc-small">${d.stats[1].small}</div>
+          </div>
+        </div>`;
+      } else {
+        return `<p class="pd-benefit-02-desc">${d.desc}</p>
+        <div class="pd-benefit-icons">
+          ${d.icons.map(ic => `<div class="pd-benefit-icon-item">
+            <img src="${ic.src}" alt="">
+            <div class="pd-benefit-icon-label">${ic.label.replace(/\n/g,'<br>')}</div>
+          </div>`).join('')}
+        </div>`;
+      }
+    }
+
+    function startKenBurns() {
+      if (kbTween) kbTween.kill();
+      gsap.set(bBgBack, { scale: 1 });
+      kbTween = gsap.to(bBgBack, { scale: 1.06, duration: TIMER_DUR, ease: 'none' });
+    }
+
+    function startTimer(idx) {
+      if (timerTween) timerTween.kill();
+      document.querySelectorAll('.pd-btab-bar-fill').forEach(f => gsap.set(f, { width: '0%' }));
+      timerTween = gsap.to(document.getElementById('bFill' + idx), {
+        width: '100%', duration: TIMER_DUR, ease: 'none',
+        onComplete: () => goTo((idx + 1) % data.length)
+      });
+    }
+
+    function panelOut(cb) {
+      gsap.killTweensOf(panel);
+      gsap.to(panel, { y: -14, opacity: 0, filter: 'blur(8px)', duration: 0.35, ease: 'power2.in', overwrite: true, onComplete: cb });
+    }
+
+    function panelIn() {
+      gsap.killTweensOf(panel);
+      gsap.fromTo(panel,
+        { y: 36, opacity: 0, filter: 'blur(14px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.85, ease: 'expo.out', overwrite: true, delay: 0.3,
+          onComplete: () => gsap.set(panel, { clearProps: 'filter' }) }
+      );
+    }
+
+    function goTo(idx) {
+      if (idx === curIdx) return;
+      const d = data[idx];
+      curIdx = idx;
+
+      btabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+
+      // Image: bottom→top wipe (same as homepage skin concern)
+      gsap.killTweensOf([bBgFront, bBgBack]);
+      if (kbTween) kbTween.kill();
+      bBgFront.src = d.bg;
+      gsap.set(bBgFront, { clipPath: 'inset(100% 0 0 0)' });
+      gsap.to(bBgFront, {
+        clipPath: 'inset(0% 0 0 0)', duration: 0.9, ease: 'power2.inOut',
+        onComplete: () => {
+          bBgBack.src = d.bg;
+          requestAnimationFrame(() => {
+            gsap.set(bBgFront, { clipPath: 'inset(100% 0 0 0)' });
+            startKenBurns();
+          });
+        }
+      });
+      gsap.to(bBgBack, { scale: 1.04, duration: 0.9, ease: 'power2.inOut' });
+
+      panelOut(() => { panel.innerHTML = renderPanel(d); applyPanelBg(d); panelIn(); });
+      startTimer(idx);
+    }
+
+    // Click to switch
+    btabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => { if (i !== curIdx) goTo(i); });
     });
-  });
-  // Reveal
-  gsap.from('#benefitPanel', { opacity: 0, y: 40, filter: 'blur(14px)', duration: 1.0, ease: 'power2.out',
-    scrollTrigger: { trigger: '#pdBenefit', start: 'top 80%' },
-    onComplete: () => gsap.set('#benefitPanel', { clearProps: 'filter' }) });
-  gsap.from('#benefitTabs .pd-btab', { opacity: 0, y: -16, duration: 0.6, ease: 'power2.out', stagger: 0.1,
-    scrollTrigger: { trigger: '#pdBenefit', start: 'top 85%' } });
+
+    // Initial panel content
+    panel.innerHTML = renderPanel(data[0]);
+
+    // Entrance: reveal on scroll, then start timer+ken burns
+    gsap.set(panel, { opacity: 0, y: 36, filter: 'blur(14px)' });
+    gsap.set('.pd-btab', { opacity: 0, y: -16 });
+
+    ScrollTrigger.create({
+      trigger: '#pdBenefit', start: 'top 72%', once: true,
+      onEnter: () => {
+        gsap.to('.pd-btab', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1 });
+        gsap.to(panel, {
+          opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.9, ease: 'expo.out', delay: 0.3,
+          onComplete: () => { gsap.set(panel, { clearProps: 'filter' }); startKenBurns(); startTimer(0); }
+        });
+      }
+    });
+
+    // Scroll parallax — bg slower than scroll (positive yPercent = image drifts down = net slower)
+    gsap.to('#bBgWrap', {
+      yPercent: 8, ease: 'none',
+      scrollTrigger: { trigger: '#pdBenefit', start: 'top bottom', end: 'bottom top', scrub: 1.5 }
+    });
+  })();
 
   /* ── HOW TO APPLY ── */
-  animateLines(document.querySelector('.pd-hta-title'), document.getElementById('pdHta'), 0);
-  gsap.from('#htaImg1', { opacity: 0, x: 40, duration: 1.0, ease: 'power2.out',
-    scrollTrigger: { trigger: '#pdHta', start: 'top 82%' }, delay: 0.1 });
-  gsap.from('#htaImg2', { opacity: 0, x: 40, duration: 1.0, ease: 'power2.out',
-    scrollTrigger: { trigger: '#pdHta', start: 'top 82%' }, delay: 0.25 });
-  // Accordion
-  const steps = document.querySelectorAll('.pd-step');
-  steps.forEach(step => {
-    step.addEventListener('click', () => {
-      steps.forEach(s => s.classList.remove('active'));
-      step.classList.add('active');
+  (function() {
+    const htaSec   = document.getElementById('pdHta');
+    const htaRight = document.getElementById('htaRight');
+    const htaTrack = document.getElementById('htaTrack');
+    const steps    = document.querySelectorAll('.pd-step');
+
+    const htaImgs  = htaTrack.querySelectorAll('.pd-hta-img img');
+    const dividers = document.querySelectorAll('#pdSteps .pd-step-divider');
+
+    // Build interleaved reveal order: [step0, divider0, step1, divider1, step2]
+    const revealItems = [];
+    steps.forEach((step, i) => {
+      revealItems.push(step);
+      if (dividers[i]) revealItems.push(dividers[i]);
     });
-  });
+
+    // Header: line-by-line reveal
+    animateLines(document.querySelector('.pd-hta-title'), htaSec, 0, 'top 68%');
+
+    // Steps + dividers: staggered slide-up + blur to focus — slower, fires later
+    gsap.set(revealItems, { opacity: 0, y: 28, filter: 'blur(12px)' });
+    ScrollTrigger.create({ trigger: '#pdSteps', start: 'top 72%', once: true,
+      onEnter: () => gsap.to(revealItems, {
+        opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out', stagger: 0.12,
+        onComplete: () => gsap.set(revealItems, { clearProps: 'filter' })
+      })
+    });
+
+    // Images: reveal slides left + blur (track slides in from right)
+    gsap.set(htaTrack, { x: 100, opacity: 0, filter: 'blur(16px)' });
+    ScrollTrigger.create({ trigger: htaRight, start: 'top 70%', once: true,
+      onEnter: () => gsap.to(htaTrack, {
+        x: 0, opacity: 1, filter: 'blur(0px)', duration: 1.3, ease: 'expo.out', delay: 0.2,
+        onComplete: () => gsap.set(htaTrack, { clearProps: 'filter' })
+      })
+    });
+
+    // Init grayscale: img[0] active (step 0 default), rest B&W
+    htaImgs.forEach((img, i) => {
+      img.style.filter = i === 0 ? 'grayscale(0%)' : 'grayscale(100%)';
+    });
+
+    // Step hover → slide images + toggle grayscale
+    function activateStep(idx) {
+      steps.forEach(s => s.classList.remove('active'));
+      steps[idx].classList.add('active');
+      // Slide track
+      const colW = htaRight.offsetWidth / 2 - 6;
+      const xTarget = idx === 0 ? 0 : -(colW + 12) * idx;
+      gsap.to(htaTrack, { x: xTarget, duration: 0.7, ease: 'expo.out', overwrite: true });
+      // Grayscale: active img = color, others = B&W
+      htaImgs.forEach((img, i) => {
+        img.style.filter = i === idx ? 'grayscale(0%)' : 'grayscale(100%)';
+      });
+    }
+
+    steps.forEach((step, i) => {
+      step.addEventListener('mouseenter', () => activateStep(i));
+    });
+  })();
 
   /* ── KEY INGREDIENTS ── */
-  animateLines(document.getElementById('ingTitle'), document.getElementById('pdIngredients'), 0);
-  gsap.set('.pd-icard', { opacity: 0, y: 30 });
+  animateLines(document.getElementById('ingTitle'), document.getElementById('pdIngredients'), 0, 'top 75%');
+  gsap.set('.pd-icard', { opacity: 0, y: 40, filter: 'blur(14px)' });
   ScrollTrigger.batch('.pd-icard', {
-    onEnter: batch => gsap.fromTo(batch,
-      { opacity: 0, y: 30, filter: 'blur(12px)' },
-      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: 'power2.out', stagger: 0.15, overwrite: true,
-        onComplete: () => gsap.set(batch, { clearProps: 'filter' }) }
-    ),
-    start: 'top 85%', once: true
+    onEnter: batch => gsap.to(batch, {
+      opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.15, ease: 'power3.out', stagger: 0.18, overwrite: true,
+      onComplete: () => gsap.set(batch, { clearProps: 'filter' })
+    }),
+    start: 'top 78%', once: true
   });
-  // Ingredient toggle
+  // Smooth accordion — GSAP height:auto, icon crossfade via CSS class
   document.querySelectorAll('.pd-icard').forEach(card => {
+    const body = card.querySelector('.pd-icard-body');
     card.addEventListener('click', () => {
       const wasActive = card.classList.contains('active');
+      // Close all
       document.querySelectorAll('.pd-icard').forEach(c => {
         c.classList.remove('active');
-        const icon = c.querySelector('.pd-icard-icon .material-icons');
-        if (icon) icon.textContent = 'add';
+        gsap.to(c.querySelector('.pd-icard-body'), { height: 0, duration: 0.38, ease: 'power2.inOut', overwrite: true });
       });
+      // Open clicked if wasn't open
       if (!wasActive) {
         card.classList.add('active');
-        const icon = card.querySelector('.pd-icard-icon .material-icons');
-        if (icon) icon.textContent = 'remove';
+        gsap.to(body, { height: 'auto', duration: 0.42, ease: 'power2.inOut', overwrite: true });
       }
+    });
+  });
+  // Parallax on card images (slower than scroll)
+  document.querySelectorAll('.pd-icard').forEach(card => {
+    gsap.to(card.querySelector('.pd-icard-img img'), {
+      yPercent: 10, ease: 'none',
+      scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 2 }
     });
   });
 
   /* ── DERMATOLOGIST ── */
-  gsap.fromTo('#dermPhoto', { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 1.1, ease: 'power2.out',
+  // Photo parallax (slower than scroll)
+  gsap.to('#dermPhoto img', { yPercent: 10, ease: 'none',
+    scrollTrigger: { trigger: '#pdDerm', start: 'top bottom', end: 'bottom top', scrub: 2 } });
+  gsap.fromTo('#dermPhoto', { opacity: 0 }, { opacity: 1, duration: 1.0, ease: 'power2.out',
     scrollTrigger: { trigger: '#pdDerm', start: 'top 80%' } });
-  animateFade(document.querySelector('.pd-derm-chip'), document.getElementById('pdDerm'), 0.1);
-  animateLines(document.querySelector('.pd-derm-quote'), document.getElementById('pdDerm'), 0.2);
-  animateFade(document.querySelector('.pd-derm-attr'), document.getElementById('pdDerm'), 0.4);
-  // Before/after reveal on scroll
-  gsap.set('#pdBaLine', { left: '10%' });
-  gsap.set('#pdBaBefore', { clipPath: 'inset(0 90% 0 0)' });
-  ScrollTrigger.create({ trigger: '#pdBa', start: 'top 88%', once: true,
-    onEnter: () => {
-      gsap.to('#pdBaLine',   { left: '50%', duration: 2.0, ease: 'expo.out' });
-      gsap.to('#pdBaBefore', { clipPath: 'inset(0 50% 0 0)', duration: 2.0, ease: 'expo.out' });
-    }
-  });
-  // Before/after drag
+  const dermSec = document.getElementById('pdDerm');
+  animateFade(document.querySelector('.pd-derm-chip'), dermSec, 0, 'top 78%');
+  animateLines(document.querySelector('.pd-derm-quote'), dermSec, 0.14, 'top 78%');
+  animateFade(document.querySelector('.pd-derm-name'), dermSec, 0.38, 'top 78%');
+  animateFade(document.querySelector('.pd-derm-role'), dermSec, 0.48, 'top 78%');
+  // Before/after — proxy object drives both reveal and drag
   (function() {
-    const ba = document.getElementById('pdBa');
+    const ba   = document.getElementById('pdBa');
     const line = document.getElementById('pdBaLine');
     const btn  = document.getElementById('pdBaBtn');
     const bef  = document.getElementById('pdBaBefore');
+    const state = { pct: 0.08 };
     let dragging = false;
+
+    function applySlider(pct) {
+      const ps = (pct * 100).toFixed(2) + '%';
+      const rs = ((1 - pct) * 100).toFixed(2) + '%';
+      line.style.left = ps;
+      btn.style.left  = ps;
+      bef.style.clipPath = `inset(0 ${rs} 0 0)`;
+    }
+    applySlider(state.pct); // set initial position
+
+    ScrollTrigger.create({ trigger: '#pdBa', start: 'top 88%', once: true,
+      onEnter: () => gsap.to(state, {
+        pct: 0.5, duration: 2.0, ease: 'expo.out',
+        onUpdate: () => applySlider(state.pct)
+      })
+    });
+
     function move(clientX) {
       const rect = ba.getBoundingClientRect();
       let pct = (clientX - rect.left) / rect.width;
       pct = Math.max(0.02, Math.min(0.98, pct));
-      const ps = (pct * 100).toFixed(2) + '%';
-      line.style.left = ps; btn.style.left = ps;
-      bef.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
+      state.pct = pct;
+      applySlider(pct);
     }
     ba.addEventListener('mousedown',  e => { dragging = true; move(e.clientX); });
     window.addEventListener('mousemove', e => { if (dragging) move(e.clientX); });
@@ -897,16 +1291,39 @@
   })();
 
   /* ── REGIMEN ── */
-  animateLines(document.getElementById('regimenTitle'), document.getElementById('pdRegimen'), 0);
-  gsap.set('.pd-rcard', { opacity: 0 });
-  ScrollTrigger.batch('.pd-rcard', {
+  animateLines(document.getElementById('regimenTitle'), document.getElementById('pdRegimen'), 0, 'top 78%');
+  animateFade(document.querySelector('#pdRegimen .link-sm'), document.getElementById('pdRegimen'), 0.15, 'top 78%');
+  gsap.set('#pdRegimen .pcard', { opacity: 0 });
+  ScrollTrigger.batch('#pdRegimen .pcard', {
     onEnter: batch => gsap.fromTo(batch,
-      { opacity: 0, y: 40, filter: 'blur(14px)' },
-      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power2.out', stagger: 0.18, overwrite: true,
+      { opacity: 0, y: 44, filter: 'blur(16px)' },
+      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.05, ease: 'power2.out', stagger: 0.2, overwrite: true,
         onComplete: () => gsap.set(batch, { clearProps: 'filter' }) }
     ),
-    start: 'top 85%', once: true
+    start: 'top 82%', once: true
   });
+  // Carousel nav
+  (function() {
+    const track = document.getElementById('regTrack');
+    const cards = track.querySelectorAll('.pcard');
+    const cw    = () => cards[0].offsetWidth + 12;
+    const max   = cards.length - 3;
+    let idx = 0;
+    function slide() { gsap.to(track, { x: -(idx * cw()), duration: 0.9, ease: 'expo.out', overwrite: true }); }
+    document.getElementById('regNext').addEventListener('click', () => { idx = idx >= max ? 0 : idx + 1; slide(); });
+    document.getElementById('regPrev').addEventListener('click', () => { idx = idx <= 0 ? max : idx - 1; slide(); });
+  })();
+  // Horizontal parallax on pcard images (same as homepage)
+  (function() {
+    const cx = () => window.innerWidth / 2;
+    gsap.ticker.add(() => {
+      document.querySelectorAll('#pdRegimen .pcard-px').forEach(px => {
+        const r    = px.parentElement.getBoundingClientRect();
+        const norm = ((r.left + r.width * 0.5) - cx()) / window.innerWidth;
+        px.style.transform = 'translateX(' + (norm * -30) + 'px)';
+      });
+    });
+  })();
 
   /* ── FOOTER ── */
   animateFade(document.querySelector('.footer-menu'), document.querySelector('.footer-top'), 0);
