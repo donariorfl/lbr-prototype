@@ -65,12 +65,12 @@
     .link-sm .material-icons{font-size:16px;color:#F95272;}
 
     /* ── HERO ── */
-    .pd-hero{display:flex;height:703px;overflow:hidden;}
+    .pd-hero{display:flex;height:100vh;min-height:660px;overflow:hidden;}
     /* Left col: product image + breadcrumb */
     .pd-hero-left-col{flex:1;position:relative;display:flex;flex-direction:column;min-width:0;}
     .pd-hero-left-col img.pd-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform;}
-    /* Breadcrumb lives inside left col, top */
-    .pd-breadcrumb{position:relative;z-index:5;display:flex;align-items:center;gap:4px;padding:12px 24px;}
+    /* Breadcrumb lives inside left col, top — pad clears fixed nav (~54px) */
+    .pd-breadcrumb{position:relative;z-index:5;display:flex;align-items:center;gap:4px;padding:66px 24px 12px;}
     .pd-breadcrumb span{font-size:14px;font-weight:400;color:#4B4846;line-height:1.5;}
     .pd-breadcrumb .material-icons{font-size:14px;color:#4B4846;}
     .pd-breadcrumb .bc-current{color:#1B1918;}
@@ -94,8 +94,8 @@
     .pd-hero-size-opts{display:flex;gap:8px;}
     .pd-hero-size-chip{border:1px solid rgba(255,255,255,.75);border-radius:1000px;padding:7px 12px;font-size:14px;font-weight:500;color:rgba(255,255,255,.75);line-height:1.25;width:112px;text-align:center;cursor:pointer;transition:background .2s ease;}
     .pd-hero-size-chip:hover{background:rgba(255,255,255,.1);}
-    /* Buy button: glass, full-width within card */
-    .pd-hero-buy{background:rgba(0,0,0,.1);backdrop-filter:blur(35px);border-radius:8px;height:44px;display:flex;align-items:center;justify-content:center;gap:2px;color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;border:none;cursor:pointer;transition:background .2s ease;}
+    /* Buy button: glass, fit-content width */
+    .pd-hero-buy{background:rgba(0,0,0,.1);backdrop-filter:blur(35px);border-radius:8px;height:44px;display:inline-flex;align-items:center;gap:2px;padding:0 20px;color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;border:none;cursor:pointer;transition:background .2s ease;width:fit-content;}
     .pd-hero-buy:hover{background:rgba(0,0,0,.2);}
 
     /* ── RUNNING TEXT ── */
@@ -283,7 +283,7 @@
 <section class="pd-hero" id="pdHero">
   <!-- Left col: product image + breadcrumb -->
   <div class="pd-hero-left-col">
-    <img class="pd-hero-bg" src="Product Asset/Hero/heroimg-2.png" alt="Barrier Revive Cream" id="heroImgLeftEl">
+    <img class="pd-hero-bg" src="Product Asset/Hero/heroimg-1.png" alt="Barrier Revive Cream" id="heroImgLeftEl">
     <div class="pd-breadcrumb" id="heroBreadcrumb">
       <span>Home</span>
       <span class="material-icons">chevron_right</span>
@@ -294,7 +294,7 @@
   </div>
   <!-- Right col: lifestyle image + centered glass card -->
   <div class="pd-hero-right-col">
-    <img class="pd-hero-bg" src="Product Asset/Hero/heroimg-1.png" alt="" id="heroImgRightEl">
+    <img class="pd-hero-bg" src="Product Asset/Hero/heroimg-2.png" alt="" id="heroImgRightEl">
     <div class="pd-hero-card" id="heroCard">
       <div class="pd-hero-info">
         <div style="display:flex;flex-direction:column;gap:4px;">
