@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BiomeRepair™ Barrier Serum — LABORÉ</title>
+  <title>Barrier Revive Cream — LABORÉ</title>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -21,6 +21,14 @@
     body{font-family:'Aeonik TRIAL',sans-serif;color:#1B1918;background:#fff;overflow-x:hidden;}
     img{display:block;}
     a,button{cursor:pointer;}
+    .material-icons{vertical-align:middle;}
+
+    /* ── LOADER ── */
+    #siteLoader{position:fixed;inset:0;background:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:all;}
+    .loader-inner{display:flex;align-items:center;gap:24px;width:100%;}
+    .loader-label,.loader-pct{font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;color:#1B1918;white-space:nowrap;flex-shrink:0;}
+    .loader-track{flex:1;height:1px;background:transparent;position:relative;}
+    .loader-bar{position:absolute;left:0;top:0;height:100%;width:0%;background:linear-gradient(to right,#F95272,#f9a0b0);}
 
     /* ── NAV ── */
     .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:24px;padding:12px 24px;transition:background .45s ease,box-shadow .45s ease;}
@@ -29,8 +37,7 @@
     .nav-links{display:flex;gap:20px;align-items:center;}
     .nav-link{display:flex;align-items:center;gap:2px;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;position:relative;}
     .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#1B1918;transition:width .3s ease;}
-    .nav-link:hover::after{width:100%;}
-    .nav-link.active::after{width:100%;}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
     .nav-link .material-icons{font-size:16px;transition:transform .3s ease;}
     .nav-link:hover .material-icons{transform:rotate(180deg);}
     .nav-right{flex:1;display:flex;align-items:center;justify-content:flex-end;gap:20px;}
@@ -38,7 +45,7 @@
     .nav-lang{display:flex;align-items:center;gap:2px;font-size:16px;font-weight:500;cursor:pointer;}
     .nav-lang .material-icons{font-size:16px;}
 
-    /* ── ANIMATED BUTTON ARROW ── */
+    /* ── BTN ARR ── */
     .btn-arr{display:inline-flex;align-items:center;overflow:hidden;width:18px;height:18px;position:relative;flex-shrink:0;}
     .btn-arr .material-icons{font-size:16px;position:absolute;transition:transform .3s cubic-bezier(.25,.46,.45,.94);}
     .arr-a{transform:translateX(0);}
@@ -51,181 +58,175 @@
     /* ── BUTTONS ── */
     .btn-dark{display:inline-flex;align-items:center;gap:4px;background:#1B1918;color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;padding:14px;border-radius:8px;border:none;width:fit-content;transition:background .25s ease,transform .25s ease,box-shadow .25s ease;}
     .btn-dark:hover{background:#2d2927;transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,25,24,.2);}
-    .btn-outline{display:inline-flex;align-items:center;gap:4px;background:transparent;color:#1B1918;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;padding:13px;border-radius:8px;border:1px solid #D5D3D2;width:fit-content;transition:border-color .25s ease,transform .25s ease;}
-    .btn-outline:hover{border-color:#1B1918;transform:translateY(-2px);}
-    .btn-glass{display:inline-flex;align-items:center;gap:4px;background:rgba(245,245,244,.2);backdrop-filter:blur(17px);color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:600;padding:14px;border-radius:8px;border:none;width:fit-content;transition:background .2s ease,transform .2s ease;}
-    .btn-glass:hover{background:rgba(245,245,244,.3);transform:translateY(-2px);}
-    .link-fwd{display:inline-flex;align-items:center;gap:4px;font-size:14px;font-weight:500;color:#1B1918;cursor:pointer;position:relative;}
-    .link-fwd .material-icons{font-size:16px;}
-
-    /* ── LOADER ── */
-    #siteLoader{position:fixed;inset:0;background:#fff;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:all;}
-    .loader-inner{display:flex;align-items:center;gap:24px;width:100%;}
-    .loader-label,.loader-pct{font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;color:#1B1918;white-space:nowrap;flex-shrink:0;}
-    .loader-track{flex:1;height:1px;background:transparent;position:relative;}
-    .loader-bar{position:absolute;left:0;top:0;height:100%;width:0%;background:linear-gradient(to right,#F95272,#f9a0b0);}
+    .btn-glass{display:inline-flex;align-items:center;gap:4px;background:rgba(0,0,0,.1);backdrop-filter:blur(35px);color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;padding:14px 20px;border-radius:8px;border:none;width:fit-content;cursor:pointer;transition:background .2s ease,transform .2s ease;}
+    .btn-glass:hover{background:rgba(0,0,0,.18);transform:translateY(-2px);}
+    .link-fwd{display:inline-flex;align-items:center;gap:2px;font-size:14px;font-weight:700;color:#1B1918;cursor:pointer;}
+    .link-sm{display:inline-flex;align-items:center;gap:2px;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;border:none;background:none;font-family:'Aeonik TRIAL',sans-serif;}
+    .link-sm .material-icons{font-size:16px;color:#F95272;}
 
     /* ── HERO ── */
-    .pd-hero{position:relative;height:100vh;min-height:700px;display:flex;flex-direction:column;overflow:hidden;}
-    .pd-hero-imgs{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0;}
-    .pd-hero-img-wrap{position:relative;overflow:hidden;}
-    .pd-hero-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform;}
-    .pd-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.35) 100%);pointer-events:none;z-index:1;}
-    .pd-hero-certs{position:absolute;top:80px;left:24px;right:24px;z-index:5;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-    .pd-hero-cert{display:flex;align-items:center;gap:6px;background:rgba(245,245,244,.18);backdrop-filter:blur(12px);padding:6px 10px;border-radius:100px;font-size:13px;font-weight:500;color:#fff;}
-    .pd-hero-cert img{width:16px;height:16px;filter:brightness(10);}
-    .pd-hero-cert .material-icons{font-size:14px;color:#fff;}
-    /* Hero bottom glass panel */
-    .pd-hero-panel{position:absolute;bottom:0;left:0;right:0;z-index:5;background:rgba(27,25,24,.35);backdrop-filter:blur(20px);padding:20px 24px 24px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;}
-    .pd-hero-info{display:flex;flex-direction:column;gap:8px;}
-    .pd-breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:rgba(255,255,255,.6);}
-    .pd-breadcrumb span{color:rgba(255,255,255,.4);}
-    .pd-breadcrumb .current{color:#fff;}
-    .pd-hero-title{font-size:32px;font-weight:500;color:#fff;line-height:1.1;}
-    .pd-hero-sub{font-size:14px;font-weight:400;color:rgba(255,255,255,.7);max-width:460px;}
-    .pd-hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px;flex-shrink:0;}
-    .pd-hero-price-row{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
-    .pd-hero-volume{font-size:13px;font-weight:500;color:rgba(255,255,255,.6);}
-    .pd-hero-price{font-size:28px;font-weight:600;color:#fff;}
-    .pd-hero-btns{display:flex;gap:8px;align-items:center;}
+    .pd-hero{position:relative;height:703px;overflow:hidden;}
+    /* Two image panels */
+    .pd-hero-img-left{position:absolute;top:0;left:0;width:720px;height:100%;}
+    .pd-hero-img-left img{width:100%;height:100%;object-fit:cover;will-change:transform;}
+    .pd-hero-img-right{position:absolute;top:0;right:0;width:721px;height:100%;}
+    .pd-hero-img-right img{width:100%;height:100%;object-fit:cover;will-change:transform;}
+    .pd-hero-img-right::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.05);}
+    /* Breadcrumb top overlay */
+    .pd-breadcrumb{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:4px;padding:12px 24px;}
+    .pd-breadcrumb span{font-size:14px;font-weight:400;color:#4B4846;line-height:1.5;}
+    .pd-breadcrumb .material-icons{font-size:14px;color:#4B4846;}
+    .pd-breadcrumb .bc-current{color:#1B1918;font-weight:500;}
+    /* Glass info card — overlaid on right, centered vertically */
+    .pd-hero-card{position:absolute;right:24px;top:50%;transform:translateY(-50%);width:574px;z-index:5;display:flex;flex-direction:column;gap:8px;}
+    .pd-hero-info{background:rgba(0,0,0,.1);backdrop-filter:blur(35px);border-radius:8px;padding:20px 14px;display:flex;flex-direction:column;gap:16px;}
+    .pd-hero-brand{font-size:16px;font-weight:500;color:rgba(255,255,255,.5);line-height:1;}
+    .pd-hero-title{font-size:48px;font-weight:500;color:#fff;line-height:1.05;}
+    .pd-hero-desc{font-size:18px;font-weight:400;color:rgba(255,255,255,.75);line-height:1.2;}
+    .pd-hero-suited{display:flex;flex-direction:column;gap:8px;}
+    .pd-hero-suited-label{font-size:12px;font-weight:400;color:rgba(255,255,255,.5);line-height:1.2;}
+    .pd-hero-suited-tags{display:flex;gap:8px;}
+    .pd-hero-tag{font-size:16px;font-weight:500;color:#fff;padding-right:8px;border-right:1px solid #fff;}
+    .pd-hero-tag:last-child{border-right:none;padding-right:0;}
+    .pd-hero-sizes{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);}
+    .pd-hero-sizes-label{font-size:12px;font-weight:400;color:rgba(255,255,255,.5);line-height:1.2;}
+    .pd-hero-size-opts{display:flex;gap:8px;}
+    .pd-hero-size-chip{border:1px solid rgba(255,255,255,.75);border-radius:1000px;padding:7px 12px;font-size:14px;font-weight:500;color:rgba(255,255,255,.75);line-height:1.25;width:112px;text-align:center;cursor:pointer;transition:background .2s ease;}
+    .pd-hero-size-chip:hover{background:rgba(255,255,255,.1);}
+    /* Next arrow button */
+    .pd-hero-nav{position:absolute;right:24px;top:50%;transform:translateY(-50%);z-index:6;background:#fff;border:1px solid #EBEBEB;border-radius:4px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s ease;}
+    .pd-hero-nav:hover{transform:translateY(-50%) scale(1.05);}
+    .pd-hero-nav .material-icons{font-size:20px;}
+    /* Pagination dots */
+    .pd-hero-dots{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);z-index:5;}
+    .pd-hero-dots-track{position:relative;width:128px;height:4px;background:rgba(255,255,255,.5);border-radius:1000px;}
+    .pd-hero-dot-active{position:absolute;left:0;top:0;width:38px;height:4px;background:#F95272;border-radius:1000px;}
 
     /* ── RUNNING TEXT ── */
-    .marquee-wrap{background:#1B1918;overflow:hidden;padding:14px 0;}
-    .marquee-track{display:flex;gap:0;white-space:nowrap;will-change:transform;}
-    .marquee-item{display:inline-flex;align-items:center;gap:8px;padding:0 24px;font-size:14px;font-weight:500;color:#fff;flex-shrink:0;}
-    .marquee-item img{width:18px;height:18px;filter:brightness(10);}
-    .marquee-dot{width:4px;height:4px;border-radius:50%;background:#F95272;flex-shrink:0;}
+    .pd-running{background:#fff;overflow:hidden;padding:12px 24px;border-top:1px solid #F5F5F4;border-bottom:1px solid #F5F5F4;}
+    .pd-running-inner{display:flex;align-items:center;justify-content:space-between;gap:0;}
+    .pd-running-item{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+    .pd-running-item img{width:20px;height:20px;}
+    .pd-running-item span{font-size:20px;font-weight:500;color:#1B1918;white-space:nowrap;}
 
     /* ── ABOUT PRODUCT ── */
-    .pd-about{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:80px 24px;align-items:center;background:#fff;}
-    .pd-about-img-wrap{position:relative;border-radius:8px;overflow:hidden;height:600px;}
-    .pd-about-img-wrap img{width:100%;height:100%;object-fit:cover;}
-    .pd-about-body{display:flex;flex-direction:column;gap:24px;padding:0 24px;}
-    .pd-eyebrow{font-size:13px;font-weight:600;color:#F95272;letter-spacing:.08em;text-transform:uppercase;}
-    .pd-about-title{font-size:36px;font-weight:500;line-height:1.15;color:#1B1918;}
-    .pd-about-desc{font-size:16px;font-weight:400;color:#75716F;line-height:1.65;}
-    .pd-benefit-list{display:flex;flex-direction:column;gap:12px;}
-    .pd-benefit-item{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;color:#1B1918;}
-    .pd-benefit-item .material-icons{font-size:18px;color:#F95272;flex-shrink:0;}
+    .pd-about{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:24px;background:#fff;align-items:stretch;min-height:640px;}
+    .pd-about-body{display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:0;}
+    .pd-about-top{display:flex;flex-direction:column;gap:16px;}
+    .pd-about-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.15;}
+    .pd-about-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.4;}
+    .pd-about-link{display:inline-flex;align-items:center;gap:2px;font-size:14px;font-weight:700;color:#1B1918;cursor:pointer;}
+    .pd-about-link .material-icons{font-size:16px;}
+    /* Icon labels at bottom */
+    .pd-about-icons{display:flex;flex-wrap:wrap;gap:24px 60px;}
+    .pd-about-icon-item{display:flex;align-items:center;gap:12px;width:180px;}
+    .pd-about-icon-item img{width:40px;height:40px;flex-shrink:0;}
+    .pd-about-icon-item span{font-size:16px;font-weight:400;color:#75716F;line-height:1.4;}
+    /* Right image */
+    .pd-about-img{border-radius:8px;overflow:hidden;position:relative;}
+    .pd-about-img img{width:100%;height:100%;object-fit:cover;}
 
-    /* ── BENEFITS ── */
-    .pd-benefits{background:#1B1918;padding:80px 24px;}
-    .pd-benefits-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;}
-    .pd-benefits-title{font-size:36px;font-weight:500;color:#fff;line-height:1.15;max-width:460px;}
-    .pd-benefits-sub{font-size:15px;font-weight:400;color:rgba(255,255,255,.5);max-width:300px;text-align:right;line-height:1.55;}
-    .pd-benefit-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-    .pd-bcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:background .3s ease;}
-    .pd-bcard:hover{background:rgba(255,255,255,.1);}
-    .pd-bcard-img{height:280px;overflow:hidden;position:relative;}
-    .pd-bcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
-    .pd-bcard:hover .pd-bcard-img img{transform:scale(1.04);}
-    .pd-bcard-body{padding:20px;}
-    .pd-bcard-stat{font-size:48px;font-weight:500;color:#F95272;line-height:1;}
-    .pd-bcard-name{font-size:18px;font-weight:600;color:#fff;margin:8px 0 6px;}
-    .pd-bcard-desc{font-size:14px;font-weight:400;color:rgba(255,255,255,.55);line-height:1.55;}
+    /* ── BENEFIT ── */
+    .pd-benefit{position:relative;height:780px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;gap:40px;}
+    .pd-benefit-bg{position:absolute;inset:0;}
+    .pd-benefit-bg img{width:100%;height:100%;object-fit:cover;}
+    .pd-benefit-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 60%,transparent 100%);}
+    /* Feature tabs top */
+    .pd-benefit-tabs{position:relative;z-index:2;display:flex;gap:12px;flex:1;align-items:flex-start;padding-top:24px;}
+    .pd-btab{display:flex;flex-direction:column;gap:8px;flex:1;cursor:pointer;}
+    .pd-btab-bar{height:4px;background:rgba(255,255,255,.2);border-radius:50px;position:relative;overflow:hidden;}
+    .pd-btab-bar-fill{position:absolute;left:0;top:0;height:100%;background:#fff;border-radius:6px;width:0%;transition:width .4s ease;}
+    .pd-btab.active .pd-btab-bar-fill{width:25%;}
+    .pd-btab-label{font-size:14px;font-weight:700;color:rgba(255,255,255,.5);line-height:1.2;}
+    .pd-btab.active .pd-btab-label{color:#fff;}
+    /* Glass stat panel */
+    .pd-benefit-panel{position:relative;z-index:2;background:rgba(245,245,244,.2);backdrop-filter:blur(17px);border-radius:8px;padding:16px 20px 20px;width:512px;display:flex;flex-direction:column;gap:24px;}
+    .pd-benefit-stat{display:flex;flex-direction:column;gap:8px;}
+    .pd-benefit-num{font-size:100px;font-weight:500;color:#fff;line-height:1;}
+    .pd-benefit-desc-big{font-size:24px;font-weight:400;color:#fff;line-height:1.25;}
+    .pd-benefit-desc-small{font-size:16px;font-weight:600;color:rgba(255,255,255,.7);line-height:1.2;}
+    .pd-benefit-divider{height:1px;background:rgba(255,255,255,.2);}
 
     /* ── HOW TO APPLY ── */
-    .pd-hta{padding:80px 24px;background:#F5F5F4;}
-    .pd-hta-header{margin-bottom:48px;}
-    .pd-hta-title{font-size:36px;font-weight:500;color:#1B1918;line-height:1.15;}
-    .pd-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-    .pd-step{background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s ease,box-shadow .3s ease;}
-    .pd-step:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.08);}
-    .pd-step-img{height:300px;overflow:hidden;position:relative;}
-    .pd-step-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
-    .pd-step:hover .pd-step-img img{transform:scale(1.04);}
-    .pd-step-body{padding:20px;display:flex;flex-direction:column;gap:8px;}
-    .pd-step-num{font-size:13px;font-weight:700;color:#F95272;letter-spacing:.06em;}
-    .pd-step-name{font-size:20px;font-weight:600;color:#1B1918;}
-    .pd-step-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.55;}
+    .pd-hta{display:grid;grid-template-columns:690px 1fr;gap:12px;background:#fff;padding:12px 24px;overflow:hidden;}
+    .pd-hta-left{display:flex;flex-direction:column;justify-content:space-between;padding-top:12px;}
+    .pd-hta-header{display:flex;flex-direction:column;gap:8px;padding-bottom:24px;}
+    .pd-hta-eyebrow{font-size:14px;font-weight:500;color:rgba(75,72,70,.5);line-height:1.2;}
+    .pd-hta-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.15;}
+    /* Steps accordion */
+    .pd-steps{display:flex;flex-direction:column;}
+    .pd-step{cursor:pointer;}
+    .pd-step-head{display:flex;flex-direction:column;gap:8px;padding:16px 12px;}
+    .pd-step.active .pd-step-head{background:rgba(255,227,230,.5);border-radius:8px;}
+    .pd-step-num{font-size:14px;font-weight:400;color:#75716F;line-height:1.2;}
+    .pd-step.active .pd-step-num{color:#F95272;}
+    .pd-step-name{font-size:24px;font-weight:500;color:#1B1918;line-height:1;}
+    .pd-step-body{overflow:hidden;display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease;}
+    .pd-step.active .pd-step-body{grid-template-rows:1fr;}
+    .pd-step-inner{overflow:hidden;padding:10px 12px 0;}
+    .pd-step-desc{font-size:16px;font-weight:400;color:#4B4846;line-height:1;}
+    .pd-step-divider{height:1px;background:#D5D3D2;margin:0;}
+    /* Right images */
+    .pd-hta-right{display:flex;gap:12px;align-items:stretch;}
+    .pd-hta-img{flex:1;border-radius:8px;overflow:hidden;height:685px;}
+    .pd-hta-img img{width:100%;height:100%;object-fit:cover;}
 
     /* ── KEY INGREDIENTS ── */
-    .pd-ingredients{padding:80px 24px;background:#fff;}
-    .pd-ing-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;}
-    .pd-ing-title{font-size:36px;font-weight:500;color:#1B1918;line-height:1.15;}
-    .pd-ing-cards{display:flex;flex-direction:column;gap:0;border-top:1px solid #D5D3D2;}
-    .pd-icard{border-bottom:1px solid #D5D3D2;overflow:hidden;cursor:pointer;}
-    .pd-icard-head{display:flex;align-items:center;gap:20px;padding:20px 0;transition:padding .4s ease;}
-    .pd-icard.open .pd-icard-head{padding-bottom:0;}
-    .pd-icard-num{font-size:13px;font-weight:600;color:#75716F;width:32px;flex-shrink:0;}
-    .pd-icard-img-sm{width:64px;height:64px;border-radius:8px;overflow:hidden;flex-shrink:0;transition:transform .35s ease;}
-    .pd-icard-img-sm img{width:100%;height:100%;object-fit:cover;}
-    .pd-icard.open .pd-icard-img-sm{transform:scale(1.05);}
-    .pd-icard-name{flex:1;font-size:20px;font-weight:500;color:#1B1918;}
-    .pd-icard-toggle{width:32px;height:32px;border-radius:8px;border:1px solid #D5D3D2;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s ease,transform .35s ease;}
-    .pd-icard.open .pd-icard-toggle{background:#1B1918;border-color:#1B1918;transform:rotate(45deg);}
-    .pd-icard.open .pd-icard-toggle .material-icons{color:#fff;}
-    .pd-icard-toggle .material-icons{font-size:18px;color:#1B1918;}
-    .pd-icard-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1);}
-    .pd-icard.open .pd-icard-body{grid-template-rows:1fr;}
-    .pd-icard-inner{overflow:hidden;display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start;padding:0 0 0 116px;}
-    .pd-icard.open .pd-icard-inner{padding-bottom:24px;}
-    .pd-icard-img-lg{width:200px;height:200px;border-radius:8px;overflow:hidden;flex-shrink:0;}
-    .pd-icard-img-lg img{width:100%;height:100%;object-fit:cover;}
-    .pd-icard-text{display:flex;flex-direction:column;gap:8px;}
-    .pd-icard-role{font-size:13px;font-weight:600;color:#F95272;letter-spacing:.06em;text-transform:uppercase;}
-    .pd-icard-desc{font-size:15px;font-weight:400;color:#75716F;line-height:1.65;}
-    .pd-icard-detail{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;}
+    .pd-ingredients{background:#fff;padding:24px;display:flex;flex-direction:column;gap:24px;}
+    .pd-ing-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1;}
+    .pd-ing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+    .pd-icard{height:448px;border-radius:8px;overflow:hidden;position:relative;background:#E7E8EA;}
+    .pd-icard-img{position:absolute;inset:0;}
+    .pd-icard-img img{width:100%;height:100%;object-fit:cover;}
+    .pd-icard-panel{position:absolute;bottom:12px;left:12px;right:12px;background:rgba(41,41,34,.38);backdrop-filter:blur(17px);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:16px;}
+    .pd-icard-head{display:flex;align-items:center;justify-content:space-between;}
+    .pd-icard-name{font-size:24px;font-weight:400;color:#fff;white-space:nowrap;}
+    .pd-icard-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center;}
+    .pd-icard-icon .material-icons{font-size:20px;color:#fff;}
+    .pd-icard-desc{font-size:14px;font-weight:400;color:#fff;line-height:1.2;display:none;}
+    .pd-icard.active .pd-icard-desc{display:block;}
+    .pd-icard.active .pd-icard-icon .material-icons{content:'remove';}
 
     /* ── DERMATOLOGIST ── */
-    .pd-derm{background:#F5F5F4;padding:80px 24px;}
-    .pd-derm-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
-    .pd-derm-left{display:flex;flex-direction:column;gap:32px;}
-    .pd-derm-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border-radius:100px;padding:8px 14px;font-size:14px;font-weight:500;color:#1B1918;width:fit-content;}
-    .pd-derm-badge .material-icons{font-size:16px;color:#F95272;}
-    .pd-derm-quote{font-size:28px;font-weight:500;color:#1B1918;line-height:1.3;}
-    .pd-derm-attr{display:flex;align-items:center;gap:12px;}
-    .pd-derm-avatar{width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;}
-    .pd-derm-avatar img{width:100%;height:100%;object-fit:cover;}
-    .pd-derm-name{font-size:15px;font-weight:600;color:#1B1918;}
-    .pd-derm-title{font-size:13px;font-weight:500;color:#75716F;}
-    /* Before/After slider */
-    .pd-ba-wrap{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3/4;user-select:none;}
+    .pd-derm{background:#fff;padding:0 24px;display:flex;flex-direction:column;}
+    .pd-derm-grid{display:flex;gap:12px;align-items:flex-end;}
+    /* Doctor photo */
+    .pd-derm-photo{width:690px;height:690px;flex-shrink:0;border-radius:8px;overflow:hidden;}
+    .pd-derm-photo img{width:100%;height:100%;object-fit:cover;object-position:top;}
+    /* Text + slider right */
+    .pd-derm-right{display:flex;flex-direction:column;gap:12px;justify-content:flex-end;flex:1;}
+    .pd-derm-text{display:flex;flex-direction:column;gap:24px;}
+    .pd-derm-chip{display:flex;align-items:center;gap:4px;}
+    .pd-derm-chip .material-icons{font-size:20px;color:#75716F;}
+    .pd-derm-chip-label{font-size:16px;font-weight:500;color:#75716F;}
+    .pd-derm-quote{font-size:28px;font-weight:500;color:#1B1918;line-height:1.2;}
+    .pd-derm-quote em{font-style:normal;font-weight:400;}
+    .pd-derm-attr{display:flex;flex-direction:column;gap:8px;}
+    .pd-derm-name{font-size:16px;font-weight:600;color:#1B1918;}
+    .pd-derm-role{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
+    /* Before/After */
+    .pd-ba-wrap{height:385px;border-radius:8px;overflow:hidden;position:relative;user-select:none;}
     .pd-ba-after,.pd-ba-before{position:absolute;inset:0;}
-    .pd-ba-after img,.pd-ba-before img{width:100%;height:100%;object-fit:cover;}
+    .pd-ba-after img,.pd-ba-before img{width:100%;height:100%;object-fit:cover;object-position:center top;}
     .pd-ba-before{clip-path:inset(0 50% 0 0);will-change:clip-path;}
-    .pd-ba-line{position:absolute;top:0;bottom:0;left:50%;width:2px;background:rgba(255,255,255,.85);transform:translateX(-50%);z-index:1;cursor:ew-resize;will-change:left;}
-    .pd-ba-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;background:#fff;border:1px solid #D5D3D2;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:ew-resize;gap:0;z-index:2;}
-    .pd-ba-btn .material-icons{font-size:14px;color:#1B1918;}
-    .pd-ba-labels{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;padding:0 16px;z-index:3;pointer-events:none;}
-    .pd-ba-label{background:rgba(0,0,0,.5);backdrop-filter:blur(6px);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;}
+    .pd-ba-line{position:absolute;top:0;bottom:0;left:50%;width:2px;background:rgba(255,255,255,.85);transform:translateX(-50%);z-index:2;will-change:left;}
+    .pd-ba-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;background:#fff;border:1px solid #D5D3D2;border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:ew-resize;}
+    .pd-ba-btn .material-icons{font-size:18px;color:#1B1918;transform:rotate(-90deg);}
+    .pd-ba-labels{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;padding:0 16px;z-index:4;pointer-events:none;}
+    .pd-ba-label{background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;}
 
     /* ── REGIMEN ── */
-    .pd-regimen{background:#fff;padding:80px 0;}
-    .pd-regimen-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;padding:0 24px;}
-    .pd-regimen-title{font-size:36px;font-weight:500;color:#1B1918;line-height:1.15;}
-    .link-sm{display:inline-flex;align-items:center;gap:2px;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;position:relative;border:none;background:none;font-family:'Aeonik TRIAL',sans-serif;}
-    .link-sm .material-icons{font-size:16px;color:#F95272;}
-    .link-sm .btn-arr .material-icons{color:#F95272;}
-    /* Product cards reuse .pcard from home */
-    .pd-carousel{position:relative;}
-    .pd-track-wrap{overflow:hidden;padding:0 24px;}
-    .pd-track{display:flex;gap:12px;}
-    .pcard{flex-shrink:0;width:calc((100vw - 72px) / 3);display:flex;flex-direction:column;cursor:pointer;}
-    .pcard-img{width:100%;height:500px;border-radius:8px;background:#F5F5F4;overflow:hidden;position:relative;}
-    .pcard-px{position:absolute;inset:0;will-change:transform;}
-    .pcard-img img{position:absolute;width:120%;height:100%;left:-10%;top:0;object-fit:cover;transition:opacity .45s ease,transform .55s cubic-bezier(.25,.46,.45,.94);}
-    .pcard-img-hover{opacity:0;}
-    .pcard:hover .pcard-img-main{opacity:0;}
-    .pcard:hover .pcard-img-hover{opacity:1;}
-    .pcard:hover .pcard-img img{transform:scale(1.04);}
-    .pcard-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:12px;z-index:3;}
-    .pcard-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:100px;padding:5px 10px 5px 6px;font-size:12px;font-weight:500;color:#1B1918;align-self:flex-start;opacity:0;transition:opacity .35s ease;}
-    .pcard-badge .material-icons{font-size:14px;color:#1B1918;}
-    .pcard-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;transform:translateY(250%);transition:transform .38s cubic-bezier(.25,.46,.45,.94);}
-    .pcard:hover .pcard-badge{opacity:1;}
-    .pcard:hover .pcard-actions{transform:translateY(0);}
-    .pcard-detail,.pcard-buy{display:flex;align-items:center;justify-content:center;gap:4px;font-family:'Aeonik TRIAL',sans-serif;font-size:14px;font-weight:500;padding:12px 10px;border-radius:8px;border:none;cursor:pointer;transition:transform .2s ease;}
-    .pcard-detail{background:rgba(46,37,24,.22);backdrop-filter:blur(17px);-webkit-backdrop-filter:blur(17px);color:#fff;}
-    .pcard-buy{background:#fff;color:#1B1918;}
-    .pcard-detail:hover,.pcard-buy:hover{transform:scale(1.02);}
-    .pcard-detail .material-icons,.pcard-buy .material-icons{font-size:14px;}
-    .pcard-body{padding:14px 12px 0;}
-    .pcard-name{font-size:18px;font-weight:600;color:#1B1918;line-height:1;margin-bottom:4px;}
-    .pcard-desc{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
-    .arrow-btn{width:34px;height:34px;border-radius:8px;border:1px solid #D5D3D2;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease,transform .2s ease;}
-    .arrow-btn:hover{background:#F5F5F4;transform:scale(1.05);}
-    .arrow-btn .material-icons{font-size:18px;}
+    .pd-regimen{background:#fff;padding:48px 24px;display:flex;flex-direction:column;gap:24px;overflow:hidden;}
+    .pd-regimen-header{display:flex;align-items:flex-end;justify-content:space-between;}
+    .pd-regimen-title{font-size:34px;font-weight:500;color:#1B1918;}
+    .pd-reg-cards{display:flex;gap:12px;}
+    .pd-rcard{flex:0 0 calc((100% - 36px) / 4);display:flex;flex-direction:column;cursor:pointer;}
+    .pd-rcard-img{height:500px;border-radius:8px;overflow:hidden;position:relative;background:#F5F5F4;}
+    .pd-rcard-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+    .pd-rcard:hover .pd-rcard-img img{transform:scale(1.04);}
+    .pd-rcard-body{padding:14px 12px 0;display:flex;flex-direction:column;gap:4px;}
+    .pd-rcard-name{font-size:18px;font-weight:600;color:#1B1918;line-height:1;}
+    .pd-rcard-desc{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
 
     /* ── FOOTER ── */
     .footer{position:relative;min-height:848px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;overflow:hidden;}
@@ -243,19 +244,17 @@
     .footer-social{width:24px;height:24px;cursor:pointer;transition:transform .2s ease;}
     .footer-social:hover{transform:scale(1.15);}
     .footer-copy{font-size:11px;font-weight:500;color:#1B1918;margin-left:auto;}
-    .footer-nl-card{width:420px;flex-shrink:0;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-radius:8px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:278px;}
-    .footer-about-text{font-size:13px;font-weight:500;color:#1B1918;line-height:1.55;opacity:.8;}
+    .footer-nl-card{width:456px;flex-shrink:0;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-radius:8px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:278px;}
+    .footer-about-text{font-size:13px;font-weight:600;color:#1B1918;line-height:1.55;opacity:.8;}
     .footer-nl{display:flex;flex-direction:column;gap:8px;}
-    .footer-nl-label{font-size:12px;font-weight:500;color:#75716F;}
+    .footer-nl-label{font-size:12px;font-weight:500;color:rgba(117,113,111,.6);}
     .footer-nl-row{display:flex;align-items:center;gap:8px;border-bottom:1px solid #75716F;padding:12px 0;}
     .footer-nl-row input{flex:1;border:none;outline:none;font-family:'Aeonik TRIAL',sans-serif;font-size:15px;color:#75716F;background:transparent;}
     .footer-nl-row input::placeholder{color:rgba(117,113,111,.5);}
     .footer-nl-submit{font-size:15px;font-weight:600;color:#1B1918;cursor:pointer;white-space:nowrap;}
-    .footer-nl-note{font-size:11px;font-weight:500;color:#75716F;line-height:1.4;}
+    .footer-nl-note{font-size:11px;font-weight:500;color:rgba(117,113,111,.6);line-height:1.4;}
     .footer-logo-bar{position:relative;z-index:1;width:100%;}
     .footer-logo-bar img{width:100%;height:auto;display:block;}
-
-    .material-icons{vertical-align:middle;}
   </style>
 </head>
 <body>
@@ -286,106 +285,163 @@
 
 <!-- HERO -->
 <section class="pd-hero" id="pdHero">
-  <div class="pd-hero-imgs">
-    <div class="pd-hero-img-wrap" id="heroLeft">
-      <img src="Product Asset/Hero/heroimg-1.png" alt="BiomeRepair Barrier Serum — Lifestyle" id="heroImgLeft">
-      <div class="pd-hero-overlay"></div>
-    </div>
-    <div class="pd-hero-img-wrap" id="heroRight">
-      <img src="Product Asset/Hero/heroimg-2.png" alt="BiomeRepair Barrier Serum — Product" id="heroImgRight">
-      <div class="pd-hero-overlay"></div>
-    </div>
+  <!-- Left: product image -->
+  <div class="pd-hero-img-left" id="heroImgLeft">
+    <img src="Product Asset/Hero/heroimg-2.png" alt="Barrier Revive Cream" id="heroImgLeftEl">
   </div>
-  <!-- Cert badges top -->
-  <div class="pd-hero-certs" id="heroCerts">
-    <div class="pd-hero-cert"><img src="Product Asset/Running Text/dermatologist-tested.svg" alt="">Dermatologist Tested</div>
-    <div class="pd-hero-cert"><img src="Product Asset/Running Text/cruelty-free.svg" alt="">Cruelty-Free</div>
-    <div class="pd-hero-cert"><img src="Product Asset/Running Text/ideal-for-sensitive-skin.svg" alt="">Ideal for Sensitive Skin</div>
-    <div class="pd-hero-cert"><img src="Product Asset/Running Text/suitable-for-indonesian-skin.svg" alt="">Suitable for Indonesian Skin</div>
+  <!-- Right: lifestyle image -->
+  <div class="pd-hero-img-right" id="heroImgRight">
+    <img src="Product Asset/Hero/heroimg-1.png" alt="" id="heroImgRightEl">
   </div>
-  <!-- Bottom info panel -->
-  <div class="pd-hero-panel" id="heroPanel">
+  <!-- Breadcrumb -->
+  <div class="pd-breadcrumb" id="heroBreadcrumb">
+    <span>Home</span>
+    <span class="material-icons">chevron_right</span>
+    <span>Moisturizer</span>
+    <span class="material-icons">chevron_right</span>
+    <span class="bc-current">Barrier Revive Cream</span>
+  </div>
+  <!-- Info card -->
+  <div class="pd-hero-card" id="heroCard">
     <div class="pd-hero-info">
-      <div class="pd-breadcrumb" id="heroBreadcrumb">
-        <span>Home</span><span>/</span><span>Products</span><span>/</span><span>Serum</span><span>/</span><span class="current">BiomeRepair™ Barrier Serum</span>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <div class="pd-hero-brand">BiomeRepair™</div>
+        <div class="pd-hero-title">Barrier Revive Cream</div>
       </div>
-      <div class="pd-hero-title" id="heroTitle">BiomeRepair™ Barrier Serum</div>
-      <div class="pd-hero-sub" id="heroSub">Restores your skin's natural microbiome barrier, reduces sensitivity, and locks in lasting hydration.</div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <p class="pd-hero-desc">Science-backed skincare restoring natural balance for healthy skin.</p>
+        <div class="pd-hero-suited">
+          <div class="pd-hero-suited-label">Suited to</div>
+          <div class="pd-hero-suited-tags">
+            <span class="pd-hero-tag">Normal</span>
+            <span class="pd-hero-tag">Very Dry</span>
+            <span class="pd-hero-tag">Atopic Dermatitis</span>
+          </div>
+        </div>
+        <div class="pd-hero-sizes">
+          <div class="pd-hero-sizes-label">Available in Size</div>
+          <div class="pd-hero-size-opts">
+            <div class="pd-hero-size-chip">10 ml</div>
+            <div class="pd-hero-size-chip">50 ml</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="pd-hero-right" id="heroRight2">
-      <div class="pd-hero-price-row">
-        <div class="pd-hero-volume">30 ml</div>
-        <div class="pd-hero-price">IDR 345,000</div>
-      </div>
-      <div class="pd-hero-btns">
-        <button class="btn-outline" style="color:#fff;border-color:rgba(255,255,255,.35);">Find Your Routine
-          <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span>
-        </button>
-        <button class="btn-dark">Add to Cart
-          <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span>
-        </button>
-      </div>
-    </div>
+    <button class="btn-glass">Buy Product <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></button>
   </div>
+  <!-- Nav arrow -->
+  <div class="pd-hero-nav" id="heroNav" style="right:766px;"><span class="material-icons">chevron_right</span></div>
+  <!-- Pagination -->
+  <div class="pd-hero-dots"><div class="pd-hero-dots-track"><div class="pd-hero-dot-active"></div></div></div>
 </section>
 
 <!-- RUNNING TEXT -->
-<div class="marquee-wrap" id="marqueeWrap">
-  <div class="marquee-track" id="marqueeTrack">
-    <!-- items duplicated by JS -->
+<div class="pd-running" id="pdRunning">
+  <div class="pd-running-inner">
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/clinically-tested.svg" alt="">
+      <span>Clinically Tested</span>
+    </div>
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/ideal-for-sensitive-skin.svg" alt="">
+      <span>Ideal for Sensitive Skin</span>
+    </div>
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/suitable-for-indonesian-skin.svg" alt="">
+      <span>Suitable for Indonesian Skin</span>
+    </div>
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/dermatologist-tested.svg" alt="">
+      <span>Dermatologist Tested</span>
+    </div>
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/cruelty-free.svg" alt="">
+      <span>Cruelty-Free</span>
+    </div>
+    <div class="pd-running-item">
+      <img src="Product Asset/Running Text/clinically-tested.svg" alt="">
+      <span>Clinically Tested</span>
+    </div>
   </div>
 </div>
 
 <!-- ABOUT PRODUCT -->
 <section class="pd-about" id="pdAbout">
-  <div class="pd-about-img-wrap" id="aboutImgWrap">
-    <img src="Product Asset/About Product/about-product.png" alt="About BiomeRepair Barrier Serum" id="aboutImg">
-  </div>
+  <!-- Left: text + icon labels -->
   <div class="pd-about-body">
-    <div class="pd-eyebrow" id="aboutEyebrow">About the Product</div>
-    <h2 class="pd-about-title" id="aboutTitle">Built to Heal.<br>Formulated to Last.</h2>
-    <p class="pd-about-desc" id="aboutDesc">BiomeRepair™ Barrier Serum is a dermatologist-developed formula engineered to restore your skin's microbiome ecosystem. Powered by a trio of clinically validated actives, it reinforces the natural lipid barrier, reduces inflammatory response, and delivers long-lasting moisture retention — without disrupting your skin's delicate pH balance.</p>
-    <div class="pd-benefit-list" id="aboutBenefits">
-      <div class="pd-benefit-item"><span class="material-icons">check_circle</span>Restores compromised skin barrier in 14 days</div>
-      <div class="pd-benefit-item"><span class="material-icons">check_circle</span>Reduces redness and sensitivity</div>
-      <div class="pd-benefit-item"><span class="material-icons">check_circle</span>72-hour hydration lock technology</div>
-      <div class="pd-benefit-item"><span class="material-icons">check_circle</span>Non-comedogenic · Fragrance-free · pH balanced</div>
+    <div class="pd-about-top" id="aboutTop">
+      <h2 class="pd-about-title">Repair Your Skin Barrier,<br>Restore Skin Comfort</h2>
+      <p class="pd-about-desc">A weakened barrier can make skin feel dry, sensitive, or easily irritated. Labore Biome Repair helps support the skin's natural microbiome and strengthen the skin barrier, leaving sensitive skin feeling calmer, healthier, and more resilient.</p>
+      <div class="pd-about-link" id="aboutLink">
+        <span>About Skin Barrier</span>
+        <span class="material-icons" style="font-size:16px;">arrow_forward</span>
+      </div>
     </div>
-    <button class="btn-dark" id="aboutCta">Shop Now
-      <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span>
-    </button>
+    <!-- Icon labels: from Product Asset/About Product/Icons/ -->
+    <div class="pd-about-icons" id="aboutIcons">
+      <div class="pd-about-icon-item">
+        <img src="Product Asset/About Product/Icons/alcohol-free.svg" alt="Alcohol free">
+        <span>Alcohol free</span>
+      </div>
+      <div class="pd-about-icon-item">
+        <img src="Product Asset/About Product/Icons/cruelty-free.svg" alt="Cruelty free">
+        <span>Cruelty free</span>
+      </div>
+      <div class="pd-about-icon-item">
+        <img src="Product Asset/About Product/Icons/vegan.svg" alt="Vegan">
+        <span>Vegan</span>
+      </div>
+      <div class="pd-about-icon-item">
+        <img src="Product Asset/About Product/Icons/non-comedogenic.svg" alt="Non-comedogenic">
+        <span>Non-comedogenic</span>
+      </div>
+      <div class="pd-about-icon-item">
+        <img src="Product Asset/About Product/Icons/daytime-usage.svg" alt="Daytime usage">
+        <span>Daytime usage</span>
+      </div>
+    </div>
+  </div>
+  <!-- Right: product image -->
+  <div class="pd-about-img" id="aboutImgWrap">
+    <img src="Product Asset/About Product/about-product.png" alt="Barrier Revive Cream" id="aboutImg">
   </div>
 </section>
 
-<!-- BENEFITS -->
-<section class="pd-benefits" id="pdBenefits">
-  <div class="pd-benefits-header">
-    <h2 class="pd-benefits-title" id="benefitsTitle">Clinically Validated<br>Skin Benefits</h2>
-    <p class="pd-benefits-sub" id="benefitsSub">Every claim is backed by independent clinical study on Indonesian skin types.</p>
+<!-- BENEFIT -->
+<section class="pd-benefit" id="pdBenefit">
+  <div class="pd-benefit-bg">
+    <img src="Product Asset/Benefits/clinically-proven.png" alt="" id="benefitBg">
   </div>
-  <div class="pd-benefit-cards" id="benefitCards">
-    <div class="pd-bcard">
-      <div class="pd-bcard-img"><img src="Product Asset/Benefits/anti-inflammatory.png" alt="Anti-Inflammatory"></div>
-      <div class="pd-bcard-body">
-        <div class="pd-bcard-stat">87%</div>
-        <div class="pd-bcard-name">Anti-Inflammatory</div>
-        <div class="pd-bcard-desc">87% of participants reported visible reduction in redness and irritation within 7 days of consistent use.</div>
+  <!-- Feature tabs top -->
+  <div class="pd-benefit-tabs" id="benefitTabs">
+    <div class="pd-btab active" data-idx="0">
+      <div class="pd-btab-bar"><div class="pd-btab-bar-fill"></div></div>
+      <div class="pd-btab-label">Clinically Proven</div>
+    </div>
+    <div class="pd-btab" data-idx="1">
+      <div class="pd-btab-bar"><div class="pd-btab-bar-fill"></div></div>
+      <div class="pd-btab-label">Anti-Inflammatory</div>
+    </div>
+    <div class="pd-btab" data-idx="2">
+      <div class="pd-btab-bar"><div class="pd-btab-bar-fill"></div></div>
+      <div class="pd-btab-label">Recover Skin Elasticity</div>
+    </div>
+  </div>
+  <!-- Glass stat panel -->
+  <div class="pd-benefit-panel" id="benefitPanel">
+    <div class="pd-benefit-stat">
+      <div class="pd-benefit-num">95%</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="pd-benefit-desc-big">Instantly reduce signs of sensitive skin <br>in 15 minutes</div>
+        <div class="pd-benefit-desc-small">Based on Clinical study on 20 volunteers with sensitive skin</div>
       </div>
     </div>
-    <div class="pd-bcard">
-      <div class="pd-bcard-img"><img src="Product Asset/Benefits/clinically-proven.png" alt="Clinically Proven"></div>
-      <div class="pd-bcard-body">
-        <div class="pd-bcard-stat">100%</div>
-        <div class="pd-bcard-name">Clinically Proven</div>
-        <div class="pd-bcard-desc">Formulated and tested by board-certified dermatologists through rigorous double-blind clinical protocols.</div>
-      </div>
-    </div>
-    <div class="pd-bcard">
-      <div class="pd-bcard-img"><img src="Product Asset/Benefits/recover-skin-elasticity.png" alt="Recover Skin Elasticity"></div>
-      <div class="pd-bcard-body">
-        <div class="pd-bcard-stat">+72%</div>
-        <div class="pd-bcard-name">Recover Skin Elasticity</div>
-        <div class="pd-bcard-desc">Significant improvement in skin elasticity and barrier function measured after 28 days of use.</div>
+    <div class="pd-benefit-divider"></div>
+    <div class="pd-benefit-stat">
+      <div class="pd-benefit-num">95%</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="pd-benefit-desc-big">Experience a lightweight texture that absorbs quickly into the skin.</div>
+        <div class="pd-benefit-desc-small">Based on Clinical study on 20 volunteers with sensitive skin, for 1 day</div>
       </div>
     </div>
   </div>
@@ -393,143 +449,124 @@
 
 <!-- HOW TO APPLY -->
 <section class="pd-hta" id="pdHta">
-  <div class="pd-hta-header">
-    <div class="pd-eyebrow" id="htaEyebrow">Usage Guide</div>
-    <h2 class="pd-hta-title" id="htaTitle">How to Apply</h2>
+  <!-- Left: accordion steps -->
+  <div class="pd-hta-left">
+    <div class="pd-hta-header" id="htaHeader">
+      <div class="pd-hta-eyebrow">How to Apply</div>
+      <div class="pd-hta-title">Your Simple Routine,<br>Visible Results</div>
+    </div>
+    <div class="pd-steps" id="pdSteps">
+      <div class="pd-step active" data-idx="0">
+        <div class="pd-step-head">
+          <div class="pd-step-num">Step 01</div>
+          <div class="pd-step-name">Cleanse Your Skin</div>
+          <div class="pd-step-body">
+            <div class="pd-step-inner">
+              <div class="pd-step-desc">Start with a gentle cleanser on damp skin. Pat dry with a soft towel — never rub.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pd-step-divider"></div>
+      <div class="pd-step" data-idx="1">
+        <div class="pd-step-head">
+          <div class="pd-step-num">Step 02</div>
+          <div class="pd-step-name">Apply the Cream</div>
+          <div class="pd-step-body">
+            <div class="pd-step-inner">
+              <div class="pd-step-desc">Take a pea-sized amount and warm it between your fingertips. Gently press onto face and neck.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pd-step-divider"></div>
+      <div class="pd-step" data-idx="2">
+        <div class="pd-step-head">
+          <div class="pd-step-num">Step 03</div>
+          <div class="pd-step-name">Let It Absorb</div>
+          <div class="pd-step-body">
+            <div class="pd-step-inner">
+              <div class="pd-step-desc">Allow the cream to fully absorb before applying sunscreen. Use morning and evening for best results.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="pd-steps" id="pdSteps">
-    <div class="pd-step">
-      <div class="pd-step-img"><img src="Product Asset/How to Apply/step-1.png" alt="Step 1"></div>
-      <div class="pd-step-body">
-        <div class="pd-step-num">STEP 01</div>
-        <div class="pd-step-name">Cleanse Thoroughly</div>
-        <div class="pd-step-desc">Begin with a gentle, pH-balanced cleanser to remove impurities and prepare skin for optimal serum absorption.</div>
-      </div>
-    </div>
-    <div class="pd-step">
-      <div class="pd-step-img"><img src="Product Asset/How to Apply/step-2.png" alt="Step 2"></div>
-      <div class="pd-step-body">
-        <div class="pd-step-num">STEP 02</div>
-        <div class="pd-step-name">Apply 2–3 Drops</div>
-        <div class="pd-step-desc">Dispense 2–3 drops onto your fingertips and gently warm the serum. Apply evenly across face and neck.</div>
-      </div>
-    </div>
-    <div class="pd-step">
-      <div class="pd-step-img"><img src="Product Asset/How to Apply/step-3.png" alt="Step 3"></div>
-      <div class="pd-step-body">
-        <div class="pd-step-num">STEP 03</div>
-        <div class="pd-step-name">Pat Until Absorbed</div>
-        <div class="pd-step-desc">Gently pat — do not rub — until fully absorbed. Follow with your moisturizer to lock in active ingredients.</div>
-      </div>
-    </div>
+  <!-- Right: two tall images -->
+  <div class="pd-hta-right">
+    <div class="pd-hta-img"><img src="Product Asset/How to Apply/step-1.png" alt="Step 1" id="htaImg1"></div>
+    <div class="pd-hta-img"><img src="Product Asset/How to Apply/step-2.png" alt="Step 2" id="htaImg2"></div>
   </div>
 </section>
 
 <!-- KEY INGREDIENTS -->
 <section class="pd-ingredients" id="pdIngredients">
-  <div class="pd-ing-header">
-    <div>
-      <div class="pd-eyebrow" id="ingEyebrow">What's Inside</div>
-      <h2 class="pd-ing-title" id="ingTitle">Key Ingredients</h2>
-    </div>
-    <span class="link-fwd" id="ingViewAll">View Full INCI <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></span>
-  </div>
+  <h2 class="pd-ing-title" id="ingTitle">Key Ingredients</h2>
   <div class="pd-ing-cards" id="ingCards">
-
-    <div class="pd-icard open" data-idx="0">
-      <div class="pd-icard-head">
-        <div class="pd-icard-num">01</div>
-        <div class="pd-icard-img-sm"><img src="Product Asset/Key Ingredients/bifida-ferment-lysate.png" alt="Bifida Ferment Lysate"></div>
-        <div class="pd-icard-name">Bifida Ferment Lysate</div>
-        <div class="pd-icard-toggle"><span class="material-icons">add</span></div>
-      </div>
-      <div class="pd-icard-body">
-        <div class="pd-icard-inner">
-          <div class="pd-icard-detail">
-            <div class="pd-icard-img-lg"><img src="Product Asset/Key Ingredients/bifida-ferment-lysate.png" alt="Bifida Ferment Lysate"></div>
-            <div class="pd-icard-text">
-              <div class="pd-icard-role">Microbiome Protector</div>
-              <div class="pd-icard-desc">A probiotic ferment lysate that mimics the skin's natural microbiome. Strengthens the barrier function, reduces sensitivity triggers, and promotes a balanced skin ecosystem. Clinically shown to reduce TEWL (trans-epidermal water loss) by up to 34% in 4 weeks.</div>
-            </div>
-          </div>
+    <div class="pd-icard active" data-idx="0">
+      <div class="pd-icard-img"><img src="Product Asset/Key Ingredients/bifida-ferment-lysate.png" alt="Bifida Ferment Lysate"></div>
+      <div class="pd-icard-panel">
+        <div class="pd-icard-head">
+          <div class="pd-icard-name">Bifida Ferment Lysate</div>
+          <div class="pd-icard-icon"><span class="material-icons">remove</span></div>
         </div>
+        <div class="pd-icard-desc">Bifida Ferment Lysate is a form of paraprobiotic microbiome which are the inactivated form of prebiotic, when paraprobiotic contact with the skin it will actively work for rebalancing skin microbiome and strengthening skin barrier.</div>
       </div>
     </div>
-
     <div class="pd-icard" data-idx="1">
-      <div class="pd-icard-head">
-        <div class="pd-icard-num">02</div>
-        <div class="pd-icard-img-sm"><img src="Product Asset/Key Ingredients/revive-complex.png" alt="Revive Complex™"></div>
-        <div class="pd-icard-name">Revive Complex™</div>
-        <div class="pd-icard-toggle"><span class="material-icons">add</span></div>
-      </div>
-      <div class="pd-icard-body">
-        <div class="pd-icard-inner">
-          <div class="pd-icard-detail">
-            <div class="pd-icard-img-lg"><img src="Product Asset/Key Ingredients/revive-complex.png" alt="Revive Complex™"></div>
-            <div class="pd-icard-text">
-              <div class="pd-icard-role">Repair Activator</div>
-              <div class="pd-icard-desc">A proprietary blend of ceramides, fatty acids, and cholesterol that restores the skin's lipid matrix. Works synergistically with the natural epidermal regeneration cycle to repair barrier integrity and accelerate recovery from environmental damage.</div>
-            </div>
-          </div>
+      <div class="pd-icard-img"><img src="Product Asset/Key Ingredients/revive-complex.png" alt="Revive Complex"></div>
+      <div class="pd-icard-panel">
+        <div class="pd-icard-head">
+          <div class="pd-icard-name">Revive Complex</div>
+          <div class="pd-icard-icon"><span class="material-icons">add</span></div>
         </div>
+        <div class="pd-icard-desc">A proprietary blend of ceramides, fatty acids, and cholesterol that restores the skin's lipid matrix and accelerates recovery from environmental damage.</div>
       </div>
     </div>
-
     <div class="pd-icard" data-idx="2">
-      <div class="pd-icard-head">
-        <div class="pd-icard-num">03</div>
-        <div class="pd-icard-img-sm"><img src="Product Asset/Key Ingredients/saccharide-isometate.png" alt="Saccharide Isomerate"></div>
-        <div class="pd-icard-name">Saccharide Isomerate</div>
-        <div class="pd-icard-toggle"><span class="material-icons">add</span></div>
-      </div>
-      <div class="pd-icard-body">
-        <div class="pd-icard-inner">
-          <div class="pd-icard-detail">
-            <div class="pd-icard-img-lg"><img src="Product Asset/Key Ingredients/saccharide-isometate.png" alt="Saccharide Isomerate"></div>
-            <div class="pd-icard-text">
-              <div class="pd-icard-role">72-Hour Moisture Binder</div>
-              <div class="pd-icard-desc">A carbohydrate complex that binds to the keratin in skin cells and forms a moisture reservoir that lasts up to 72 hours. Unlike standard humectants, Saccharide Isomerate works at the cellular level to create long-lasting, non-tacky hydration.</div>
-            </div>
-          </div>
+      <div class="pd-icard-img"><img src="Product Asset/Key Ingredients/saccharide-isometate.png" alt="Saccharide Isometate"></div>
+      <div class="pd-icard-panel">
+        <div class="pd-icard-head">
+          <div class="pd-icard-name">Saccharide Isometate</div>
+          <div class="pd-icard-icon"><span class="material-icons">add</span></div>
         </div>
+        <div class="pd-icard-desc">A carbohydrate complex that binds to the keratin in skin cells forming a moisture reservoir that lasts up to 72 hours of lasting hydration.</div>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- DERMATOLOGIST APPROVED -->
 <section class="pd-derm" id="pdDerm">
   <div class="pd-derm-grid">
-    <div class="pd-derm-left" id="dermLeft">
-      <div class="pd-derm-badge" id="dermBadge"><span class="material-icons">verified</span>Dermatologist Approved</div>
-      <blockquote class="pd-derm-quote" id="dermQuote">"BiomeRepair™ consistently outperforms conventional barrier serums in clinical benchmarks. I recommend it without reservation for patients with compromised skin."</blockquote>
-      <div class="pd-derm-attr" id="dermAttr">
-        <div class="pd-derm-avatar"><img src="Product Asset/Dermatologist approved/dr-andina.png" alt="Dr. Andina Bulan Sari"></div>
-        <div>
-          <div class="pd-derm-name">Dr. Andina Bulan Sari, SpKK</div>
-          <div class="pd-derm-title">Board-Certified Dermatologist · Clinical Advisor, LABORÉ</div>
-        </div>
-      </div>
-      <!-- Before / After -->
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="font-size:16px;font-weight:500;color:#1B1918;">Clinical Results After 28 Days</div>
-        <div class="pd-ba-wrap" id="pdBa">
-          <div class="pd-ba-after"><img src="Product Asset/Dermatologist approved/slider/slider-after.png" alt="After"></div>
-          <div class="pd-ba-before" id="pdBaBefore"><img src="Product Asset/Dermatologist approved/slider/slider-before.png" alt="Before"></div>
-          <div class="pd-ba-line" id="pdBaLine"></div>
-          <div class="pd-ba-btn" id="pdBaBtn"><span class="material-icons">unfold_more</span></div>
-          <div class="pd-ba-labels">
-            <span class="pd-ba-label">Before</span>
-            <span class="pd-ba-label">After</span>
-          </div>
-        </div>
-      </div>
+    <!-- Doctor photo left -->
+    <div class="pd-derm-photo" id="dermPhoto">
+      <img src="Product Asset/Dermatologist approved/dr-andina.png" alt="dr. Andina Bulan Sari, SpKK">
     </div>
-    <div class="pd-derm-right" id="dermRight">
-      <div style="border-radius:12px;overflow:hidden;height:100%;min-height:600px;position:relative;">
-        <img src="Product Asset/Dermatologist approved/dr-andina.png" alt="Dr. Andina Bulan Sari" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;">
+    <!-- Text + slider right -->
+    <div class="pd-derm-right">
+      <div class="pd-derm-text" id="dermText">
+        <div class="pd-derm-chip">
+          <span class="material-icons" style="font-size:20px;color:#75716F;">verified</span>
+          <span class="pd-derm-chip-label">Dermatologist approved</span>
+        </div>
+        <blockquote class="pd-derm-quote">"When sensitive skin symptoms flare up, reach for the right moisturizer — <em>one that soothes and calms while keeping your skin deeply hydrated, all day long."</em></blockquote>
+        <div class="pd-derm-attr">
+          <div class="pd-derm-name">dr. Andina Bulan Sari, SpKk</div>
+          <div class="pd-derm-role">Board Certified Dermatologist</div>
+        </div>
+      </div>
+      <!-- Before/After horizontal slider -->
+      <div class="pd-ba-wrap" id="pdBa">
+        <div class="pd-ba-after"><img src="Product Asset/Dermatologist approved/slider/slider-after.png" alt="After"></div>
+        <div class="pd-ba-before" id="pdBaBefore"><img src="Product Asset/Dermatologist approved/slider/slider-before.png" alt="Before"></div>
+        <div class="pd-ba-line" id="pdBaLine"></div>
+        <div class="pd-ba-btn" id="pdBaBtn"><span class="material-icons">unfold_more</span></div>
+        <div class="pd-ba-labels">
+          <span class="pd-ba-label">Before</span>
+          <span class="pd-ba-label">After</span>
+        </div>
       </div>
     </div>
   </div>
@@ -538,64 +575,25 @@
 <!-- COMPLETE YOUR REGIMEN -->
 <section class="pd-regimen" id="pdRegimen">
   <div class="pd-regimen-header">
-    <div>
-      <div class="pd-eyebrow" id="regimenEyebrow">Complete Your Routine</div>
-      <h2 class="pd-regimen-title" id="regimenTitle">Complete Your Regimen</h2>
-    </div>
-    <button class="link-sm">Shop All Products <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></button>
+    <h2 class="pd-regimen-title" id="regimenTitle">Complete Your Regimen</h2>
+    <button class="link-sm">Shop All Products <span class="btn-arr"><span class="material-icons arr-a" style="color:#F95272;">arrow_forward</span><span class="material-icons arr-b" style="color:#F95272;">arrow_forward</span></span></button>
   </div>
-  <div class="pd-carousel">
-    <div class="pd-track-wrap">
-      <div class="pd-track">
-        <div class="pcard">
-          <div class="pcard-img">
-            <div class="pcard-px">
-              <img class="pcard-img-main" src="Home Asset/Product/mild-cleanser/mild-cleanser.jpg" alt="Mild Cleanser">
-              <img class="pcard-img-hover" src="Home Asset/Product/mild-cleanser/mild-cleanser-hover.png" alt="">
-            </div>
-            <div class="pcard-overlay">
-              <div class="pcard-badge"><span class="material-icons">auto_awesome</span>Bestseller</div>
-              <div class="pcard-actions">
-                <button class="pcard-detail"><span class="material-icons">visibility</span>Detail</button>
-                <button class="pcard-buy"><span class="material-icons">shopping_bag</span>Buy</button>
-              </div>
-            </div>
-          </div>
-          <div class="pcard-body"><div class="pcard-name">Gentle Foam Cleanser</div><div class="pcard-desc">pH-balanced · Removes impurities without stripping</div></div>
-        </div>
-        <div class="pcard">
-          <div class="pcard-img">
-            <div class="pcard-px">
-              <img class="pcard-img-main" src="Home Asset/Product/skin-nutrition-gel/skin-nutrition-gel.jpg" alt="Skin Nutrition Gel">
-              <img class="pcard-img-hover" src="Home Asset/Product/skin-nutrition-gel/skin-nutrition-gel-hover.jpg" alt="">
-            </div>
-            <div class="pcard-overlay">
-              <div class="pcard-badge"><span class="material-icons">auto_awesome</span>New</div>
-              <div class="pcard-actions">
-                <button class="pcard-detail"><span class="material-icons">visibility</span>Detail</button>
-                <button class="pcard-buy"><span class="material-icons">shopping_bag</span>Buy</button>
-              </div>
-            </div>
-          </div>
-          <div class="pcard-body"><div class="pcard-name">Skin Nutrition Gel</div><div class="pcard-desc">Hydration boost · Lightweight gel formula</div></div>
-        </div>
-        <div class="pcard">
-          <div class="pcard-img">
-            <div class="pcard-px">
-              <img class="pcard-img-main" src="Home Asset/Product/physical-sunscreen/physical-sunscreen.jpg" alt="Physical Sunscreen">
-              <img class="pcard-img-hover" src="Home Asset/Product/physical-sunscreen/physical-sunscreen-hover.jpg" alt="">
-            </div>
-            <div class="pcard-overlay">
-              <div class="pcard-badge"><span class="material-icons">wb_sunny</span>SPF 50+</div>
-              <div class="pcard-actions">
-                <button class="pcard-detail"><span class="material-icons">visibility</span>Detail</button>
-                <button class="pcard-buy"><span class="material-icons">shopping_bag</span>Buy</button>
-              </div>
-            </div>
-          </div>
-          <div class="pcard-body"><div class="pcard-name">Physical Sunscreen SPF 50+</div><div class="pcard-desc">Mineral-based · Broad spectrum · Non-greasy</div></div>
-        </div>
-      </div>
+  <div class="pd-reg-cards" id="regCards">
+    <div class="pd-rcard">
+      <div class="pd-rcard-img"><img src="Home Asset/Product/intensive-acne-serum/intensive-acne-serum.jpg" alt="Intensive Acne Serum"></div>
+      <div class="pd-rcard-body"><div class="pd-rcard-name">Intensive Acne Serum</div><div class="pd-rcard-desc">Acne serum with mineral UV and pollution defense.</div></div>
+    </div>
+    <div class="pd-rcard">
+      <div class="pd-rcard-img"><img src="Home Asset/Product/skin-nutrition-gel/skin-nutrition-gel.jpg" alt="Skin Nutrition Gel"></div>
+      <div class="pd-rcard-body"><div class="pd-rcard-name">Skin Nutrition Gel</div><div class="pd-rcard-desc">Ultra-light moisturizer with cooling sensation.</div></div>
+    </div>
+    <div class="pd-rcard">
+      <div class="pd-rcard-img"><img src="Home Asset/Product/mild-cleanser/mild-cleanser.jpg" alt="Mild Cleanser"></div>
+      <div class="pd-rcard-body"><div class="pd-rcard-name">Mild Cleanser</div><div class="pd-rcard-desc">Non-foam cleanser with pH 5.5.</div></div>
+    </div>
+    <div class="pd-rcard">
+      <div class="pd-rcard-img"><img src="Home Asset/Product/physical-sunscreen/physical-sunscreen.jpg" alt="Physical Sunscreen"></div>
+      <div class="pd-rcard-body"><div class="pd-rcard-name">Physical Sunscreen</div><div class="pd-rcard-desc">100% mineral UV filters with anti-bluelight and anti-pollution.</div></div>
     </div>
   </div>
 </section>
@@ -645,7 +643,7 @@
       </div>
     </div>
     <div class="footer-nl-card">
-      <div class="footer-about-text">LABORÉ has developed into a skin specialist providing a wide range skin health care, personalized therapy service which supported by the best formula product that have been tested by Clinical Research & Innovation team, proven to be effective and save to use.</div>
+      <div class="footer-about-text">LABORÉ has developed into a skin specialist providing a wide range skin health care, personalized therapy service which supported by the best formula product that have been tested by Clinical Research &amp; Innovation team, proven to be effective and save to use.</div>
       <div class="footer-nl">
         <div class="footer-nl-label">Sign up to our newsletter</div>
         <div class="footer-nl-row">
@@ -675,13 +673,11 @@
     let finished  = false;
     const startTime = Date.now();
     const MIN_DISPLAY = 600;
-
     function setProgress(p) {
       p = Math.min(1, Math.max(0, p));
       bar.style.width = (p * 100) + '%';
       pctEl.textContent = Math.round(p * 100) + '%';
     }
-
     function finish() {
       if (finished) return;
       finished = true;
@@ -702,7 +698,6 @@
         });
       }, delay);
     }
-
     document.body.style.overflow = 'hidden';
     const imgs = Array.from(document.querySelectorAll('img'));
     const total = imgs.length;
@@ -733,66 +728,29 @@
   const nav = document.getElementById('nav');
   lenis.on('scroll', ({ scroll }) => { nav.classList.toggle('scrolled', scroll > 50); });
 
-  /* ── HERO: set initial states (hidden before loader exits) ── */
+  /* ── HERO: hidden initial states ── */
   gsap.set('.nav', { y: -64, opacity: 0 });
-  gsap.set('#heroCerts .pd-hero-cert', { opacity: 0, y: 10 });
-  gsap.set('#heroImgLeft', { scale: 1.08 });
-  gsap.set('#heroImgRight', { scale: 1.08 });
-  gsap.set('#heroPanel', { y: 60, opacity: 0 });
+  gsap.set('#heroImgLeftEl',  { scale: 1.08 });
+  gsap.set('#heroImgRightEl', { scale: 1.08 });
+  gsap.set('#heroBreadcrumb', { opacity: 0, y: -10 });
+  gsap.set('#heroCard', { opacity: 0, x: 40, filter: 'blur(14px)' });
 
   window.__playPageAnimations = function() {
-    gsap.to('.nav',          { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.05 });
-    gsap.to('#heroImgLeft',  { scale: 1, duration: 2.2, ease: 'power2.out' });
-    gsap.to('#heroImgRight', { scale: 1, duration: 2.2, ease: 'power2.out', delay: 0.1 });
-    gsap.to('#heroCerts .pd-hero-cert', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.08, delay: 0.25 });
-    gsap.to('#heroPanel', { y: 0, opacity: 1, duration: 0.9, ease: 'expo.out', delay: 0.55 });
+    gsap.to('.nav',           { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.05 });
+    gsap.to('#heroImgLeftEl', { scale: 1, duration: 2.2, ease: 'power2.out' });
+    gsap.to('#heroImgRightEl',{ scale: 1, duration: 2.2, ease: 'power2.out', delay: 0.1 });
+    gsap.to('#heroBreadcrumb',{ opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 0.3 });
+    gsap.to('#heroCard',      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1.0, ease: 'expo.out', delay: 0.5,
+      onComplete: () => gsap.set('#heroCard', { clearProps: 'filter' }) });
   };
-
-  /* ── MARQUEE ── */
-  (function() {
-    const certItems = [
-      { icon: 'Product Asset/Running Text/clinically-tested.svg',           text: 'Clinically Tested' },
-      { icon: 'Product Asset/Running Text/cruelty-free.svg',                text: 'Cruelty-Free' },
-      { icon: 'Product Asset/Running Text/dermatologist-tested.svg',        text: 'Dermatologist Tested' },
-      { icon: 'Product Asset/Running Text/ideal-for-sensitive-skin.svg',    text: 'Ideal for Sensitive Skin' },
-      { icon: 'Product Asset/Running Text/suitable-for-indonesian-skin.svg',text: 'Suitable for Indonesian Skin' },
-    ];
-    const track = document.getElementById('marqueeTrack');
-    // Build one set
-    function buildSet() {
-      const frag = document.createDocumentFragment();
-      certItems.forEach(c => {
-        const item = document.createElement('div');
-        item.className = 'marquee-item';
-        item.innerHTML = `<img src="${c.icon}" alt="${c.text}"><span>${c.text}</span><div class="marquee-dot"></div>`;
-        frag.appendChild(item);
-      });
-      return frag;
-    }
-    // Duplicate enough for seamless loop
-    for (let i = 0; i < 6; i++) track.appendChild(buildSet());
-
-    let x = 0;
-    const speed = 0.6; // px per frame
-    function tick() {
-      x -= speed;
-      const trackW = track.scrollWidth / 6; // one set width
-      if (Math.abs(x) >= trackW) x += trackW;
-      track.style.transform = `translateX(${x}px)`;
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  })();
 
   /* ── HELPERS ── */
   function animateFade(el, trigger, delay) {
     if (!el) return;
-    gsap.from(el, {
-      opacity: 0, y: 22, duration: 0.85, ease: 'power2.out', delay: delay || 0,
-      scrollTrigger: { trigger: trigger || el, start: 'top 88%' }
-    });
+    gsap.from(el, { opacity: 0, y: 22, duration: 0.85, ease: 'power2.out', delay: delay || 0,
+      scrollTrigger: { trigger: trigger || el, start: 'top 88%' } });
   }
-  function animateBlur(el, trigger, delay) {
+  function animateBlurIn(el, trigger, delay) {
     if (!el) return;
     gsap.fromTo(el,
       { opacity: 0, y: 28, filter: 'blur(14px)' },
@@ -808,119 +766,137 @@
     split.lines.forEach(line => {
       const mask = document.createElement('div');
       mask.style.cssText = 'overflow:hidden;display:block;';
-      line.parentNode.insertBefore(mask, line);
-      mask.appendChild(line);
+      line.parentNode.insertBefore(mask, line); mask.appendChild(line);
     });
-    gsap.from(split.lines, {
-      yPercent: 110, duration: 1.05, ease: 'power3.out', stagger: 0.09, delay: delay || 0,
-      scrollTrigger: { trigger: trigger || el, start: 'top 88%' }
-    });
+    gsap.from(split.lines, { yPercent: 110, duration: 1.05, ease: 'power3.out', stagger: 0.09, delay: delay || 0,
+      scrollTrigger: { trigger: trigger || el, start: 'top 88%' } });
   }
 
+  /* ── RUNNING TEXT: parallax on scroll ── */
+  gsap.to('#pdRunning .pd-running-inner', {
+    x: '-8%', ease: 'none',
+    scrollTrigger: { trigger: '#pdRunning', start: 'top bottom', end: 'bottom top', scrub: 1 }
+  });
+  // Reveal
+  gsap.from('#pdRunning', { opacity: 0, duration: 0.6, ease: 'power2.out',
+    scrollTrigger: { trigger: '#pdRunning', start: 'top 90%' } });
+
   /* ── ABOUT PRODUCT ── */
-  // Image parallax + reveal
   gsap.fromTo('#aboutImgWrap',
     { opacity: 0, scale: 1.04 },
     { opacity: 1, scale: 1, duration: 1.1, ease: 'power2.out',
       scrollTrigger: { trigger: '#pdAbout', start: 'top 80%' } }
   );
-  // Scroll parallax on image
-  gsap.to('#aboutImg', {
-    yPercent: -12, ease: 'none',
-    scrollTrigger: { trigger: '#pdAbout', start: 'top bottom', end: 'bottom top', scrub: 1.5 }
+  gsap.to('#aboutImg', { yPercent: -8, ease: 'none',
+    scrollTrigger: { trigger: '#pdAbout', start: 'top bottom', end: 'bottom top', scrub: 1.5 } });
+  animateLines(document.querySelector('.pd-about-title'), document.getElementById('pdAbout'), 0);
+  animateFade(document.querySelector('.pd-about-desc'), document.getElementById('pdAbout'), 0.15);
+  animateFade(document.getElementById('aboutLink'), document.getElementById('pdAbout'), 0.25);
+  // Icon labels stagger
+  gsap.set('#aboutIcons .pd-about-icon-item', { opacity: 0, y: 16 });
+  ScrollTrigger.create({ trigger: '#aboutIcons', start: 'top 88%', once: true,
+    onEnter: () => gsap.to('#aboutIcons .pd-about-icon-item', {
+      opacity: 1, y: 0, duration: 0.65, ease: 'power2.out', stagger: 0.1 })
   });
-  animateFade(document.getElementById('aboutEyebrow'), document.getElementById('pdAbout'), 0);
-  animateLines(document.getElementById('aboutTitle'), document.getElementById('pdAbout'), 0.1);
-  animateFade(document.getElementById('aboutDesc'), document.getElementById('pdAbout'), 0.25);
-  // Benefit items stagger
-  gsap.set('#aboutBenefits .pd-benefit-item', { opacity: 0, x: -16 });
-  ScrollTrigger.create({
-    trigger: '#aboutBenefits', start: 'top 88%', once: true,
-    onEnter: () => gsap.to('#aboutBenefits .pd-benefit-item', {
-      opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1
-    })
-  });
-  animateBlur(document.getElementById('aboutCta'), document.getElementById('pdAbout'), 0.5);
 
-  /* ── BENEFITS ── */
-  animateLines(document.getElementById('benefitsTitle'), document.getElementById('pdBenefits'), 0);
-  animateFade(document.getElementById('benefitsSub'), document.getElementById('pdBenefits'), 0.15);
-  gsap.set('.pd-bcard', { opacity: 0 });
-  ScrollTrigger.batch('.pd-bcard', {
-    onEnter: batch => gsap.fromTo(batch,
-      { opacity: 0, y: 44, filter: 'blur(16px)' },
-      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.05, ease: 'power2.out', stagger: 0.18, overwrite: true,
-        onComplete: () => gsap.set(batch, { clearProps: 'filter' }) }
-    ),
-    start: 'top 85%', once: true
+  /* ── BENEFIT ── */
+  // Feature tab switcher
+  const btabs = document.querySelectorAll('.pd-btab');
+  const benefitBgSrcs = [
+    'Product Asset/Benefits/clinically-proven.png',
+    'Product Asset/Benefits/anti-inflammatory.png',
+    'Product Asset/Benefits/recover-skin-elasticity.png'
+  ];
+  btabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      btabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const idx = parseInt(tab.dataset.idx);
+      gsap.to('#benefitBg', { opacity: 0, duration: 0.3, onComplete: () => {
+        document.getElementById('benefitBg').src = benefitBgSrcs[idx];
+        gsap.to('#benefitBg', { opacity: 1, duration: 0.5 });
+      }});
+    });
   });
+  // Reveal
+  gsap.from('#benefitPanel', { opacity: 0, y: 40, filter: 'blur(14px)', duration: 1.0, ease: 'power2.out',
+    scrollTrigger: { trigger: '#pdBenefit', start: 'top 80%' },
+    onComplete: () => gsap.set('#benefitPanel', { clearProps: 'filter' }) });
+  gsap.from('#benefitTabs .pd-btab', { opacity: 0, y: -16, duration: 0.6, ease: 'power2.out', stagger: 0.1,
+    scrollTrigger: { trigger: '#pdBenefit', start: 'top 85%' } });
 
   /* ── HOW TO APPLY ── */
-  animateFade(document.getElementById('htaEyebrow'), document.getElementById('pdHta'), 0);
-  animateLines(document.getElementById('htaTitle'), document.getElementById('pdHta'), 0.1);
-  gsap.set('.pd-step', { opacity: 0 });
-  ScrollTrigger.batch('.pd-step', {
+  animateLines(document.querySelector('.pd-hta-title'), document.getElementById('pdHta'), 0);
+  gsap.from('#htaImg1', { opacity: 0, x: 40, duration: 1.0, ease: 'power2.out',
+    scrollTrigger: { trigger: '#pdHta', start: 'top 82%' }, delay: 0.1 });
+  gsap.from('#htaImg2', { opacity: 0, x: 40, duration: 1.0, ease: 'power2.out',
+    scrollTrigger: { trigger: '#pdHta', start: 'top 82%' }, delay: 0.25 });
+  // Accordion
+  const steps = document.querySelectorAll('.pd-step');
+  steps.forEach(step => {
+    step.addEventListener('click', () => {
+      steps.forEach(s => s.classList.remove('active'));
+      step.classList.add('active');
+    });
+  });
+
+  /* ── KEY INGREDIENTS ── */
+  animateLines(document.getElementById('ingTitle'), document.getElementById('pdIngredients'), 0);
+  gsap.set('.pd-icard', { opacity: 0, y: 30 });
+  ScrollTrigger.batch('.pd-icard', {
     onEnter: batch => gsap.fromTo(batch,
-      { opacity: 0, y: 40, filter: 'blur(14px)' },
+      { opacity: 0, y: 30, filter: 'blur(12px)' },
       { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: 'power2.out', stagger: 0.15, overwrite: true,
         onComplete: () => gsap.set(batch, { clearProps: 'filter' }) }
     ),
     start: 'top 85%', once: true
   });
-
-  /* ── KEY INGREDIENTS ── */
-  animateFade(document.getElementById('ingEyebrow'), document.getElementById('pdIngredients'), 0);
-  animateLines(document.getElementById('ingTitle'), document.getElementById('pdIngredients'), 0.1);
-  animateFade(document.getElementById('ingViewAll'), document.getElementById('pdIngredients'), 0.2);
-  // Ingredient cards stagger reveal
-  gsap.set('.pd-icard', { opacity: 0, y: 20 });
-  ScrollTrigger.create({
-    trigger: '#ingCards', start: 'top 88%', once: true,
-    onEnter: () => gsap.to('.pd-icard', { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out', stagger: 0.12 })
-  });
-  // Accordion toggle
+  // Ingredient toggle
   document.querySelectorAll('.pd-icard').forEach(card => {
-    card.querySelector('.pd-icard-head').addEventListener('click', () => {
-      const isOpen = card.classList.contains('open');
-      document.querySelectorAll('.pd-icard').forEach(c => c.classList.remove('open'));
-      if (!isOpen) card.classList.add('open');
+    card.addEventListener('click', () => {
+      const wasActive = card.classList.contains('active');
+      document.querySelectorAll('.pd-icard').forEach(c => {
+        c.classList.remove('active');
+        const icon = c.querySelector('.pd-icard-icon .material-icons');
+        if (icon) icon.textContent = 'add';
+      });
+      if (!wasActive) {
+        card.classList.add('active');
+        const icon = card.querySelector('.pd-icard-icon .material-icons');
+        if (icon) icon.textContent = 'remove';
+      }
     });
   });
 
   /* ── DERMATOLOGIST ── */
-  animateFade(document.getElementById('dermBadge'), document.getElementById('pdDerm'), 0);
-  animateLines(document.getElementById('dermQuote'), document.getElementById('pdDerm'), 0.15);
-  animateFade(document.getElementById('dermAttr'), document.getElementById('pdDerm'), 0.3);
-  gsap.fromTo('#dermRight > div',
-    { opacity: 0, scale: 1.04 },
-    { opacity: 1, scale: 1, duration: 1.1, ease: 'power2.out',
-      scrollTrigger: { trigger: '#pdDerm', start: 'top 80%' } }
-  );
-  // Before/After: animate reveal on scroll enter
+  gsap.fromTo('#dermPhoto', { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 1.1, ease: 'power2.out',
+    scrollTrigger: { trigger: '#pdDerm', start: 'top 80%' } });
+  animateFade(document.querySelector('.pd-derm-chip'), document.getElementById('pdDerm'), 0.1);
+  animateLines(document.querySelector('.pd-derm-quote'), document.getElementById('pdDerm'), 0.2);
+  animateFade(document.querySelector('.pd-derm-attr'), document.getElementById('pdDerm'), 0.4);
+  // Before/after reveal on scroll
   gsap.set('#pdBaLine', { left: '10%' });
   gsap.set('#pdBaBefore', { clipPath: 'inset(0 90% 0 0)' });
-  ScrollTrigger.create({
-    trigger: '#pdBa', start: 'top 88%', once: true,
+  ScrollTrigger.create({ trigger: '#pdBa', start: 'top 88%', once: true,
     onEnter: () => {
       gsap.to('#pdBaLine',   { left: '50%', duration: 2.0, ease: 'expo.out' });
       gsap.to('#pdBaBefore', { clipPath: 'inset(0 50% 0 0)', duration: 2.0, ease: 'expo.out' });
     }
   });
-  // Before/After drag
+  // Before/after drag
   (function() {
-    const ba     = document.getElementById('pdBa');
-    const line   = document.getElementById('pdBaLine');
-    const before = document.getElementById('pdBaBefore');
-    const btn    = document.getElementById('pdBaBtn');
+    const ba = document.getElementById('pdBa');
+    const line = document.getElementById('pdBaLine');
+    const btn  = document.getElementById('pdBaBtn');
+    const bef  = document.getElementById('pdBaBefore');
     let dragging = false;
     function move(clientX) {
       const rect = ba.getBoundingClientRect();
       let pct = (clientX - rect.left) / rect.width;
       pct = Math.max(0.02, Math.min(0.98, pct));
-      const pctStr = (pct * 100).toFixed(2) + '%';
-      line.style.left = pctStr;
-      btn.style.left  = pctStr;
-      before.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
+      const ps = (pct * 100).toFixed(2) + '%';
+      line.style.left = ps; btn.style.left = ps;
+      bef.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
     }
     ba.addEventListener('mousedown',  e => { dragging = true; move(e.clientX); });
     window.addEventListener('mousemove', e => { if (dragging) move(e.clientX); });
@@ -931,32 +907,20 @@
   })();
 
   /* ── REGIMEN ── */
-  animateFade(document.getElementById('regimenEyebrow'), document.getElementById('pdRegimen'), 0);
-  animateLines(document.getElementById('regimenTitle'), document.getElementById('pdRegimen'), 0.1);
-  gsap.set('.pd-track .pcard', { opacity: 0 });
-  ScrollTrigger.batch('.pd-track .pcard', {
+  animateLines(document.getElementById('regimenTitle'), document.getElementById('pdRegimen'), 0);
+  gsap.set('.pd-rcard', { opacity: 0 });
+  ScrollTrigger.batch('.pd-rcard', {
     onEnter: batch => gsap.fromTo(batch,
-      { opacity: 0, y: 44, filter: 'blur(16px)' },
-      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.05, ease: 'power2.out', stagger: 0.2, overwrite: true,
+      { opacity: 0, y: 40, filter: 'blur(14px)' },
+      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power2.out', stagger: 0.18, overwrite: true,
         onComplete: () => gsap.set(batch, { clearProps: 'filter' }) }
     ),
     start: 'top 85%', once: true
   });
 
-  /* ── PRODUCT CARD PARALLAX ── */
-  document.querySelectorAll('.pcard').forEach(card => {
-    const px = card.querySelector('.pcard-px');
-    if (!px) return;
-    gsap.to(px, {
-      yPercent: -8, ease: 'none',
-      scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 1.2 }
-    });
-  });
-
   /* ── FOOTER ── */
   animateFade(document.querySelector('.footer-menu'), document.querySelector('.footer-top'), 0);
   animateFade(document.querySelector('.footer-about-text'), document.querySelector('.footer-nl-card'), 0.1);
-
 </script>
 </body>
 </html>
