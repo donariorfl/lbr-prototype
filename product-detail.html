@@ -65,42 +65,38 @@
     .link-sm .material-icons{font-size:16px;color:#F95272;}
 
     /* ── HERO ── */
-    .pd-hero{position:relative;height:703px;overflow:hidden;}
-    /* Two image panels */
-    .pd-hero-img-left{position:absolute;top:0;left:0;width:720px;height:100%;}
-    .pd-hero-img-left img{width:100%;height:100%;object-fit:cover;will-change:transform;}
-    .pd-hero-img-right{position:absolute;top:0;right:0;width:721px;height:100%;}
-    .pd-hero-img-right img{width:100%;height:100%;object-fit:cover;will-change:transform;}
-    .pd-hero-img-right::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.05);}
-    /* Breadcrumb top overlay */
-    .pd-breadcrumb{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:4px;padding:12px 24px;}
+    .pd-hero{display:flex;height:703px;overflow:hidden;}
+    /* Left col: product image + breadcrumb */
+    .pd-hero-left-col{flex:1;position:relative;display:flex;flex-direction:column;min-width:0;}
+    .pd-hero-left-col img.pd-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform;}
+    /* Breadcrumb lives inside left col, top */
+    .pd-breadcrumb{position:relative;z-index:5;display:flex;align-items:center;gap:4px;padding:12px 24px;}
     .pd-breadcrumb span{font-size:14px;font-weight:400;color:#4B4846;line-height:1.5;}
     .pd-breadcrumb .material-icons{font-size:14px;color:#4B4846;}
-    .pd-breadcrumb .bc-current{color:#1B1918;font-weight:500;}
-    /* Glass info card — overlaid on right, centered vertically */
-    .pd-hero-card{position:absolute;right:24px;top:50%;transform:translateY(-50%);width:574px;z-index:5;display:flex;flex-direction:column;gap:8px;}
-    .pd-hero-info{background:rgba(0,0,0,.1);backdrop-filter:blur(35px);border-radius:8px;padding:20px 14px;display:flex;flex-direction:column;gap:16px;}
+    .pd-breadcrumb .bc-current{color:#1B1918;}
+    /* Right col: lifestyle image + centered glass card */
+    .pd-hero-right-col{flex:1;position:relative;display:flex;align-items:center;justify-content:center;min-width:0;}
+    .pd-hero-right-col img.pd-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform;}
+    .pd-hero-right-col::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.05);pointer-events:none;}
+    /* Glass card centered in right col */
+    .pd-hero-card{position:relative;z-index:5;width:574px;display:flex;flex-direction:column;gap:8px;}
+    .pd-hero-info{background:rgba(0,0,0,.1);backdrop-filter:blur(35px);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:16px;}
     .pd-hero-brand{font-size:16px;font-weight:500;color:rgba(255,255,255,.5);line-height:1;}
     .pd-hero-title{font-size:48px;font-weight:500;color:#fff;line-height:1.05;}
     .pd-hero-desc{font-size:18px;font-weight:400;color:rgba(255,255,255,.75);line-height:1.2;}
     .pd-hero-suited{display:flex;flex-direction:column;gap:8px;}
     .pd-hero-suited-label{font-size:12px;font-weight:400;color:rgba(255,255,255,.5);line-height:1.2;}
     .pd-hero-suited-tags{display:flex;gap:8px;}
-    .pd-hero-tag{font-size:16px;font-weight:500;color:#fff;padding-right:8px;border-right:1px solid #fff;}
+    .pd-hero-tag{font-size:16px;font-weight:500;color:#fff;padding-right:8px;border-right:1px solid rgba(255,255,255,.6);}
     .pd-hero-tag:last-child{border-right:none;padding-right:0;}
     .pd-hero-sizes{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);}
     .pd-hero-sizes-label{font-size:12px;font-weight:400;color:rgba(255,255,255,.5);line-height:1.2;}
     .pd-hero-size-opts{display:flex;gap:8px;}
     .pd-hero-size-chip{border:1px solid rgba(255,255,255,.75);border-radius:1000px;padding:7px 12px;font-size:14px;font-weight:500;color:rgba(255,255,255,.75);line-height:1.25;width:112px;text-align:center;cursor:pointer;transition:background .2s ease;}
     .pd-hero-size-chip:hover{background:rgba(255,255,255,.1);}
-    /* Next arrow button */
-    .pd-hero-nav{position:absolute;right:24px;top:50%;transform:translateY(-50%);z-index:6;background:#fff;border:1px solid #EBEBEB;border-radius:4px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s ease;}
-    .pd-hero-nav:hover{transform:translateY(-50%) scale(1.05);}
-    .pd-hero-nav .material-icons{font-size:20px;}
-    /* Pagination dots */
-    .pd-hero-dots{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);z-index:5;}
-    .pd-hero-dots-track{position:relative;width:128px;height:4px;background:rgba(255,255,255,.5);border-radius:1000px;}
-    .pd-hero-dot-active{position:absolute;left:0;top:0;width:38px;height:4px;background:#F95272;border-radius:1000px;}
+    /* Buy button: glass, full-width within card */
+    .pd-hero-buy{background:rgba(0,0,0,.1);backdrop-filter:blur(35px);border-radius:8px;height:44px;display:flex;align-items:center;justify-content:center;gap:2px;color:#fff;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;border:none;cursor:pointer;transition:background .2s ease;}
+    .pd-hero-buy:hover{background:rgba(0,0,0,.2);}
 
     /* ── RUNNING TEXT ── */
     .pd-running{background:#fff;overflow:hidden;padding:12px 24px;border-top:1px solid #F5F5F4;border-bottom:1px solid #F5F5F4;}
@@ -285,54 +281,48 @@
 
 <!-- HERO -->
 <section class="pd-hero" id="pdHero">
-  <!-- Left: product image -->
-  <div class="pd-hero-img-left" id="heroImgLeft">
-    <img src="Product Asset/Hero/heroimg-2.png" alt="Barrier Revive Cream" id="heroImgLeftEl">
-  </div>
-  <!-- Right: lifestyle image -->
-  <div class="pd-hero-img-right" id="heroImgRight">
-    <img src="Product Asset/Hero/heroimg-1.png" alt="" id="heroImgRightEl">
-  </div>
-  <!-- Breadcrumb -->
-  <div class="pd-breadcrumb" id="heroBreadcrumb">
-    <span>Home</span>
-    <span class="material-icons">chevron_right</span>
-    <span>Moisturizer</span>
-    <span class="material-icons">chevron_right</span>
-    <span class="bc-current">Barrier Revive Cream</span>
-  </div>
-  <!-- Info card -->
-  <div class="pd-hero-card" id="heroCard">
-    <div class="pd-hero-info">
-      <div style="display:flex;flex-direction:column;gap:4px;">
-        <div class="pd-hero-brand">BiomeRepair™</div>
-        <div class="pd-hero-title">Barrier Revive Cream</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <p class="pd-hero-desc">Science-backed skincare restoring natural balance for healthy skin.</p>
-        <div class="pd-hero-suited">
-          <div class="pd-hero-suited-label">Suited to</div>
-          <div class="pd-hero-suited-tags">
-            <span class="pd-hero-tag">Normal</span>
-            <span class="pd-hero-tag">Very Dry</span>
-            <span class="pd-hero-tag">Atopic Dermatitis</span>
-          </div>
-        </div>
-        <div class="pd-hero-sizes">
-          <div class="pd-hero-sizes-label">Available in Size</div>
-          <div class="pd-hero-size-opts">
-            <div class="pd-hero-size-chip">10 ml</div>
-            <div class="pd-hero-size-chip">50 ml</div>
-          </div>
-        </div>
-      </div>
+  <!-- Left col: product image + breadcrumb -->
+  <div class="pd-hero-left-col">
+    <img class="pd-hero-bg" src="Product Asset/Hero/heroimg-2.png" alt="Barrier Revive Cream" id="heroImgLeftEl">
+    <div class="pd-breadcrumb" id="heroBreadcrumb">
+      <span>Home</span>
+      <span class="material-icons">chevron_right</span>
+      <span>Moisturizer</span>
+      <span class="material-icons">chevron_right</span>
+      <span class="bc-current">Barrier Revive Cream</span>
     </div>
-    <button class="btn-glass">Buy Product <span class="btn-arr"><span class="material-icons arr-a">arrow_forward</span><span class="material-icons arr-b">arrow_forward</span></span></button>
   </div>
-  <!-- Nav arrow -->
-  <div class="pd-hero-nav" id="heroNav" style="right:766px;"><span class="material-icons">chevron_right</span></div>
-  <!-- Pagination -->
-  <div class="pd-hero-dots"><div class="pd-hero-dots-track"><div class="pd-hero-dot-active"></div></div></div>
+  <!-- Right col: lifestyle image + centered glass card -->
+  <div class="pd-hero-right-col">
+    <img class="pd-hero-bg" src="Product Asset/Hero/heroimg-1.png" alt="" id="heroImgRightEl">
+    <div class="pd-hero-card" id="heroCard">
+      <div class="pd-hero-info">
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="pd-hero-brand">BiomeRepair™</div>
+          <div class="pd-hero-title">Barrier Revive Cream</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <p class="pd-hero-desc">Science-backed skincare restoring natural balance for healthy skin.</p>
+          <div class="pd-hero-suited">
+            <div class="pd-hero-suited-label">Suited to</div>
+            <div class="pd-hero-suited-tags">
+              <span class="pd-hero-tag">Normal</span>
+              <span class="pd-hero-tag">Very Dry</span>
+              <span class="pd-hero-tag">Atopic Demartitis</span>
+            </div>
+          </div>
+          <div class="pd-hero-sizes">
+            <div class="pd-hero-sizes-label">Available in Size</div>
+            <div class="pd-hero-size-opts">
+              <div class="pd-hero-size-chip">10 ml</div>
+              <div class="pd-hero-size-chip">50 ml</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="pd-hero-buy">Buy Product <span class="material-icons" style="font-size:16px;margin-left:2px;">arrow_forward</span></button>
+    </div>
+  </div>
 </section>
 
 <!-- RUNNING TEXT -->
@@ -732,15 +722,15 @@
   gsap.set('.nav', { y: -64, opacity: 0 });
   gsap.set('#heroImgLeftEl',  { scale: 1.08 });
   gsap.set('#heroImgRightEl', { scale: 1.08 });
-  gsap.set('#heroBreadcrumb', { opacity: 0, y: -10 });
-  gsap.set('#heroCard', { opacity: 0, x: 40, filter: 'blur(14px)' });
+  gsap.set('#heroBreadcrumb', { opacity: 0, y: -8 });
+  gsap.set('#heroCard', { opacity: 0, y: 24, filter: 'blur(14px)' });
 
   window.__playPageAnimations = function() {
     gsap.to('.nav',           { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.05 });
     gsap.to('#heroImgLeftEl', { scale: 1, duration: 2.2, ease: 'power2.out' });
     gsap.to('#heroImgRightEl',{ scale: 1, duration: 2.2, ease: 'power2.out', delay: 0.1 });
-    gsap.to('#heroBreadcrumb',{ opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 0.3 });
-    gsap.to('#heroCard',      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1.0, ease: 'expo.out', delay: 0.5,
+    gsap.to('#heroBreadcrumb',{ opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 0.25 });
+    gsap.to('#heroCard',      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'expo.out', delay: 0.5,
       onComplete: () => gsap.set('#heroCard', { clearProps: 'filter' }) });
   };
 
