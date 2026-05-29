@@ -81,8 +81,8 @@
     @keyframes arrow-roll{0%{top:-100%;opacity:0;}8%{opacity:1;}30%{top:0;opacity:1;}70%{top:0;opacity:1;}92%{opacity:1;}100%{top:100%;opacity:0;}}
 
     /* ── ABOUT ── */
-    .about-pin-wrap{height:3000px;} /* 800px section + 2200px scroll room */
-    .about{position:sticky;top:0;height:800px;overflow:hidden;}
+    .about-pin-wrap{height:calc(100vh + 2200px);} /* 1vh section + 2200px scroll room */
+    .about{position:sticky;top:0;height:100vh;overflow:hidden;}
     .about-bg-wrap{position:absolute;inset:0;overflow:hidden;}
     .about-bg{position:absolute;width:100%;height:120%;top:-10%;will-change:transform;display:block;}
     .about-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:660px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;z-index:2;}
@@ -100,7 +100,7 @@
     .stat-label{font-size:14px;font-weight:600;line-height:1.4;}
 
     /* ── CONCERN ── */
-    .concern{position:relative;height:800px;overflow:hidden;}
+    .concern{position:relative;height:720px;overflow:hidden;}
     .concern-bg-wrap{position:absolute;inset:0;overflow:hidden;}
     .concern-bg{position:absolute;width:100%;height:120%;top:-10%;object-fit:cover;will-change:transform;}
     #cBgFront{z-index:1;clip-path:inset(100% 0% 0% 0%);}
@@ -202,7 +202,7 @@
     .ugc .sec-header{padding:0 24px;}
     .ugc-track-wrap{overflow:hidden;padding:0 24px;}
     .ugc-track{display:flex;gap:12px;}
-    .ugc-card{flex-shrink:0;width:calc((100vw - 72px) / 3);height:752px;border-radius:8px;overflow:hidden;position:relative;}
+    .ugc-card{flex-shrink:0;width:calc((100vw - 72px) / 3);height:648px;border-radius:8px;overflow:hidden;position:relative;}
     .ugc-px{position:absolute;inset:0;will-change:transform;}
     .ugc-px img,.ugc-px video{position:absolute;width:120%;height:100%;left:-10%;top:0;object-fit:cover;}
     .ugc-footer{position:absolute;bottom:0;left:0;right:0;padding:12px;}
@@ -406,7 +406,7 @@
     <div class="concern-top">
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div class="concern-panel" id="concernPanel">
-          <div class="concern-eyebrow">Discover by concern</div>
+          <div class="concern-eyebrow">Discover by skin type</div>
           <div class="concern-stat">
             <div class="concern-big" id="cBig">80% of participants</div>
             <div class="concern-sub" id="cSub">reported significant decrease in oiliness within just 2 weeks</div>
@@ -577,10 +577,10 @@
         </div>
       </div>
     </div>
-    <div class="ugc-nav ugc-nav-left" style="top:376px;">
+    <div class="ugc-nav ugc-nav-left" style="top:50%;transform:translateY(-50%);">
       <div class="arrow-btn" id="ugcPrev"><span class="material-icons">chevron_left</span></div>
     </div>
-    <div class="ugc-nav ugc-nav-right" style="top:376px;">
+    <div class="ugc-nav ugc-nav-right" style="top:50%;transform:translateY(-50%);">
       <div class="arrow-btn" id="ugcNext"><span class="material-icons">chevron_right</span></div>
     </div>
   </div>
