@@ -268,6 +268,21 @@
     .arrow-btn:hover{background:#F5F5F4;transform:scale(1.05);}
     .arrow-btn .material-icons{font-size:18px;}
 
+    /* ── FLOATING STRIP ── */
+    .pd-float{position:fixed;bottom:0;left:0;right:0;z-index:90;background:#fff;box-shadow:0 -2px 32px rgba(0,0,0,.12);display:flex;align-items:center;gap:12px;padding:8px 24px;transform:translateY(100%);opacity:0;pointer-events:none;}
+    .pd-float.visible{pointer-events:all;}
+    .pd-float-img{width:44px;height:44px;border-radius:4px;overflow:hidden;background:#F5F5F4;flex-shrink:0;}
+    .pd-float-img img{width:100%;height:100%;object-fit:cover;}
+    .pd-float-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+    .pd-float-name{font-size:16px;font-weight:600;color:#1B1918;line-height:1.2;white-space:nowrap;}
+    .pd-float-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .pd-float-cta{display:flex;gap:8px;flex-shrink:0;}
+    .pd-float-compare{border:1px solid #1B1918;background:transparent;border-radius:8px;padding:10px 16px;font-family:'Aeonik TRIAL',sans-serif;font-size:14px;font-weight:500;color:#1B1918;cursor:pointer;white-space:nowrap;transition:background .2s ease;}
+    .pd-float-compare:hover{background:#F5F5F4;}
+    .pd-float-buy{background:#1B1918;color:#fff;border:none;border-radius:8px;padding:10px 16px;font-family:'Aeonik TRIAL',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;transition:background .2s ease;}
+    .pd-float-buy:hover{background:#2d2927;}
+    .pd-float-buy .material-icons{font-size:16px;}
+
     /* ── FOOTER ── */
     .footer{position:relative;min-height:848px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;overflow:hidden;}
     .footer-bg-wrap{position:absolute;inset:0;overflow:hidden;}
@@ -706,6 +721,19 @@
     <div class="prod-nav prod-nav-right"><div class="arrow-btn" id="regNext"><span class="material-icons">chevron_right</span></div></div>
   </div>
 </section>
+
+<!-- FLOATING STRIP -->
+<div class="pd-float" id="pdFloat">
+  <div class="pd-float-img"><img src="Product Asset/Hero/heroimg-1.png" alt="Barrier Revive Cream"></div>
+  <div class="pd-float-copy">
+    <div class="pd-float-name">Barrier Revive Cream</div>
+    <div class="pd-float-desc">Science-backed skincare restoring natural balance for healthy skin.</div>
+  </div>
+  <div class="pd-float-cta">
+    <button class="pd-float-compare">Compare Product</button>
+    <button class="pd-float-buy">Buy Product <span class="material-icons">arrow_forward</span></button>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="footer" id="footerSec">
@@ -1338,6 +1366,39 @@
         const norm = ((r.left + r.width * 0.5) - cx()) / window.innerWidth;
         px.style.transform = 'translateX(' + (norm * -30) + 'px)';
       });
+    });
+  })();
+
+  /* ── FLOATING STRIP ── */
+  (function() {
+    const strip = document.getElementById('pdFloat');
+    let visible = false;
+    function showStrip() {
+      if (visible) return;
+      visible = true;
+      strip.classList.add('visible');
+      gsap.to(strip, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.55, ease: 'power3.out', overwrite: true,
+        onComplete: () => gsap.set(strip, { clearProps: 'filter' }) });
+    }
+    function hideStrip() {
+      if (!visible) return;
+      visible = false;
+      strip.classList.remove('visible');
+      gsap.to(strip, { y: '100%', opacity: 0, filter: 'blur(8px)', duration: 0.38, ease: 'power2.in', overwrite: true });
+    }
+    // Show when running text (section 2) scrolls to top
+    ScrollTrigger.create({
+      trigger: '#pdRunning',
+      start: 'top top',
+      onEnter: showStrip,
+      onLeaveBack: hideStrip
+    });
+    // Hide when Complete Your Regimen enters viewport
+    ScrollTrigger.create({
+      trigger: '#pdRegimen',
+      start: 'top bottom',
+      onEnter: hideStrip,
+      onLeaveBack: showStrip
     });
   })();
 

@@ -247,22 +247,22 @@
     .trust-right img{width:100%;aspect-ratio:1/1;object-fit:cover;will-change:transform;}
 
     /* ── LOYALTY ── */
-    .loyalty{background:#fff;padding:12px 24px 100px;}
+    .loyalty{background:#fff;padding:12px 24px 100px;overflow:hidden;}
     .loyalty-inner{display:flex;gap:12px;align-items:stretch;}
     .loyalty-left{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0;}
     .loyalty-copy{display:flex;flex-direction:column;gap:24px;padding-top:24px;}
     .loyalty-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.2;}
     .loyalty-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.4;max-width:440px;}
     .loyalty-cta{display:flex;gap:8px;}
-    .loyalty-join{background:#1B1918;color:#fff;border:none;border-radius:8px;padding:14px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;cursor:pointer;width:112px;transition:background .2s ease;}
+    .loyalty-join{background:#1B1918;color:#fff;border:none;border-radius:8px;padding:14px 20px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .2s ease;}
     .loyalty-join:hover{background:#2d2927;}
-    .loyalty-learn{background:transparent;border:1px solid #1B1918;border-radius:8px;padding:14px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;width:112px;transition:background .2s ease;}
+    .loyalty-learn{background:transparent;border:1px solid #1B1918;border-radius:8px;padding:14px 20px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;white-space:nowrap;transition:background .2s ease;}
     .loyalty-learn:hover{background:#F5F5F4;}
     .loyalty-nav-btns{display:flex;gap:8px;}
     .loyalty-nav-btn{background:#1B1918;border:none;border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease;}
     .loyalty-nav-btn:hover{background:#2d2927;}
     .loyalty-nav-btn .material-icons{font-size:20px;color:#fff;}
-    .loyalty-right{flex:1;overflow:hidden;min-width:0;}
+    .loyalty-right{flex:1;overflow:hidden;min-width:0;margin-right:-24px;}
     .loyalty-track{display:flex;gap:12px;will-change:transform;}
     .loyalty-card{background:#F5F5F4;border-radius:8px;padding:14px;height:360px;width:340px;flex-shrink:0;display:flex;flex-direction:column;justify-content:space-between;}
     .loyalty-card-icon{font-size:52px!important;color:#75716F;display:block;}
@@ -1407,16 +1407,8 @@
   document.getElementById('prodPrev').addEventListener('click',()=>{ prodIdx=prodIdx<=0?prodMax:prodIdx-1; slideProd(); });
 
   /* ── LOYALTY ── */
-  animateLines(document.querySelector('.loyalty-title'), document.getElementById('loyaltySec'), 0, 'top 80%');
-  gsap.set('.loyalty-card', { opacity: 0, y: 36, filter: 'blur(14px)' });
-  ScrollTrigger.batch('.loyalty-card', {
-    onEnter: batch => gsap.to(batch, {
-      opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.05, ease: 'power3.out', stagger: 0.15, overwrite: true,
-      onComplete: () => gsap.set(batch, { clearProps: 'filter' })
-    }),
-    start: 'top 82%', once: true
-  });
   (function() {
+    const sec   = document.getElementById('loyaltySec');
     const track = document.getElementById('loyaltyTrack');
     const cards = track.querySelectorAll('.loyalty-card');
     const max   = Math.max(0, cards.length - 2);
@@ -1427,6 +1419,23 @@
     }
     document.getElementById('loyaltyNext').addEventListener('click', () => { idx = idx >= max ? 0 : idx + 1; slide(); });
     document.getElementById('loyaltyPrev').addEventListener('click', () => { idx = idx <= 0 ? max : idx - 1; slide(); });
+
+    // Title: split text line by line
+    animateLines(document.querySelector('.loyalty-title'), sec, 0, 'top 80%');
+    // Desc: split text line by line staggered
+    animateLines(document.querySelector('.loyalty-desc'), sec, 0.1, 'top 80%');
+    // CTA: slide up + blur to focus
+    animateFade(document.querySelector('.loyalty-cta'), sec, 0.25, 'top 80%');
+    // Nav arrows: fade
+    animateFade(document.querySelector('.loyalty-nav-btns'), sec, 0.35, 'top 80%');
+    // Cards: all slide left + blur to focus together
+    gsap.set(cards, { opacity: 0, x: 60, filter: 'blur(14px)' });
+    ScrollTrigger.create({ trigger: sec, start: 'top 78%', once: true,
+      onEnter: () => gsap.to(cards, {
+        opacity: 1, x: 0, filter: 'blur(0px)', duration: 1.1, ease: 'expo.out', stagger: 0.1, overwrite: true,
+        onComplete: () => gsap.set(cards, { clearProps: 'filter' })
+      })
+    });
   })();
 
   /* ── ARTICLE TABS ── */
