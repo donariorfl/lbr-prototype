@@ -246,6 +246,29 @@
     .trust-right{position:relative;overflow:hidden;border-radius:8px;}
     .trust-right img{width:100%;aspect-ratio:1/1;object-fit:cover;will-change:transform;}
 
+    /* ── LOYALTY ── */
+    .loyalty{background:#fff;padding:12px 24px 100px;}
+    .loyalty-inner{display:flex;gap:12px;align-items:stretch;}
+    .loyalty-left{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0;}
+    .loyalty-copy{display:flex;flex-direction:column;gap:24px;padding-top:24px;}
+    .loyalty-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.2;}
+    .loyalty-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.4;max-width:440px;}
+    .loyalty-cta{display:flex;gap:8px;}
+    .loyalty-join{background:#1B1918;color:#fff;border:none;border-radius:8px;padding:14px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;cursor:pointer;width:112px;transition:background .2s ease;}
+    .loyalty-join:hover{background:#2d2927;}
+    .loyalty-learn{background:transparent;border:1px solid #1B1918;border-radius:8px;padding:14px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;width:112px;transition:background .2s ease;}
+    .loyalty-learn:hover{background:#F5F5F4;}
+    .loyalty-nav-btns{display:flex;gap:8px;}
+    .loyalty-nav-btn{background:#1B1918;border:none;border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease;}
+    .loyalty-nav-btn:hover{background:#2d2927;}
+    .loyalty-nav-btn .material-icons{font-size:20px;color:#fff;}
+    .loyalty-right{flex:1;overflow:hidden;min-width:0;}
+    .loyalty-track{display:flex;gap:12px;will-change:transform;}
+    .loyalty-card{background:#F5F5F4;border-radius:8px;padding:14px;height:360px;width:340px;flex-shrink:0;display:flex;flex-direction:column;justify-content:space-between;}
+    .loyalty-card-icon{font-size:52px!important;color:#75716F;display:block;}
+    .loyalty-card-title{font-size:24px;font-weight:500;color:#1B1918;line-height:1.2;margin-bottom:4px;}
+    .loyalty-card-desc{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
+
     /* ── ARTICLES ── */
     .articles{background:#fff;padding:48px 24px 100px;}
     .articles-title{font-size:34px;font-weight:500;line-height:1.2;margin-bottom:24px;}
@@ -639,6 +662,48 @@
   </div>
 </section>
 
+<!-- LOYALTY -->
+<section class="loyalty" id="loyaltySec">
+  <div class="loyalty-inner">
+    <div class="loyalty-left">
+      <div class="loyalty-copy">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <h2 class="loyalty-title">Your Skin, Rewarded</h2>
+          <p class="loyalty-desc">Science-backed skincare deserves science-backed rewards. Join LABORÉ and unlock exclusive benefits designed around your skin journey — not just your cart.</p>
+        </div>
+        <div class="loyalty-cta">
+          <button class="loyalty-join">Join Now</button>
+          <button class="loyalty-learn">Learn More</button>
+        </div>
+      </div>
+      <div class="loyalty-nav-btns">
+        <button class="loyalty-nav-btn" id="loyaltyPrev"><span class="material-icons">chevron_left</span></button>
+        <button class="loyalty-nav-btn" id="loyaltyNext"><span class="material-icons">chevron_right</span></button>
+      </div>
+    </div>
+    <div class="loyalty-right">
+      <div class="loyalty-track" id="loyaltyTrack">
+        <div class="loyalty-card">
+          <span class="material-icons loyalty-card-icon">calendar_today</span>
+          <div><div class="loyalty-card-title">Early Access</div><div class="loyalty-card-desc">First in line for every new clinical launch.</div></div>
+        </div>
+        <div class="loyalty-card">
+          <span class="material-icons loyalty-card-icon">sell</span>
+          <div><div class="loyalty-card-title">Member Discounts</div><div class="loyalty-card-desc">Exclusive pricing on every order, every time.</div></div>
+        </div>
+        <div class="loyalty-card">
+          <span class="material-icons loyalty-card-icon">card_giftcard</span>
+          <div><div class="loyalty-card-title">Personalized Perks</div><div class="loyalty-card-desc">Rewards that evolve with your skin profile.</div></div>
+        </div>
+        <div class="loyalty-card">
+          <span class="material-icons loyalty-card-icon">celebration</span>
+          <div><div class="loyalty-card-title">Birthday Rewards</div><div class="loyalty-card-desc">A little something extra on your special day.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer" id="footerSec">
   <div class="footer-bg-wrap"><video class="footer-bg" id="footerBg" autoplay muted loop playsinline><source src="Home Asset/Footer/footer-bg-vid.mp4" type="video/mp4"></video></div>
@@ -668,6 +733,7 @@
         <div class="footer-col">
           <div class="footer-cat">Information</div>
           <div class="footer-link">Brand Story</div>
+          <div class="footer-link">Global Council</div>
           <div class="footer-link">Contact Us</div>
           <div class="footer-link">Terms of Service</div>
           <div class="footer-link">Privacy Policy</div>
@@ -1339,6 +1405,29 @@
   }
   document.getElementById('prodNext').addEventListener('click',()=>{ prodIdx=prodIdx>=prodMax?0:prodIdx+1; slideProd(); });
   document.getElementById('prodPrev').addEventListener('click',()=>{ prodIdx=prodIdx<=0?prodMax:prodIdx-1; slideProd(); });
+
+  /* ── LOYALTY ── */
+  animateLines(document.querySelector('.loyalty-title'), document.getElementById('loyaltySec'), 0, 'top 80%');
+  gsap.set('.loyalty-card', { opacity: 0, y: 36, filter: 'blur(14px)' });
+  ScrollTrigger.batch('.loyalty-card', {
+    onEnter: batch => gsap.to(batch, {
+      opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.05, ease: 'power3.out', stagger: 0.15, overwrite: true,
+      onComplete: () => gsap.set(batch, { clearProps: 'filter' })
+    }),
+    start: 'top 82%', once: true
+  });
+  (function() {
+    const track = document.getElementById('loyaltyTrack');
+    const cards = track.querySelectorAll('.loyalty-card');
+    const max   = Math.max(0, cards.length - 2);
+    let idx = 0;
+    function slide() {
+      const cw = cards[0].offsetWidth + 12;
+      gsap.to(track, { x: -(idx * cw), duration: 0.9, ease: 'expo.out', overwrite: true });
+    }
+    document.getElementById('loyaltyNext').addEventListener('click', () => { idx = idx >= max ? 0 : idx + 1; slide(); });
+    document.getElementById('loyaltyPrev').addEventListener('click', () => { idx = idx <= 0 ? max : idx - 1; slide(); });
+  })();
 
   /* ── ARTICLE TABS ── */
   document.querySelectorAll('.atab').forEach(t=>{
