@@ -228,9 +228,9 @@
     .arrow-btn .material-icons{font-size:18px;}
 
     /* ── TRUST ── */
-    .trust{background:#fff;padding:12px 24px 48px;}
+    .trust{background:#fff;padding:12px 24px 0;}
     .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-    .trust-left{display:flex;flex-direction:column;justify-content:space-between;padding:24px 0;}
+    .trust-left{display:flex;flex-direction:column;padding:24px 0;}
     .trust-highlight{display:flex;flex-direction:column;gap:24px;}
     .trust-chip{display:flex;align-items:center;gap:4px;font-size:16px;font-weight:500;color:#75716F;}
     .trust-chip .material-icons{font-size:20px;color:#75716F;}
@@ -247,27 +247,25 @@
     .trust-right img{width:100%;aspect-ratio:1/1;object-fit:cover;will-change:transform;}
 
     /* ── LOYALTY ── */
-    .loyalty{background:#fff;padding:12px 24px 100px;overflow:hidden;}
-    .loyalty-inner{display:flex;gap:12px;align-items:stretch;}
-    .loyalty-left{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0;}
-    .loyalty-copy{display:flex;flex-direction:column;gap:24px;padding-top:24px;}
-    .loyalty-title{font-size:34px;font-weight:500;color:#1B1918;line-height:1.2;}
-    .loyalty-desc{font-size:14px;font-weight:400;color:#75716F;line-height:1.4;max-width:440px;}
+    .loyalty{background:#fff;padding:12px 24px 24px;}
+    .loyalty-inner{position:relative;border-radius:8px;overflow:hidden;min-height:744px;display:flex;flex-direction:column;justify-content:space-between;padding:12px 24px 24px;}
+    .loyalty-bg-wrap{position:absolute;inset:0;overflow:hidden;border-radius:8px;}
+    .loyalty-bg{position:absolute;width:100%;height:120%;top:-10%;object-fit:cover;will-change:transform;}
+    .loyalty-top{position:relative;z-index:2;display:flex;flex-direction:column;gap:14px;}
+    .loyalty-copy{display:flex;flex-direction:column;gap:8px;}
+    .loyalty-title{font-size:48px;font-weight:500;color:#1B1918;line-height:1;}
+    .loyalty-desc{font-size:14px;font-weight:500;color:#1B1918;opacity:.5;line-height:1.2;max-width:440px;}
     .loyalty-cta{display:flex;gap:8px;}
-    .loyalty-join{background:#1B1918;color:#fff;border:none;border-radius:8px;padding:14px 20px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .2s ease;}
+    .loyalty-join{background:#1B1918;color:#fff;border:none;border-radius:8px;padding:14px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;cursor:pointer;white-space:nowrap;width:112px;transition:background .2s ease;}
     .loyalty-join:hover{background:#2d2927;}
-    .loyalty-learn{background:transparent;border:1px solid #1B1918;border-radius:8px;padding:14px 20px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;white-space:nowrap;transition:background .2s ease;}
-    .loyalty-learn:hover{background:#F5F5F4;}
-    .loyalty-nav-btns{display:flex;gap:8px;}
-    .loyalty-nav-btn{background:#1B1918;border:none;border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease;}
-    .loyalty-nav-btn:hover{background:#2d2927;}
-    .loyalty-nav-btn .material-icons{font-size:20px;color:#fff;}
-    .loyalty-right{flex:1;overflow:hidden;min-width:0;margin-right:-24px;}
-    .loyalty-track{display:flex;gap:12px;will-change:transform;}
-    .loyalty-card{background:#F5F5F4;border-radius:8px;padding:14px;height:360px;width:340px;flex-shrink:0;display:flex;flex-direction:column;justify-content:space-between;}
-    .loyalty-card-icon{font-size:52px!important;color:#75716F;display:block;}
-    .loyalty-card-title{font-size:24px;font-weight:500;color:#1B1918;line-height:1.2;margin-bottom:4px;}
-    .loyalty-card-desc{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
+    .loyalty-learn{background:transparent;border:1px solid #1B1918;border-radius:8px;padding:14px;font-family:'Aeonik TRIAL',sans-serif;font-size:16px;font-weight:500;color:#1B1918;cursor:pointer;white-space:nowrap;width:112px;transition:background .2s ease;}
+    .loyalty-learn:hover{background:rgba(27,25,24,.06);}
+    .loyalty-benefits{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,357px);gap:12px;}
+    .loyalty-chip{background:rgba(248,248,246,.3);backdrop-filter:blur(17px);border-radius:8px;padding:14px;display:flex;align-items:center;gap:12px;}
+    .loyalty-chip-icon{font-size:38px!important;color:#1B1918;flex-shrink:0;}
+    .loyalty-chip-copy{display:flex;flex-direction:column;gap:4px;}
+    .loyalty-chip-title{font-size:20px;font-weight:500;color:#1B1918;line-height:1.2;}
+    .loyalty-chip-desc{font-size:14px;font-weight:500;color:#75716F;line-height:1.4;}
 
     /* ── ARTICLES ── */
     .articles{background:#fff;padding:48px 24px 100px;}
@@ -621,14 +619,49 @@
           <div class="trust-name">dr. Andina Bulan Sari, SpKk</div>
           <div class="trust-role">Board Certified Dermatologist</div>
         </div>
-      </div>
-      <div class="trust-btns">
-        <button class="trust-btn"><span class="material-icons">chevron_left</span></button>
-        <button class="trust-btn"><span class="material-icons">chevron_right</span></button>
+        <div class="trust-btns">
+          <button class="trust-btn"><span class="material-icons">chevron_left</span></button>
+          <button class="trust-btn"><span class="material-icons">chevron_right</span></button>
+        </div>
       </div>
     </div>
     <div class="trust-right reveal d2" id="trustRight">
       <img id="trustImg" src="Home Asset/Dermatologist Approved/dr-andina2.jpg" alt="dr. Andina Bulan Sari">
+    </div>
+  </div>
+</section>
+
+<!-- LOYALTY -->
+<section class="loyalty" id="loyaltySec">
+  <div class="loyalty-inner">
+    <div class="loyalty-bg-wrap"><img class="loyalty-bg" id="loyaltyBg" src="Home Asset/Loyalty/loyalty-bg.jpg" alt=""></div>
+    <div class="loyalty-top">
+      <div class="loyalty-copy">
+        <h2 class="loyalty-title">Your Skin, Rewarded</h2>
+        <p class="loyalty-desc">Science-backed skincare deserves science-backed rewards. Join LABORÉ and unlock exclusive benefits designed around your skin journey, not just your cart.</p>
+      </div>
+      <div class="loyalty-cta" id="loyaltyCta">
+        <button class="loyalty-join">Join Now</button>
+        <button class="loyalty-learn">Learn More</button>
+      </div>
+    </div>
+    <div class="loyalty-benefits" id="loyaltyBenefits">
+      <div class="loyalty-chip">
+        <span class="material-icons loyalty-chip-icon">calendar_today</span>
+        <div class="loyalty-chip-copy"><div class="loyalty-chip-title">Early Access</div><div class="loyalty-chip-desc">First in line for every new clinical launch.</div></div>
+      </div>
+      <div class="loyalty-chip">
+        <span class="material-icons loyalty-chip-icon">sell</span>
+        <div class="loyalty-chip-copy"><div class="loyalty-chip-title">Member Discounts</div><div class="loyalty-chip-desc">Exclusive pricing on every order, every time.</div></div>
+      </div>
+      <div class="loyalty-chip">
+        <span class="material-icons loyalty-chip-icon">card_giftcard</span>
+        <div class="loyalty-chip-copy"><div class="loyalty-chip-title">Personalized Perks</div><div class="loyalty-chip-desc">Rewards that evolve with your skin profile.</div></div>
+      </div>
+      <div class="loyalty-chip">
+        <span class="material-icons loyalty-chip-icon">celebration</span>
+        <div class="loyalty-chip-copy"><div class="loyalty-chip-title">Birthday Rewards</div><div class="loyalty-chip-desc">A little something extra on your special day.</div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -664,47 +697,6 @@
 </section>
 
 <!-- LOYALTY -->
-<section class="loyalty" id="loyaltySec">
-  <div class="loyalty-inner">
-    <div class="loyalty-left">
-      <div class="loyalty-copy">
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <h2 class="loyalty-title">Your Skin, Rewarded</h2>
-          <p class="loyalty-desc">Science-backed skincare deserves science-backed rewards. Join LABORÉ and unlock exclusive benefits designed around your skin journey — not just your cart.</p>
-        </div>
-        <div class="loyalty-cta">
-          <button class="loyalty-join">Join Now</button>
-          <button class="loyalty-learn">Learn More</button>
-        </div>
-      </div>
-      <div class="loyalty-nav-btns">
-        <button class="loyalty-nav-btn" id="loyaltyPrev"><span class="material-icons">chevron_left</span></button>
-        <button class="loyalty-nav-btn" id="loyaltyNext"><span class="material-icons">chevron_right</span></button>
-      </div>
-    </div>
-    <div class="loyalty-right">
-      <div class="loyalty-track" id="loyaltyTrack">
-        <div class="loyalty-card">
-          <span class="material-icons loyalty-card-icon">calendar_today</span>
-          <div><div class="loyalty-card-title">Early Access</div><div class="loyalty-card-desc">First in line for every new clinical launch.</div></div>
-        </div>
-        <div class="loyalty-card">
-          <span class="material-icons loyalty-card-icon">sell</span>
-          <div><div class="loyalty-card-title">Member Discounts</div><div class="loyalty-card-desc">Exclusive pricing on every order, every time.</div></div>
-        </div>
-        <div class="loyalty-card">
-          <span class="material-icons loyalty-card-icon">card_giftcard</span>
-          <div><div class="loyalty-card-title">Personalized Perks</div><div class="loyalty-card-desc">Rewards that evolve with your skin profile.</div></div>
-        </div>
-        <div class="loyalty-card">
-          <span class="material-icons loyalty-card-icon">celebration</span>
-          <div><div class="loyalty-card-title">Birthday Rewards</div><div class="loyalty-card-desc">A little something extra on your special day.</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer class="footer" id="footerSec">
   <div class="footer-bg-wrap"><video class="footer-bg" id="footerBg" autoplay muted loop playsinline><source src="Home Asset/Footer/footer-bg-vid.mp4" type="video/mp4"></video></div>
@@ -1208,9 +1200,7 @@
     parallax(aboutSec, aboutBg, .18);
     updateStatCards();
     parallax(concernSec, cBgWrap, .15);
-    const tr = trustRight.getBoundingClientRect();
-    const tp = (window.innerHeight - tr.top)/(tr.height + window.innerHeight);
-    trustImg.style.transform = `translateY(${(tp-.5)*40}px) scale(1.06)`;
+    parallax(trustRight, trustImg, .18);
     parallax(footerSec, footerBg, .2);
   });
 
@@ -1409,32 +1399,25 @@
 
   /* ── LOYALTY ── */
   (function() {
-    const sec   = document.getElementById('loyaltySec');
-    const track = document.getElementById('loyaltyTrack');
-    const cards = track.querySelectorAll('.loyalty-card');
-    const max   = Math.max(0, cards.length - 2);
-    let idx = 0;
-    function slide() {
-      const cw = cards[0].offsetWidth + 12;
-      gsap.to(track, { x: -(idx * cw), duration: 0.9, ease: 'expo.out', overwrite: true });
-    }
-    document.getElementById('loyaltyNext').addEventListener('click', () => { idx = idx >= max ? 0 : idx + 1; slide(); });
-    document.getElementById('loyaltyPrev').addEventListener('click', () => { idx = idx <= 0 ? max : idx - 1; slide(); });
+    const sec    = document.getElementById('loyaltySec');
+    const chips  = document.querySelectorAll('.loyalty-chip');
+
+    // Parallax background — same technique as footer (manual lenis, slower than scroll)
+    const loyaltyBg = document.getElementById('loyaltyBg');
+    lenis.on('scroll', () => { parallax(sec, loyaltyBg, .18); });
 
     // Title: split text line by line
-    animateLines(document.querySelector('.loyalty-title'), sec, 0, 'top 80%');
+    animateLines(document.querySelector('.loyalty-title'), sec, 0, 'top 75%');
     // Desc: split text line by line staggered
-    animateLines(document.querySelector('.loyalty-desc'), sec, 0.1, 'top 80%');
+    animateLines(document.querySelector('.loyalty-desc'), sec, 0.1, 'top 75%');
     // CTA: slide up + blur to focus
-    animateFade(document.querySelector('.loyalty-cta'), sec, 0.25, 'top 80%');
-    // Nav arrows: fade
-    animateFade(document.querySelector('.loyalty-nav-btns'), sec, 0.35, 'top 80%');
-    // Cards: all slide left + blur to focus together
-    gsap.set(cards, { opacity: 0, x: 60, filter: 'blur(14px)' });
-    ScrollTrigger.create({ trigger: sec, start: 'top 78%', once: true,
-      onEnter: () => gsap.to(cards, {
-        opacity: 1, x: 0, filter: 'blur(0px)', duration: 1.1, ease: 'expo.out', stagger: 0.1, overwrite: true,
-        onComplete: () => gsap.set(cards, { clearProps: 'filter' })
+    animateFade(document.getElementById('loyaltyCta'), sec, 0.28, 'top 75%');
+    // Benefit chips: stagger slide up + blur to focus
+    gsap.set(chips, { opacity: 0, y: 30, filter: 'blur(12px)' });
+    ScrollTrigger.create({ trigger: '#loyaltyBenefits', start: 'top 85%', once: true,
+      onEnter: () => gsap.to(chips, {
+        opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.9, ease: 'power3.out', stagger: 0.12, overwrite: true,
+        onComplete: () => gsap.set(chips, { clearProps: 'filter' })
       })
     });
   })();

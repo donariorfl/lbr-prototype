@@ -1285,7 +1285,7 @@
 
   /* ── DERMATOLOGIST ── */
   // Photo parallax (slower than scroll)
-  gsap.to('#dermPhoto img', { yPercent: 10, ease: 'none',
+  gsap.to('#dermPhoto img', { yPercent: 3, ease: 'none',
     scrollTrigger: { trigger: '#pdDerm', start: 'top bottom', end: 'bottom top', scrub: 2 } });
   gsap.fromTo('#dermPhoto', { opacity: 0 }, { opacity: 1, duration: 1.0, ease: 'power2.out',
     scrollTrigger: { trigger: '#pdDerm', start: 'top 80%' } });
