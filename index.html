@@ -109,7 +109,7 @@
     .concern-top{flex:1;display:flex;align-items:flex-start;padding-top:48px;}
     .concern-panel{width:523px;background:rgba(245,245,244,.2);backdrop-filter:blur(17px);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:24px;}
     .concern-eyebrow{font-size:14px;font-weight:400;color:rgba(255,255,255,.5);}
-    .concern-big{font-size:40px;font-weight:500;color:#fff;line-height:1.2;}
+    .concern-big{font-size:40px;font-weight:500;color:#fff;line-height:0.9;}
     .concern-sub{font-size:14px;font-weight:500;color:#fff;line-height:1.2;}
     .concern-stat{display:flex;flex-direction:column;gap:4px;}
     .concern-body{font-size:24px;font-weight:400;color:#fff;line-height:1.2;}
@@ -431,10 +431,11 @@
         <div class="concern-panel" id="concernPanel">
           <div class="concern-eyebrow">Discover by skin type</div>
           <div class="concern-stat">
-            <div class="concern-big" id="cBig">80% of participants</div>
-            <div class="concern-sub" id="cSub">reported significant decrease in oiliness within just 2 weeks</div>
+            <div class="concern-big" id="cBig">80% saw less oiliness</div>
+            <div class="concern-sub" id="cSub">in just 2 weeks of use</div>
           </div>
           <div class="concern-body" id="cBody">Many people with oily skin actually suffer from dehydration. Our method focuses on restoring balance and providing support, rather than imposing harsh treatments.</div>
+
           <div class="concern-thumbs" id="cThumbs">
             <div class="concern-thumb"><img src="Home Asset/Shop by Concern/Oily/product-1.png" alt=""></div>
             <div class="concern-thumb"><img src="Home Asset/Shop by Concern/Oily/product-2.png" alt=""></div>
@@ -1215,11 +1216,11 @@
 
   /* ── CONCERN TABS with transition animation ── */
   const db = {
-    oily:     {bg:'Home Asset/Shop by Concern/Oily/oily.jpg',big:'80% of participants',sub:'reported significant decrease in oiliness within just 2 weeks',body:'Many people with oily skin actually suffer from dehydration. Our method focuses on restoring balance and providing support, rather than imposing harsh treatments.',imgs:['Home Asset/Shop by Concern/Oily/product-1.png','Home Asset/Shop by Concern/Oily/product-2.png','Home Asset/Shop by Concern/Oily/product-3.png'],plus:'+2'},
-    normal:   {bg:'Home Asset/Shop by Concern/Normal/normal.jpg',big:'90% of participants',sub:'reported healthier, more balanced skin in 4 weeks',body:"Normal skin still needs the right care. Without proper support, it becomes reactive and unpredictable. Our formulas maintain your skin's natural balance without disrupting what's already working.",imgs:['Home Asset/Shop by Concern/Normal/product-1.png','Home Asset/Shop by Concern/Normal/product-2.png'],plus:'+3'},
-    dry:      {bg:'Home Asset/Shop by Concern/Very Dry/dry.jpg',big:'85% of participants',sub:'saw significant improvement in skin hydration in 2 weeks',body:"Very dry skin isn't just about moisture. It's about a damaged barrier that can no longer retain what it needs. Our microbiome approach rebuilds that barrier from within, so your skin holds hydration on its own.",imgs:['Home Asset/Shop by Concern/Very Dry/product-1.png','Home Asset/Shop by Concern/Very Dry/product-2.png','Home Asset/Shop by Concern/Very Dry/product-3.png'],plus:'+1'},
-    combo:    {bg:'Home Asset/Shop by Concern/combination.jpg',big:'78% of participants',sub:'reported visible improvement in skin balance',body:'Combination skin requires targeted care — controlling oiliness in the T-zone while hydrating drier areas simultaneously.',imgs:['Home Asset/Shop by Concern/Oily/product-1.png','Home Asset/Shop by Concern/Normal/product-1.png'],plus:'+4'},
-    sensitive:{bg:'Home Asset/Shop by Concern/sensitive.jpg',big:'95% of participants',sub:'reported zero irritation after regular use',body:'Hypoallergenic and dermatologist-tested formulas gentle enough for the most reactive and sensitive skin types.',imgs:['Home Asset/Shop by Concern/Normal/product-2.png','Home Asset/Shop by Concern/Very Dry/product-1.png'],plus:'+3'},
+    oily:     {bg:'Home Asset/Shop by Concern/Oily/oily.jpg',big:'80% saw less oiliness',sub:'in just 2 weeks of use',body:'Many people with oily skin actually suffer from dehydration. Our method focuses on restoring balance and providing support, rather than imposing harsh treatments.',imgs:['Home Asset/Shop by Concern/Oily/product-1.png','Home Asset/Shop by Concern/Oily/product-2.png','Home Asset/Shop by Concern/Oily/product-3.png'],plus:'+2'},
+    normal:   {bg:'Home Asset/Shop by Concern/Normal/normal.jpg',big:'9 out of 10 felt more balanced skin',sub:'in just 4 weeks',body:"Normal skin still needs the right care. Without proper support, it becomes reactive and unpredictable. Our formulas maintain your skin's natural balance without disrupting what's already working.",imgs:['Home Asset/Shop by Concern/Normal/product-1.png','Home Asset/Shop by Concern/Normal/product-2.png'],plus:''},
+    dry:      {bg:'Home Asset/Shop by Concern/Very Dry/dry.jpg',big:'7 out of 10 saw deeper hydration',sub:'in just 2 weeks',body:"Very dry skin isn't just about moisture. It's about a damaged barrier that can no longer retain what it needs. Our microbiome approach rebuilds that barrier from within, so your skin holds hydration on its own.",imgs:['Home Asset/Shop by Concern/Very Dry/product-1.png','Home Asset/Shop by Concern/Very Dry/product-2.png','Home Asset/Shop by Concern/Very Dry/product-3.png'],plus:'+1'},
+    combo:    {bg:'Home Asset/Shop by Concern/combination.jpg',big:'85% saw balanced skin',sub:'in just 4 weeks',body:"Combination skin is often misunderstood, treated as either too oily or too dry. Our approach targets both zones simultaneously, balancing where it's needed without disrupting what's already working.",imgs:['Home Asset/Shop by Concern/Oily/product-1.png','Home Asset/Shop by Concern/Normal/product-1.png'],plus:''},
+    sensitive:{bg:'Home Asset/Shop by Concern/sensitive.jpg',big:'9 out of 10 felt less redness',sub:'in just 4 weeks',body:"Sensitive skin reacts to almost everything. Our hypoallergenic formulas are built to calm, protect, and strengthen your barrier, without triggering the reactions you've learned to dread.",imgs:['Home Asset/Shop by Concern/Normal/product-2.png','Home Asset/Shop by Concern/Very Dry/product-1.png','Home Asset/Shop by Concern/Oily/product-1.png'],plus:'+1'},
   };
   const cBig=document.getElementById('cBig'),cSub=document.getElementById('cSub'),cBody=document.getElementById('cBody'),cThumbs=document.getElementById('cThumbs');
   const concernPanel=document.getElementById('concernPanel');
@@ -1228,7 +1229,7 @@
 
   const tabKeys = ['oily','normal','dry','combo','sensitive'];
   const ARC_LEN = 201;
-  const TIMER_DUR = 5;
+  const TIMER_DUR = 8;
   let timerTween = null;
 
   function startKenBurns() {
@@ -1296,10 +1297,10 @@
       gsap.to(cBgBack, { scale: 1.04, duration: 0.9, ease: 'power2.inOut' });
 
       cFadeOut(() => {
-        cBig.textContent = d.big;
+        cBig.innerHTML = d.big;
         cSub.textContent = d.sub;
         cBody.textContent = d.body;
-        cThumbs.innerHTML = d.imgs.map(s => `<div class="concern-thumb"><img src="${s}" alt=""></div>`).join('') + `<div class="concern-plus">${d.plus}</div>`;
+        cThumbs.innerHTML = d.imgs.map(s => `<div class="concern-thumb"><img src="${s}" alt=""></div>`).join('') + (d.plus ? `<div class="concern-plus">${d.plus}</div>` : '');
         cFadeIn();
       });
 
